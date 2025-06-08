@@ -1,0 +1,9 @@
+<!-- RoomsWindow.xaml -->
+<Window x:Class="Frontend.Views.RoomsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="RoomsWindow" Height="300" Width="400">
+    <Grid>
+                <TextBlock Text="Godzinowy plan zajęć" />
+    </Grid>
+</Window>
