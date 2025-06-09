@@ -1,5 +1,5 @@
 <!-- ScheduleViewWindow.xaml -->
-<Window x:Class="Frontend.Views.ScheduleViewWindow"
+<Window x:Class="Frontend.Views.ScheduleWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="ScheduleViewWindow" Height="300" Width="400">
