@@ -1,8 +1,4 @@
-C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\bin\Debug\net9.0-windows\Frontend.exe
-C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\bin\Debug\net9.0-windows\Frontend.deps.json
-C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\bin\Debug\net9.0-windows\Frontend.runtimeconfig.json
-C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\bin\Debug\net9.0-windows\Frontend.dll
-C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\bin\Debug\net9.0-windows\Frontend.pdb
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\Frontend.csproj.AssemblyReference.cache
 C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\MainWindow.baml
 C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\Views\ClasesWindow.baml
 C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\Views\FinalWindow.baml
@@ -33,9 +29,16 @@ C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9
 C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\Frontend.AssemblyInfo.cs
 C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\Frontend.csproj.CoreCompileInputs.cache
 C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\Frontend.sourcelink.json
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\bin\Debug\net9.0-windows\Frontend.exe
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\bin\Debug\net9.0-windows\Frontend.deps.json
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\bin\Debug\net9.0-windows\Frontend.runtimeconfig.json
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\bin\Debug\net9.0-windows\Frontend.dll
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\bin\Debug\net9.0-windows\Frontend.pdb
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\bin\Debug\net9.0-windows\Shared.dll
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\bin\Debug\net9.0-windows\Shared.pdb
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\Frontend.csproj.Up2Date
 C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\Frontend.dll
 C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\refint\Frontend.dll
 C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\Frontend.pdb
 C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\Frontend.genruntimeconfig.cache
 C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\ref\Frontend.dll
-C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\Frontend.csproj.AssemblyReference.cache

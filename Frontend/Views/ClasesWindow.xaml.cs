@@ -1,7 +1,6 @@
 using System.Windows;
-using INZYNIERKA.Shared.Data.#pragma warning disable format
+using INZYNIERKA.Shared;
 
-#pragma warning restore format
 
 namespace Frontend.Views
 {

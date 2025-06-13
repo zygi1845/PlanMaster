@@ -1,0 +1,16 @@
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Backend\bin\Debug\net9.0\Backend.deps.json
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Backend\bin\Debug\net9.0\Backend.dll
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Backend\bin\Debug\net9.0\Backend.pdb
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Backend\bin\Debug\net9.0\Shared.dll
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Backend\bin\Debug\net9.0\Shared.pdb
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Backend\obj\Debug\net9.0\Backend.csproj.AssemblyReference.cache
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Backend\obj\Debug\net9.0\Backend.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Backend\obj\Debug\net9.0\Backend.AssemblyInfoInputs.cache
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Backend\obj\Debug\net9.0\Backend.AssemblyInfo.cs
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Backend\obj\Debug\net9.0\Backend.csproj.CoreCompileInputs.cache
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Backend\obj\Debug\net9.0\Backend.sourcelink.json
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Backend\obj\Debug\net9.0\Backend.csproj.Up2Date
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Backend\obj\Debug\net9.0\Backend.dll
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Backend\obj\Debug\net9.0\refint\Backend.dll
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Backend\obj\Debug\net9.0\Backend.pdb
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Backend\obj\Debug\net9.0\ref\Backend.dll
