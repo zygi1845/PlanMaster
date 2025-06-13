@@ -2,6 +2,66 @@
 <Window x:Class="Frontend.Views.TeachersWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="TeachersWindow" Height="300" Width="400">
-    <Grid></Grid>
+        Title="TeachersWindow" Height="450" Width="800"
+        Background="#D6EAF8">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Nauczyciele"
+                   Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"
+                   FontSize="30" FontWeight="Bold"
+                   HorizontalAlignment="center" Margin="0,10"/>
+        
+        <ScrollViewer Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
+              VerticalScrollBarVisibility="Auto"
+              HorizontalScrollBarVisibility="Disabled"
+              Margin="10,0,10,0"
+              Height="300"> 
+
+                <StackPanel x:Name="TeachersPanel"
+                    Orientation="Vertical"
+                    HorizontalAlignment="Stretch" />
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="4"
+                Background="#85C1E9" CornerRadius="10" Padding="10" Margin="10,0,0,0"
+                VerticalAlignment="Top" HorizontalAlignment="Right"
+                Width="120" Height="250">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Nawigacja" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" Foreground="White"/>
+                <Button Content="Plan godzinowy" Background="#3498DB" Margin="0,0,0,10" Click="HourPlanWindow_Click"/>   
+                <Button Content="Klasy" Background="#3498DB" Margin="0,0,0,10" Click="ClasesWindow_Click"/>
+                <Button Content="Przedmioty" Background="#3498DB" Margin="0,0,0,10" Click="SubjectsWindow_Click"/>
+                <Button Content="Sale" Background="#3498DB" Margin="0,0,0,10" Click="RoomsWindow_Click"/>
+                <Button Content="Nauczyciele" Background="#3498DB" Margin="0,0,0,10" Click="TeachersWindow_Click"/>
+                <Button Content="Wagi" Background="#3498DB" Margin="0,0,0,10" Click="WeightsWindow_Click"/>
+                <Button Content="Generowanie" Background="#3498DB" Margin="0,0,0,10" Click="GenerationWindow_Click"/>         
+            </StackPanel>
+        </Border>
+
+        <Button Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" VerticalAlignment="Bottom" Content="Dodaj z pliku" Width="120" Height="40" Margin="0,0,0,10" Background="#FFD700"/>
+        <Button Grid.Column="1" Grid.Row="4" VerticalAlignment="Bottom" Content="Dodaj Pracownika" Width="120" Height="40" Margin="0,0,0,5" Background="#28A745" Click="AddTeacher_Click" />
+
+        <Border x:Name="DeleteConfirmation" Visibility="Collapsed" Background="Red" CornerRadius="10" Padding="20"
+                Grid.ColumnSpan="2" Grid.RowSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock Text="Na pewno chcesz usunąć pracownika?" Foreground="White" FontSize="16" Margin="0,0,0,10" TextAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="Nie" Width="80" Margin="5" Click="CancelDelete_Click"/>
+                    <Button Content="Tak" Width="80" Margin="5" Click="ConfirmDelete_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
 </Window>

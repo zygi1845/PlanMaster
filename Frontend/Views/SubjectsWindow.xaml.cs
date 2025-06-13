@@ -6,7 +6,7 @@ namespace Frontend.Views
     {
         public SubjectsWindow()
         {
-            InitializeComponent(); // ← to zostanie wygenerowane automatycznie
+            InitializeComponent(); 
         }
         private void HourPlanWindow_Click(object sender, RoutedEventArgs e)
         {

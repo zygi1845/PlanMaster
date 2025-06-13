@@ -8,15 +8,15 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*" />
-            <ColumnDefinition Width="*" />    <!-- Lewa część: tabela + przyciski -->
-            <ColumnDefinition Width="auto" />  <!-- Prawa część: nawigacja -->
+            <ColumnDefinition Width="*" />   
+            <ColumnDefinition Width="auto" />  
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" /> 
-            <RowDefinition Height="*" />     <!-- Obszar główny -->
+            <RowDefinition Height="*" />    
             <RowDefinition Height="*" /> 
             <RowDefinition Height="*" /> 
-            <RowDefinition Height="Auto" />  <!-- Przyciski pod tabelą -->
+            <RowDefinition Height="Auto" /> 
         </Grid.RowDefinitions>
 
         <TextBlock Text="Przedmioty"
