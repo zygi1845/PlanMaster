@@ -1,4 +1,7 @@
 using System.Windows;
+using INZYNIERKA.Shared.Data.#pragma warning disable format
+
+#pragma warning restore format
 
 namespace Frontend.Views
 {
@@ -7,7 +10,11 @@ namespace Frontend.Views
         public ClasesWindow()
         {
             InitializeComponent();
+
+            GlobalData.ClassCount = 17;
         }
+
+
 
         private void HourPlanWindow_Click(object sender, RoutedEventArgs e)
         {

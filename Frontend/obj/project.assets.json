@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net9.0-windows7.0": {}
+    "net9.0-windows7.0": {
+      "Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Shared.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Shared/1.0.0": {
+      "type": "project",
+      "path": "../Shared/Shared.csproj",
+      "msbuildProject": "../Shared/Shared.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net9.0-windows7.0": []
+    "net9.0-windows7.0": [
+      "Shared >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Zygmunt\\.nuget\\packages\\": {},
@@ -39,7 +58,11 @@
       "frameworks": {
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Zygmunt\\Desktop\\Semestr 6\\PH_Projekt\\Inzynierka\\Shared\\Shared.csproj": {
+              "projectPath": "C:\\Users\\Zygmunt\\Desktop\\Semestr 6\\PH_Projekt\\Inzynierka\\Shared\\Shared.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
