@@ -24,7 +24,7 @@
     <ItemsControl ItemsSource="{Binding Subjects}">
         <ItemsControl.ItemTemplate>
     <DataTemplate>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="5" Padding="5" CornerRadius="5">
+        <Border BorderBrush="Black" BorderThickness="1" Margin="5" Padding="5" CornerRadius="5" Background="#85C1E9"> 
             <Grid Margin="5" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

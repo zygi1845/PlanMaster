@@ -1,123 +1,16 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using Frontend.ViewModels;
 
 namespace Frontend.Views
 {
     public partial class TeachersWindow : Window
     {
-        private Border teacherToDelete;
         public TeachersWindow()
         {
-            InitializeComponent(); // ← to zostanie wygenerowane automatycznie
-        }
-        private void AddTeacher_Click(object sender, RoutedEventArgs e)
-        {
-            var teacherBorder = new Border
-            {
-                Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(133, 193, 233)),
-                CornerRadius = new CornerRadius(10),
-                Padding = new Thickness(10),
-                Margin = new Thickness(10, 0, 0, 10),
-                Width = 500,
-                Height = 70,
-                VerticalAlignment = VerticalAlignment.Top,
-                HorizontalAlignment = HorizontalAlignment.Left,
-            };
-
-            var grid = new Grid();
-            grid.ColumnDefinitions.Add(new ColumnDefinition());
-            grid.ColumnDefinitions.Add(new ColumnDefinition());
-            grid.ColumnDefinitions.Add(new ColumnDefinition());
-            grid.ColumnDefinitions.Add(new ColumnDefinition());
-
-            var tb1 = new TextBox
-            {
-                Text = "Nr_pracownika",
-                Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(52, 152, 219)),
-                Width = 100,
-                Height = 30,
-                Margin = new Thickness(0),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                TextAlignment = TextAlignment.Center,
-                VerticalContentAlignment = VerticalAlignment.Center
-            };
-
-            var tb2 = new TextBox
-            {
-                Text = "Nazwisko",
-                Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(52, 152, 219)),
-                Width = 100,
-                Height = 30,
-                Margin = new Thickness(0),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                TextAlignment = TextAlignment.Center,
-                VerticalContentAlignment = VerticalAlignment.Center
-            };
-
-            var tb3 = new TextBox
-            {
-                Text = "Ustaw dostępność",
-                Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(52, 152, 219)),
-                Width = 100,
-                Height = 30,
-                Margin = new Thickness(0),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                TextAlignment = TextAlignment.Center,
-                VerticalContentAlignment = VerticalAlignment.Center
-            };
-
-            var deleteButton = new Button
-            {
-                Content = "Usuń pracownika",
-                Background = System.Windows.Media.Brushes.Red,
-                Width = 100,
-                Height = 30,
-                Margin = new Thickness(0),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-            deleteButton.Click += DeleteTeacher_Click;
-
-            Grid.SetColumn(tb1, 0);
-            Grid.SetColumn(tb2, 1);
-            Grid.SetColumn(tb3, 2);
-            Grid.SetColumn(deleteButton, 3);
-
-            grid.Children.Add(tb1);
-            grid.Children.Add(tb2);
-            grid.Children.Add(tb3);
-            grid.Children.Add(deleteButton);
-
-            teacherBorder.Child = grid;
-            TeachersPanel.Children.Add(teacherBorder);
-        }
-
-        private void DeleteTeacher_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button button && button.Parent is Grid grid && grid.Parent is Border border)
-            {
-                teacherToDelete = border;
-                DeleteConfirmation.Visibility = Visibility.Visible;
-            }
-        }
-
-        private void ConfirmDelete_Click(object sender, RoutedEventArgs e)
-        {
-            if (teacherToDelete != null)
-            {
-                TeachersPanel.Children.Remove(teacherToDelete);
-                teacherToDelete = null;
-            }
-            DeleteConfirmation.Visibility = Visibility.Collapsed;
-        }
-
-        private void CancelDelete_Click(object sender, RoutedEventArgs e)
-        {
-            teacherToDelete = null;
-            DeleteConfirmation.Visibility = Visibility.Collapsed;
+            InitializeComponent();
+            DataContext = new TeachersViewModel(); // ← to zostanie wygenerowane automatycznie
         }
 
         private void HourPlanWindow_Click(object sender, RoutedEventArgs e)
@@ -162,5 +55,36 @@ namespace Frontend.Views
             window.Show();
             this.Close();
         }
+        private void TextBox_Loaded(object sender, RoutedEventArgs e)
+{
+    var tb = sender as TextBox;
+    if (string.IsNullOrEmpty(tb.Text))
+    {
+        tb.Text = tb.Tag.ToString();
+        tb.Foreground = Brushes.DarkGray;
+    }
+}
+
+private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+{
+    var tb = sender as TextBox;
+    if (tb.Text == tb.Tag.ToString())
+    {
+        tb.Text = "";
+        tb.Foreground = Brushes.Black;
+    }
+}
+
+private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+{
+    var tb = sender as TextBox;
+    if (string.IsNullOrWhiteSpace(tb.Text))
+    {
+        tb.Text = tb.Tag.ToString();
+        tb.Foreground = Brushes.DarkGray;
+    }
+}
+
+
     }
 }
