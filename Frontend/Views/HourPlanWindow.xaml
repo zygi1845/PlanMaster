@@ -36,7 +36,7 @@
                   RowHeight="30"         
                   Margin="0,0,0,10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="R" Binding="{Binding Col1}" Width="60"/>
+                <DataGridTextColumn Header="Godzina" Binding="{Binding Hour, Mode=TwoWay}" Width="80"/>
                 <DataGridTextColumn Header="Poniedziałek" Binding="{Binding Col2}" Width="60"/>
                 <DataGridTextColumn Header="Wtorek" Binding="{Binding Col3}" Width="60"/>
                 <DataGridTextColumn Header="Środa" Binding="{Binding Col4}" Width="60"/>
@@ -72,7 +72,10 @@
                 
         <Button Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Bottom" Content="Dodaj z pliku" Width="120" Height="40" Margin="0,0,0,10" Background="#FFD700"/>
         
-        <Button Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" Content="Zatwierdź Godziny" Width="120" Height="40" Margin="0,0,0,5" Background="#28A745" Click="ClasesWindow_Click"/>
+        <Button Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom"
+                Content="Zatwierdź Godziny" Width="120" Height="40"
+                Margin="0,0,0,5" Background="#28A745" Click="ConfirmButton_Click"/>
+
 
     </Grid>
 </Window>

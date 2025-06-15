@@ -1,66 +1,40 @@
-using System.Collections.Generic;
+using Frontend.Models;
+using Frontend.ViewModels;
 using System.Windows;
 
 namespace Frontend.Views
 {
     public partial class HourPlanWindow : Window
     {
-        private List<TableRow> data = new List<TableRow>();
+        private HourPlanViewModel _viewModel;
 
         public HourPlanWindow()
         {
             InitializeComponent();
-            InitializeTable();
-        }
-
-        private void InitializeTable()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                data.Add(new TableRow
-                {
-                    Col1 = $"R{i}C1",
-                    Col2 = $"R{i}C2",
-                    Col3 = $"R{i}C3",
-                    Col4 = $"R{i}C4",
-                    Col5 = $"R{i}C5",
-                    Col6 = $"R{i}C6",
-                    Col7 = $"R{i}C7",
-                    Col8 = $"R{i}C8"
-                });
-            }
-
-            MyDataGrid.ItemsSource = data;
+            _viewModel = new HourPlanViewModel();
+            DataContext = _viewModel;
+            MyDataGrid.ItemsSource = _viewModel.Rows;
         }
 
         private void AddRow_Click(object sender, RoutedEventArgs e)
         {
-            data.Add(new TableRow());
-            MyDataGrid.Items.Refresh();
+            _viewModel.AddRow();
         }
 
         private void DeleteRow_Click(object sender, RoutedEventArgs e)
         {
-            if (MyDataGrid.SelectedItem is TableRow selectedRow)
+            if (MyDataGrid.SelectedItem is HourPlanRow selectedRow)
             {
-                data.Remove(selectedRow);
-                MyDataGrid.Items.Refresh();
+                _viewModel.RemoveRow(selectedRow);
             }
         }
 
-        public class TableRow
+        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            public string Col1 { get; set; }
-            public string Col2 { get; set; }
-            public string Col3 { get; set; }
-            public string Col4 { get; set; }
-            public string Col5 { get; set; }
-            public string Col6 { get; set; }
-            public string Col7 { get; set; }
-            public string Col8 { get; set; }
+            _viewModel.SaveToFile();
+            MessageBox.Show("Plan godzinowy został zapisany.");
         }
-
-        private void HourPlanWindow_Click(object sender, RoutedEventArgs e)
+                private void HourPlanWindow_Click(object sender, RoutedEventArgs e)
         {
             var window = new Frontend.Views.HourPlanWindow();
             window.Show();

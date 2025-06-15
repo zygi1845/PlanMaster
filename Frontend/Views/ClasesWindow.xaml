@@ -20,39 +20,89 @@
                    FontSize="30" FontWeight="Bold"
                    HorizontalAlignment="center" Margin="0,10"/>
 
-        <Border Grid.Column="0" Grid.Row="1" 
-                Background="#85C1E9" CornerRadius="10" Padding="10" Margin="10,0,0,0"
-                VerticalAlignment="Top" HorizontalAlignment="Left"
-                Width="500" Height="70">
-            <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+ <StackPanel Grid.Column="0" Grid.Row="1" Margin="10,0,0,0">
+    <!-- Border z dwoma podstawowymi TextBoxami -->
+    <Border Background="#85C1E9" CornerRadius="10" Padding="10" Margin="0,0,0,10"
+            Width="500" Height="70">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" 
-                             Text="Ilość Typów Klas" 
-                             Background="#3498DB" 
-                             Margin="0"
-                             Width="100"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Center"
-                             TextAlignment="Center"
-                             VerticalContentAlignment="Center"
-                             Height="30"/>
+            <TextBox x:Name="TypyKlasTextBox"
+                     Grid.Column="0"
+                     Text="Ilość Typów Klas"
+                     Background="#3498DB"
+                     Width="100"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Center"
+                     TextAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     Height="30"
+                     Foreground="White"
+                     GotFocus="TextBox_GotFocus"
+                     LostFocus="TextBox_LostFocus"/>
 
-                    <TextBox Grid.Column="1" 
-                             Text="Ilość Klas" 
-                             Background="#3498DB" 
-                             Margin="0"
-                             Width="100"
-                             HorizontalAlignment="Right"
-                             VerticalAlignment="Center"
-                             TextAlignment="Center"
-                             VerticalContentAlignment="Center"
-                             Height="30"/>
-            </Grid>
-        </Border>
+            <TextBox x:Name="IloscKlasTextBox"
+                     Grid.Column="1"
+                     Text="Ilość Klas"
+                     Background="#3498DB"
+                     Width="100"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Center"
+                     TextAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     Height="30"
+                     Foreground="White"
+                     GotFocus="TextBox_GotFocus"
+                     LostFocus="TextBox_LostFocus"/>
+        </Grid>
+    </Border>
+
+    <!-- Ukryty Border z dynamicznymi TextBoxami -->
+    <Border x:Name="DynamicznePolaBorder"
+            Visibility="Collapsed"
+            Background="#85C1E9"
+            CornerRadius="10"
+            Padding="10"
+            Width="500"
+            MinHeight="100"
+            Margin="0,0,0,0">
+        <ItemsControl x:Name="TypyKlasItemsControl">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Column="0"
+                                 Margin="5"
+                                 Width="100"
+                                 Text="{Binding NazwaTypu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 Background="#3498DB"
+                                 Foreground="White"
+                                 TextAlignment="Center"
+                                 VerticalContentAlignment="Center"
+                                 Height="30"/>
+
+                        <TextBox Grid.Column="1"
+                                 Margin="5"
+                                 Width="100"
+                                 Text="{Binding IloscKlas, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 Background="#3498DB"
+                                 Foreground="White"
+                                 TextAlignment="Center"
+                                 VerticalContentAlignment="Center"
+                                 Height="30"/>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Border>
+</StackPanel>
 
 
 
@@ -74,6 +124,14 @@
                 
         <Button Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Bottom" Content="Dodaj z pliku" Width="120" Height="40" Margin="0,0,0,10" Background="#FFD700"/>
         
-        <Button Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" Content="Zatwierdź" Width="120" Height="40" Margin="0,0,0,5" Background="#28A745" Click="SubjectsWindow_Click"/>
+        <Button Grid.Column="1" Grid.Row="2"
+        VerticalAlignment="Bottom"
+        Content="Zatwierdź"
+        Width="120" Height="40"
+        Margin="0,0,0,5"
+        Background="#28A745"
+        Click="Zatwierdz_Click"/>
+
+
     </Grid>
 </Window>
