@@ -1,39 +1,92 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using INZYNIERKA.Frontend.Models;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Windows.Input;
+using Frontend.Models;
 
-namespace INZYNIERKA.Frontend.ViewModels
+namespace Frontend.ViewModels
 {
-    public class ClasesViewModel : INotifyPropertyChanged
+    public class ClassesViewModel : INotifyPropertyChanged
     {
-        private int _iloscTypow;
-        private int _iloscKlas;
-
-        public int IloscTypow
+        private ObservableCollection<ClassModel> _classes = new ObservableCollection<ClassModel>();
+        public ObservableCollection<ClassModel> Classes
         {
-            get => _iloscTypow;
+            get => _classes;
             set
             {
-                _iloscTypow = value;
-                OnPropertyChanged(nameof(IloscTypow));
+                _classes = value;
+                OnPropertyChanged();
             }
         }
 
-        public int IloscKlas
+        public ICommand AddClassCommand { get; }
+        public ICommand RemoveClassCommand { get; }
+        public ICommand SaveCommand { get; }
+
+        public ClassesViewModel()
         {
-            get => _iloscKlas;
-            set
+            LoadClasses();
+
+            AddClassCommand = new RelayCommand(_ => AddClass());
+            RemoveClassCommand = new RelayCommand<ClassModel>(RemoveClass);
+            SaveCommand = new RelayCommand(_ => Save(), _ => CanSave());
+        }
+
+        private void AddClass()
+        {
+            Classes.Add(new ClassModel
             {
-                _iloscKlas = value;
-                OnPropertyChanged(nameof(IloscKlas));
+                NazwaTypu = "",
+                Ilosc_klas_typu = 0
+            });
+        }
+
+        private void RemoveClass(ClassModel classModel)
+        {
+            if (classModel != null)
+                Classes.Remove(classModel);
+        }
+
+        private void Save()
+        {
+            try
+            {
+                var json = JsonSerializer.Serialize(Classes);
+                File.WriteAllText("class.json", json);
+            }
+            catch (IOException)
+            {
+                // Obsługa błędu zapisu
             }
         }
 
-        public ObservableCollection<ClassTypeModel> TypyKlas { get; set; } = new();
+        private bool CanSave()
+        {
+            return true;
+        }
+
+        private void LoadClasses()
+        {
+            if (File.Exists("class.json"))
+            {
+                try
+                {
+                    var json = File.ReadAllText("class.json");
+                    var loaded = JsonSerializer.Deserialize<ObservableCollection<ClassModel>>(json);
+                    if (loaded != null)
+                        Classes = loaded;
+                }
+                catch
+                {
+                    Classes = new ObservableCollection<ClassModel>();
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string name)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

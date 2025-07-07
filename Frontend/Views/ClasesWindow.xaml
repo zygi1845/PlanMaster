@@ -3,135 +3,114 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="ClasesWindow" Height="450" Width="800"
         Background="#D6EAF8">
-    <Grid Margin="10">
 
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*" />    <!-- Lewa część: tabela + przyciski -->
-            <ColumnDefinition Width="Auto" />  <!-- Prawa część: nawigacja -->
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" /> 
-            <RowDefinition Height="*" />     <!-- Obszar główny -->
-            <RowDefinition Height="Auto" />  <!-- Przyciski pod tabelą -->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBlock Text="Klasy"
-                   Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"
+                   Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0"
                    FontSize="30" FontWeight="Bold"
-                   HorizontalAlignment="center" Margin="0,10"/>
+                   HorizontalAlignment="Center" Margin="0,10"/>
 
- <StackPanel Grid.Column="0" Grid.Row="1" Margin="10,0,0,0">
-    <!-- Border z dwoma podstawowymi TextBoxami -->
-    <Border Background="#85C1E9" CornerRadius="10" Padding="10" Margin="0,0,0,10"
-            Width="500" Height="70">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <!-- ScrollViewer z Grid.Row i Grid.Column -->
+        <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                      VerticalScrollBarVisibility="Auto" Height="260">
+            <Border x:Name="DynamicznePolaBorder"
+                    Visibility="Visible"
+                    Background="#85C1E9"
+                    CornerRadius="10"
+                    Padding="10"
+                    Width="500"
+                    MinHeight="100"
+                    Margin="0">
+                <ItemsControl x:Name="TypyKlasItemsControl" ItemsSource="{Binding Classes}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,5">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="TypyKlasTextBox"
-                     Grid.Column="0"
-                     Text="Ilość Typów Klas"
-                     Background="#3498DB"
-                     Width="100"
-                     HorizontalAlignment="Left"
-                     VerticalAlignment="Center"
-                     TextAlignment="Center"
-                     VerticalContentAlignment="Center"
-                     Height="30"
-                     Foreground="White"
-                     GotFocus="TextBox_GotFocus"
-                     LostFocus="TextBox_LostFocus"/>
+    <TextBox Grid.Column="0"
+             Margin="5"
+             Width="100"
+             Text="{Binding NazwaTypu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+             Background="#3498DB"
+             Foreground="White"
+             TextAlignment="Center"
+             VerticalContentAlignment="Center"
+             Height="30"
+             Tag="Nazwa typu klasy"
+             Loaded="TextBox_Loaded"
+             GotFocus="TextBox_GotFocus"
+             LostFocus="TextBox_LostFocus"
+             ToolTip="Podaj nazwe typu klass"/>
 
-            <TextBox x:Name="IloscKlasTextBox"
-                     Grid.Column="1"
-                     Text="Ilość Klas"
-                     Background="#3498DB"
-                     Width="100"
-                     HorizontalAlignment="Right"
-                     VerticalAlignment="Center"
-                     TextAlignment="Center"
-                     VerticalContentAlignment="Center"
-                     Height="30"
-                     Foreground="White"
-                     GotFocus="TextBox_GotFocus"
-                     LostFocus="TextBox_LostFocus"/>
-        </Grid>
-    </Border>
+    <TextBox Grid.Column="1"
+             Margin="5"
+             Width="100"
+             Text="{Binding Ilosc_klas_typu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+             Background="#3498DB"
+             Foreground="White"
+             TextAlignment="Center"
+             VerticalContentAlignment="Center"
+             Height="30"
+             Tag="Ilość klas danego typu"
+             Loaded="TextBox_Loaded"
+             GotFocus="TextBox_GotFocus"
+             LostFocus="TextBox_LostFocus"         
+             ToolTip="Podaj ilość klas danego typu"/>
 
-    <!-- Ukryty Border z dynamicznymi TextBoxami -->
-    <Border x:Name="DynamicznePolaBorder"
-            Visibility="Collapsed"
-            Background="#85C1E9"
-            CornerRadius="10"
-            Padding="10"
-            Width="500"
-            MinHeight="100"
-            Margin="0,0,0,0">
-        <ItemsControl x:Name="TypyKlasItemsControl">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+    <Button Grid.Column="2" Content="🗑"
+            Command="{Binding DataContext.RemoveClassCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+            CommandParameter="{Binding}"
+            Width="30" Height="30" Margin="5"
+            VerticalAlignment="Center" Background="Red" Foreground="White"/>
+</Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+        </ScrollViewer>
 
-                        <TextBox Grid.Column="0"
-                                 Margin="5"
-                                 Width="100"
-                                 Text="{Binding NazwaTypu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 Background="#3498DB"
-                                 Foreground="White"
-                                 TextAlignment="Center"
-                                 VerticalContentAlignment="Center"
-                                 Height="30"/>
+        <!-- Przycisk Dodaj nowy typ -->
+        <Button Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Width="150" Height="40" Margin="10,5,0,0"
+                Background="#3498DB" Foreground="White" FontWeight="Bold"
+                Content="Dodaj nowy typ"
+                Command="{Binding AddClassCommand}" />
 
-                        <TextBox Grid.Column="1"
-                                 Margin="5"
-                                 Width="100"
-                                 Text="{Binding IloscKlas, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 Background="#3498DB"
-                                 Foreground="White"
-                                 TextAlignment="Center"
-                                 VerticalContentAlignment="Center"
-                                 Height="30"/>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </Border>
-</StackPanel>
-
-
-
-        <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"
+        <!-- Panel nawigacji -->
+        <Border Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"
                 Background="#85C1E9" CornerRadius="10" Padding="10" Margin="10,0,0,0"
                 VerticalAlignment="Top" HorizontalAlignment="Right"
                 Width="120" Height="250">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Nawigacja" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" Foreground="White"/>
-                <Button Content="Plan godzinowy" Background="#3498DB" Margin="0,0,0,10" Click="HourPlanWindow_Click"/>   
+                <Button Content="Plan godzinowy" Background="#3498DB" Margin="0,0,0,10" Click="HourPlanWindow_Click"/>
                 <Button Content="Klasy" Background="#3498DB" Margin="0,0,0,10" Click="ClasesWindow_Click"/>
                 <Button Content="Przedmioty" Background="#3498DB" Margin="0,0,0,10" Click="SubjectsWindow_Click"/>
                 <Button Content="Sale" Background="#3498DB" Margin="0,0,0,10" Click="RoomsWindow_Click"/>
                 <Button Content="Nauczyciele" Background="#3498DB" Margin="0,0,0,10" Click="TeachersWindow_Click"/>
                 <Button Content="Wagi" Background="#3498DB" Margin="0,0,0,10" Click="WeightsWindow_Click"/>
-                <Button Content="Generowanie" Background="#3498DB" Margin="0,0,0,10" Click="GenerationWindow_Click"/>         
+                <Button Content="Generowanie" Background="#3498DB" Margin="0,0,0,10" Click="GenerationWindow_Click"/>
             </StackPanel>
         </Border>
-                
-        <Button Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Bottom" Content="Dodaj z pliku" Width="120" Height="40" Margin="0,0,0,10" Background="#FFD700"/>
-        
-        <Button Grid.Column="1" Grid.Row="2"
-        VerticalAlignment="Bottom"
-        Content="Zatwierdź"
-        Width="120" Height="40"
-        Margin="0,0,0,5"
-        Background="#28A745"
-        Click="Zatwierdz_Click"/>
 
-
+        <!-- Przycisk Zapisz zmiany -->
+        <Button Grid.Column="2" Grid.Row="2" Width="120" Height="40" Margin="0,5,0,0" VerticalAlignment="Top"
+                Background="#28A745" Foreground="White" FontWeight="Bold"
+                Content="Zapisz zmiany"
+                Command="{Binding SaveCommand}" />
     </Grid>
 </Window>

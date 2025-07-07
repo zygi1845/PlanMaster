@@ -23,6 +23,14 @@ namespace Frontend.ViewModels
             }
         }
 
+        // Lista typów zajęć do bindowania w ComboBox
+        public List<string> SubjectTypes { get; } = new List<string>
+        {
+            "Pracownia Specjalistyczna",
+            "Wykłady",
+            "Ćwiczenia"
+        };
+
         public ICommand AddSubjectCommand { get; }
         public ICommand RemoveSubjectCommand { get; }
         public ICommand SaveCommand { get; }
