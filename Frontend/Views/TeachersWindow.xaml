@@ -61,7 +61,8 @@
                          LostFocus="TextBox_LostFocus"/>
 
                 <!-- Ustawienie dostępności -->
-                <Button Grid.Column="2" Content="Ustaw dostępność" Width="120" Height="30" Margin="5"
+                <Button Grid.Column="2" Content="Ustaw dostępność" Click="SetAvailability_Click" 
+                        Width="120" Height="30" Margin="5"
                         VerticalAlignment="Center" Background="#3498DB" Foreground="White"/>
 
                 <!-- Usuń -->

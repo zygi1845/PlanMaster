@@ -42,3 +42,5 @@ C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9
 C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\Frontend.pdb
 C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\Frontend.genruntimeconfig.cache
 C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\ref\Frontend.dll
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\Views\AvailabilityWindow.baml
+C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\obj\Debug\net9.0-windows\Views\AvailabilityWindow.g.cs
