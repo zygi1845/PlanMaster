@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System;
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace Frontend.ViewModels
@@ -41,7 +42,8 @@ namespace Frontend.ViewModels
             Teachers.Add(new TeacherModel
             {
                 Nr_pracownika = 0,
-                Nazwisko = "",         // domyślny typ z listy
+                Nazwisko = "",
+                Availability = new List<List<bool>>() // Inicjalizacja dostępności
             });
         }
 
@@ -55,18 +57,22 @@ namespace Frontend.ViewModels
         {
             try
             {
-                var json = JsonSerializer.Serialize(Teachers);
+                var options = new JsonSerializerOptions
+                {
+                    WriteIndented = true,
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                };
+                var json = JsonSerializer.Serialize(Teachers, options);
                 File.WriteAllText("teachers.json", json);
             }
-            catch (IOException)
+            catch (IOException ex)
             {
-                // Obsługa błędu zapisu
+                Console.WriteLine($"Błąd zapisu: {ex.Message}");
             }
         }
 
         private bool CanSave()
         {
-            // Tu możesz dodać walidację, np. sprawdzić puste nazwy
             return true;
         }
 
@@ -76,21 +82,35 @@ namespace Frontend.ViewModels
             {
                 try
                 {
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    
                     var json = File.ReadAllText("teachers.json");
-                    var loaded = JsonSerializer.Deserialize<ObservableCollection<TeacherModel>>(json);
+                    var loaded = JsonSerializer.Deserialize<ObservableCollection<TeacherModel>>(json, options);
+                    
                     if (loaded != null)
+                    {
                         Teachers = loaded;
+                        
+                        // Inicjalizacja Availability jeśli null
+                        foreach (var teacher in Teachers)
+                        {
+                            teacher.Availability ??= new List<List<bool>>();
+                        }
+                    }
                 }
-                catch
+                catch (Exception ex)
                 {
+                    Console.WriteLine($"Błąd wczytywania: {ex.Message}");
                     Teachers = new ObservableCollection<TeacherModel>();
                 }
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string nazwisko = null)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nazwisko));
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
-

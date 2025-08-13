@@ -1,121 +1,91 @@
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace Frontend.Views
 {
     public partial class AvailabilityWindow : Window
     {
-        private readonly bool[,] availability;
-        private readonly List<string> hours;
-        private readonly List<string> days;
-        public bool[,] AvailabilityData => availability;
+        public bool[,] AvailabilityData { get; private set; }
+        public List<string> Hours { get; }
+        public List<string> Days { get; }
 
         public AvailabilityWindow(bool[,] existingAvailability, List<string> hours, List<string> days)
         {
             InitializeComponent();
 
-            this.hours = hours;
-            this.days = days;
+            Hours = hours;
+            Days = days;
+            AvailabilityData = existingAvailability ?? new bool[hours.Count, days.Count];
 
-            int rows = hours.Count;
-            int cols = days.Count;
-
-            // Jeśli przekazana tablica jest null lub rozmiar się nie zgadza, utwórz nową
-            if (existingAvailability == null || existingAvailability.GetLength(0) != rows || existingAvailability.GetLength(1) != cols)
-            {
-                availability = new bool[rows, cols];
-            }
-            else
-            {
-                availability = existingAvailability;
-            }
+            // Ustaw DataContext dla bindingów
+            this.DataContext = this;
 
             GenerateGrid();
         }
 
         private void GenerateGrid()
         {
-            AvailabilityGrid.RowDefinitions.Clear();
-            AvailabilityGrid.ColumnDefinitions.Clear();
-            AvailabilityGrid.Children.Clear();
-
-            // Dodaj 1 wiersz więcej na nagłówki godzin
-            AvailabilityGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-
-            // Dodaj wiersze dla każdej godziny
-            foreach (var _ in hours)
-                AvailabilityGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
-
-            // Dodaj 1 kolumnę więcej na nagłówek dni
-            AvailabilityGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-
-            // Dodaj kolumny dla dni
-            foreach (var _ in days)
+            // Dodaj kolumny dla dni (pomijając pierwszą kolumnę z godzinami)
+            for (int i = 0; i < Days.Count; i++)
+            {
                 AvailabilityGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(60) });
+            }
 
-            // Nagłówki dni (kolumny) - od kolumny 1 w górnym wierszu
-            for (int c = 0; c < days.Count; c++)
+            // Dodaj wiersze dla godzin
+            for (int i = 0; i < Hours.Count; i++)
             {
-                var tb = new TextBlock
+                AvailabilityGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+            }
+
+            // Wypełnij siatkę
+            for (int row = 0; row < Hours.Count; row++)
+            {
+                // Godziny w pierwszej kolumnie
+                var hourText = new TextBlock
                 {
-                    Text = days[c],
-                    FontWeight = FontWeights.Bold,
+                    Text = Hours[row],
                     HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Thickness(3)
+                    VerticalAlignment = VerticalAlignment.Center
                 };
-                Grid.SetRow(tb, 0);
-                Grid.SetColumn(tb, c + 1);
-                AvailabilityGrid.Children.Add(tb);
-            }
+                Grid.SetColumn(hourText, 0);
+                Grid.SetRow(hourText, row);
+                AvailabilityGrid.Children.Add(hourText);
 
-            // Nagłówki godzin (wiersze) - od wiersza 1 w pierwszej kolumnie
-            for (int r = 0; r < hours.Count; r++)
-            {
-                var tb = new TextBlock
+                // Komórki dostępności
+                for (int col = 0; col < Days.Count; col++)
                 {
-                    Text = hours[r],
-                    FontWeight = FontWeights.Bold,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Thickness(3,0,3,0)
-                };
-                Grid.SetRow(tb, r + 1);
-                Grid.SetColumn(tb, 0);
-                AvailabilityGrid.Children.Add(tb);
-            }
-
-            // Checkboxy z mapowaniem na availability[r,c]
-            for (int r = 0; r < hours.Count; r++)
-            {
-                for (int c = 0; c < days.Count; c++)
-                {
-                    var cb = new CheckBox
+                    var cell = new Border
                     {
-                        IsChecked = availability[r, c],
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        Margin = new Thickness(3)
+                        BorderBrush = Brushes.Gray,
+                        BorderThickness = new Thickness(1),
+                        Background = AvailabilityData[row, col] ? Brushes.DodgerBlue : Brushes.White,
+                        Tag = new Point(row, col)
                     };
 
-                    int rr = r, cc = c;
-                    cb.Checked += (s, e) => availability[rr, cc] = true;
-                    cb.Unchecked += (s, e) => availability[rr, cc] = false;
+                    cell.MouseLeftButtonDown += (s, e) =>
+                    {
+                        var border = (Border)s;
+                        var pos = (Point)border.Tag;
+                        AvailabilityData[(int)pos.X, (int)pos.Y] = !AvailabilityData[(int)pos.X, (int)pos.Y];
+                        border.Background = AvailabilityData[(int)pos.X, (int)pos.Y] ? Brushes.DodgerBlue : Brushes.White;
+                    };
 
-                    Grid.SetRow(cb, r + 1);
-                    Grid.SetColumn(cb, c + 1);
-                    AvailabilityGrid.Children.Add(cb);
+                    Grid.SetColumn(cell, col + 1);
+                    Grid.SetRow(cell, row);
+                    AvailabilityGrid.Children.Add(cell);
                 }
             }
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            // Po prostu zamknij okno z DialogResult = true
             DialogResult = true;
             Close();
         }
     }
+
 }

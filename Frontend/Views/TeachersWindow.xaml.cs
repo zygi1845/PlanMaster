@@ -97,32 +97,38 @@ namespace Frontend.Views
                 // Wczytaj godziny z planu
                 var hourPlan = new HourPlanViewModel();
                 var hours = hourPlan.Rows.Select(r => r.Hour).ToList();
-                var days = new List<string> { "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek" };
 
-                // Pobierz aktualną dostępność nauczyciela
-                bool[,] currentAvailability = teacher.GetAvailability();
+                // Tutaj dodajemy pełne nazwy dni tygodnia
+                var daysOfWeek = new List<string>
+        {
+            "Poniedziałek",
+            "Wtorek",
+            "Środa",
+            "Czwartek",
+            "Piątek"
+        };
 
-                // Jeśli brak danych, utwórz nową tablicę
-                if (currentAvailability.GetLength(0) != hours.Count ||
-                    currentAvailability.GetLength(1) != days.Count)
+                bool[,] availability = teacher.GetAvailability();
+
+                // Inicjalizacja jeśli brak danych
+                if (availability.GetLength(0) != hours.Count ||
+                    availability.GetLength(1) != daysOfWeek.Count)
                 {
-                    currentAvailability = new bool[hours.Count, days.Count];
+                    availability = new bool[hours.Count, daysOfWeek.Count];
                     for (int i = 0; i < hours.Count; i++)
-                        for (int j = 0; j < days.Count; j++)
-                            currentAvailability[i, j] = false; // Domyślnie dostępny
+                        for (int j = 0; j < daysOfWeek.Count; j++)
+                            availability[i, j] = false; // Domyślnie niedostępne
                 }
 
-                // Otwórz okno
-                var window = new AvailabilityWindow(currentAvailability, hours, days);
-
+                var window = new AvailabilityWindow(availability, hours, daysOfWeek);
                 if (window.ShowDialog() == true)
                 {
-                    // Zapisz zmiany
                     teacher.SetAvailability(window.AvailabilityData);
                     (DataContext as TeachersViewModel)?.SaveCommand.Execute(null);
                 }
             }
         }
+
 
 
     }

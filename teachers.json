@@ -1,1 +1,156 @@
-[{"Nr_pracownika":10,"Nazwisko":"malinowski"},{"Nr_pracownika":8,"Nazwisko":"nowak"},{"Nr_pracownika":0,"Nazwisko":"Nazwisko"},{"Nr_pracownika":0,"Nazwisko":"Nazwisko"},{"Nr_pracownika":0,"Nazwisko":"Nazwisko"}]
+[
+  {
+    "Nr_pracownika": 10,
+    "Nazwisko": "malinowski",
+    "Availability": [
+      [
+        true,
+        true,
+        false,
+        false,
+        true
+      ],
+      [
+        false,
+        true,
+        false,
+        true,
+        true
+      ],
+      [
+        false,
+        false,
+        true,
+        false,
+        false
+      ],
+      [
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      [
+        true,
+        false,
+        false,
+        false,
+        true
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    ]
+  },
+  {
+    "Nr_pracownika": 8,
+    "Nazwisko": "nowak",
+    "Availability": [
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ],
+      [
+        false,
+        false,
+        true,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        true,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    ]
+  },
+  {
+    "Nr_pracownika": 6,
+    "Nazwisko": "kowal",
+    "Availability": [
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    ]
+  },
+  {
+    "Nr_pracownika": 0,
+    "Nazwisko": "Nazwisko",
+    "Availability": []
+  },
+  {
+    "Nr_pracownika": 0,
+    "Nazwisko": "Nazwisko",
+    "Availability": []
+  }
+]
