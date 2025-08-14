@@ -1,29 +1,36 @@
 import random
+from copy import deepcopy
 
-def mutate(individual, mutation_rate=0.1):
-    """Mutacja przez losową zmianę slotów"""
-    for hour in individual.timetable:
-        for day in hour["Days"]:
-            if random.random() < mutation_rate:
-                # Losowa zmiana nauczyciela
-                if hour["Days"][day]["Teacher"]:
-                    available_teachers = [
-                        t for t in individual.teachers 
-                        if t["Availability"][individual.timetable.index(hour)]
-                        [["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].index(day)]
+def mutacja(osobnik, szansa_mutacji=0.1):
+    """Funkcja wykonująca mutację osobnika"""
+    for godzina_idx, godzina in enumerate(osobnik.timetable):
+        for dzien, slot in godzina["Days"].items():
+            if random.random() < szansa_mutacji and slot["Subject"]:
+                # Mutacja nauczyciela
+                przedmiot = next((p for p in osobnik.przedmioty if p["Name"] == slot["Subject"]), None)
+                if przedmiot:
+                    dostepni_nauczyciele = [
+                        n for n in osobnik.nauczyciele 
+                        if n["SelectedSubject"]["Name"] == przedmiot["Name"]
+                        and n["Availability"][godzina_idx][list(godzina["Days"].keys()).index(dzien)]
                     ]
-                    if available_teachers:
-                        hour["Days"][day]["Teacher"] = random.choice(available_teachers)["Nazwisko"]
+                    if dostepni_nauczyciele:
+                        slot["Teacher"] = random.choice(dostepni_nauczyciele)["Nazwisko"]
                 
-                # Losowa zmiana sali
-                if hour["Days"][day]["Room"]:
-                    suitable_rooms = [
-                        r for r in individual.rooms 
-                        if r["RoomType"] == next(
-                            (s["SubjectType"] for s in individual.subjects 
-                             if s["Name"] == hour["Days"][day]["Subject"]), "")
-                    ]
-                    if suitable_rooms:
-                        hour["Days"][day]["Room"] = random.choice(suitable_rooms)["RoomNumber"]
+                # Mutacja sali
+                odpowiednie_sale = [
+                    s for s in osobnik.sale 
+                    if s["RoomType"] == przedmiot["SubjectType"]
+                ]
+                if odpowiednie_sale:
+                    slot["Room"] = random.choice(odpowiednie_sale)["RoomNumber"]
+                
+                # Mutacja klasy
+                if "_" in slot["Class"]:
+                    typ_klasy = slot["Class"].split("_")[0]
+                    klasa_typ = next((k for k in osobnik.klasy if k["NazwaTypu"] == typ_klasy), None)
+                    if klasa_typ:
+                        nr_klasy = random.randint(1, klasa_typ["Ilosc_klas_typu"])
+                        slot["Class"] = f"{typ_klasy}_{nr_klasy}"
     
-    return individual
+    return osobnik

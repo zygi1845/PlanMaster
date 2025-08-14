@@ -1,70 +1,75 @@
 import random
-import json
 from copy import deepcopy
 from individual import Individual
-from fitness import calculate_fitness
-from crossover import crossover
-from mutation import mutate
+from fitness import FitnessCalculator
+from crossover import krzyzowanie
+from mutation import mutacja
 
-class GeneticAlgorithm:
-    def __init__(self, classes, schedule, rooms, subjects, teachers, 
-                 population_size=50, generations=100, crossover_rate=0.8, 
-                 mutation_rate=0.1, elitism=2):
-        self.classes = classes
-        self.schedule = schedule
-        self.rooms = rooms
-        self.subjects = subjects
-        self.teachers = teachers
-        self.population_size = population_size
-        self.generations = generations
-        self.crossover_rate = crossover_rate
-        self.mutation_rate = mutation_rate
-        self.elitism = elitism
+class AlgorytmGenetyczny:
+    def __init__(self, klasy, plan, sale, przedmioty, nauczyciele, 
+                 rozmiar_populacji=100, generacje=500, 
+                 szansa_krzyzowania=0.85, szansa_mutacji=0.15, elityzm=5):
+        self.klasy = klasy
+        self.plan = plan
+        self.sale = sale
+        self.przedmioty = przedmioty
+        self.nauczyciele = nauczyciele
+        self.rozmiar_populacji = rozmiar_populacji
+        self.generacje = generacje
+        self.szansa_krzyzowania = szansa_krzyzowania
+        self.szansa_mutacji = szansa_mutacji
+        self.elityzm = elityzm
+        self.calculator = FitnessCalculator()
         
-    def initialize_population(self):
-        """Tworzy początkową populację"""
-        return [Individual(self.classes, self.schedule, self.rooms, 
-                         self.subjects, self.teachers) 
-                for _ in range(self.population_size)]
+    def ewoluuj(self):
+        populacja = self._inicjalizuj_populacje()
+        najlepszy = None
+        najlepsza_kara = float('inf')
+        
+        for generacja in range(self.generacje):
+            populacja = self._ocen_populacje(populacja)
+            
+            if populacja[0].fitness < najlepsza_kara:
+                najlepsza_kara = populacja[0].fitness
+                najlepszy = deepcopy(populacja[0])
+                print(f"Generacja {generacja}: Kara = {najlepsza_kara}")
+            
+            nowa_populacja = self._selekcja_elitarna(populacja)
+            populacja = self._reprodukuj(nowa_populacja)
+        
+        return najlepszy or populacja[0]
     
-    def evolve(self):
-        """Główna pętla ewolucyjna"""
-        population = self.initialize_population()
-        
-        for generation in range(self.generations):
-            # Ocena populacji
-            for individual in population:
-                calculate_fitness(individual)
-            
-            # Sortowanie według przystosowania
-            population.sort(key=lambda x: x.fitness)
-            
-            # Selekcja elitarna
-            new_population = population[:self.elitism]
-            
-            # Selekcja turniejowa
-            while len(new_population) < self.population_size:
-                parent1 = min(random.sample(population, 5), key=lambda x: x.fitness)
-                parent2 = min(random.sample(population, 5), key=lambda x: x.fitness)
-                
-                # Krzyżowanie
-                if random.random() < self.crossover_rate:
-                    child = crossover(parent1, parent2)
-                else:
-                    child = deepcopy(random.choice([parent1, parent2]))
-                
-                # Mutacja
-                if random.random() < self.mutation_rate:
-                    child = mutate(child, self.mutation_rate)
-                
-                new_population.append(child)
-            
-            population = new_population
-            
-            # Logowanie postępu
-            if generation % 10 == 0:
-                print(f"Generation {generation}, Best fitness: {population[0].fitness}")
-        
-        # Zwróć najlepszego osobnika
-        population.sort(key=lambda x: x.fitness)
-        return population[0]
+    def _inicjalizuj_populacje(self):
+        return [Individual(self.klasy, self.plan, self.sale, 
+                         self.przedmioty, self.nauczyciele) 
+                for _ in range(self.rozmiar_populacji)]
+    
+    def _ocen_populacje(self, populacja):
+        for osobnik in populacja:
+            self.calculator.calculate(osobnik)
+        return sorted(populacja, key=lambda x: x.fitness)
+    
+    def _selekcja_elitarna(self, populacja):
+        return populacja[:self.elityzm]
+    
+    def _reprodukuj(self, populacja):
+        while len(populacja) < self.rozmiar_populacji:
+            rodzic1, rodzic2 = self._wybierz_rodzicow(populacja)
+            dziecko = self._krzyzuj(rodzic1, rodzic2)
+            dziecko = self._mutuj(dziecko)
+            populacja.append(dziecko)
+        return populacja
+    
+    def _wybierz_rodzicow(self, populacja):
+        turniej = random.sample(populacja[:50], 3)
+        return sorted(turniej, key=lambda x: x.fitness)[:2]
+    
+    def _krzyzuj(self, rodzic1, rodzic2):
+        if random.random() < self.szansa_krzyzowania:
+            return krzyzowanie(rodzic1, rodzic2)
+        return deepcopy(rodzic1)
+    
+    def _mutuj(self, osobnik):
+        if random.random() < self.szansa_mutacji:
+            return mutacja(osobnik, self.szansa_mutacji)
+        return osobnik

@@ -10,71 +10,79 @@ class Individual:
         self.subjects = subjects
         self.teachers = teachers
         self.timetable = self.generate_empty_timetable()
-        self.fitness = 0
+        self.fitness = float('inf')
         
     def generate_empty_timetable(self):
-        """Tworzy pustą macierz planu lekcji"""
-        timetable = []
-        days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-        
-        for hour in self.schedule:
-            hour_entry = {"Hour": hour["Hour"], "Days": {}}
-            for day in days:
-                hour_entry["Days"][day] = {
-                    "Subject": None,
-                    "Teacher": None,
-                    "Room": None,
-                    "Class": None
-                }
-            timetable.append(hour_entry)
-        return timetable
+        """Tworzy pusty plan lekcji"""
+        return [{
+            "Hour": slot["Hour"],
+            "Days": {day: {
+                "Subject": None,
+                "Teacher": None,
+                "Room": None,
+                "Class": None
+            } for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]}
+        } for slot in self.schedule]
     
     def generate_random_schedule(self):
         """Generuje losowy plan lekcji"""
         for hour_idx, hour in enumerate(self.timetable):
             for day in hour["Days"]:
-                if random.random() > 0.7:  # 70% szans na zajęcia w danym slocie
+                if random.random() > 0.3:  # 30% szans na zajęcia w slocie
                     continue
                     
-                # Wybierz losowy przedmiot
-                subject = random.choice([s for s in self.subjects if s["Hours"] > 0])
+                # Wybierz losowy przedmiot z niewykorzystanymi godzinami
+                available_subjects = [s for s in self.subjects if s["Hours"] > 0]
+                if not available_subjects:
+                    continue
+                subject = random.choice(available_subjects)
                 
-                # Znajdź nauczyciela dostępnego w tym czasie i nauczającego ten przedmiot
+                # Znajdź dostępnych nauczycieli
                 available_teachers = [
                     t for t in self.teachers 
-                    if t["Availability"][hour_idx][["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].index(day)]
-                    and t["Nazwisko"].lower() in subject["Name"].lower()  # Proste dopasowanie
+                    if t["SelectedSubject"]["Name"] == subject["Name"]
+                    and t["Availability"][hour_idx][["Monday","Tuesday","Wednesday","Thursday","Friday"].index(day)]
                 ]
-                
                 if not available_teachers:
                     continue
-                    
                 teacher = random.choice(available_teachers)
                 
-                # Wybierz losową salę odpowiedniego typu
+                # Znajdź odpowiednią salę
                 suitable_rooms = [r for r in self.rooms if r["RoomType"] == subject["SubjectType"]]
                 if not suitable_rooms:
                     continue
-                    
                 room = random.choice(suitable_rooms)
                 
-                # Wybierz losową klasę
-                class_ = random.choice(self.classes)
+                # Wybierz klasę
+                class_type = random.choice(self.classes)
+                class_name = f"{class_type['NazwaTypu']}_{random.randint(1, class_type['Ilosc_klas_typu'])}"
                 
                 # Przypisz zajęcia
-                self.timetable[hour_idx]["Days"][day] = {
+                hour["Days"][day] = {
                     "Subject": subject["Name"],
                     "Teacher": teacher["Nazwisko"],
                     "Room": room["RoomNumber"],
-                    "Class": class_["NazwaTypu"] + "_" + str(random.randint(1, class_["Ilosc_klas_typu"]))
+                    "Class": class_name
                 }
     
     def to_json(self, filename):
-        """Zapisuje plan do pliku JSON"""
+        """Zapisuje plan do JSON"""
         with open(filename, 'w') as f:
-            json.dump(self.timetable, f, indent=4)
+            json.dump({
+                "classes": self.classes,
+                "schedule": self.timetable,
+                "rooms": self.rooms,
+                "subjects": self.subjects,
+                "teachers": self.teachers,
+                "fitness": self.fitness
+            }, f, indent=2)
     
-    def from_json(self, filename):
-        """Wczytuje plan z pliku JSON"""
-        with open(filename, 'r') as f:
-            self.timetable = json.load(f)
+    @classmethod
+    def from_json(cls, filename):
+        """Wczytuje plan z JSON"""
+        with open(filename) as f:
+            data = json.load(f)
+        ind = cls(data["classes"], data["schedule"], data["rooms"], data["subjects"], data["teachers"])
+        ind.timetable = data["schedule"]
+        ind.fitness = data.get("fitness", float('inf'))
+        return ind
