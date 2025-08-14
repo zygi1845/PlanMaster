@@ -1,20 +1,30 @@
-<!-- GenerationWindow.xaml -->
 <Window x:Class="Frontend.Views.GenerationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="GenerationWindow" Height="450" Width="800"
+        xmlns:vm="clr-namespace:Frontend.ViewModels"
+        Title="Generowanie planu" Height="450" Width="800"
         Background="#D6EAF8">
-   <Grid Margin="10">
+    <Window.DataContext>
+        <vm:GenerationViewModel />
+    </Window.DataContext>
+    
+    <Window.CommandBindings>
+        <CommandBinding Command="vm:GenerationViewModel.GenerateCommand" 
+                        Executed="GenerateCommand_Executed"/>
+        <CommandBinding Command="vm:GenerationViewModel.NavigateCommand" 
+                        Executed="NavigateCommand_Executed"/>
+    </Window.CommandBindings>
 
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*" />    <!-- Lewa część: tabela + przyciski -->
-            <ColumnDefinition Width="Auto" />  <!-- Prawa część: nawigacja -->
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" /> 
             <RowDefinition Height="*" />            
-            <RowDefinition Height="*" />      <!-- Obszar główny -->
-            <RowDefinition Height="Auto" />  <!-- Przyciski pod tabelą -->
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBlock Text="Generowanie"
@@ -27,32 +37,37 @@
                 VerticalAlignment="Top" HorizontalAlignment="Left"
                 Width="500" Height="70">
             <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" 
-                             Text="Ilość nauczycieli: " 
-                             Background="#3498DB" 
-                             Margin="0"
-                             Width="100"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Center"
-                             TextAlignment="Center"
-                             VerticalContentAlignment="Center"
-                             Height="30"/>
+                <Border Width="100"
+                        Height="30"
+                        Background="#3498DB"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                    <TextBlock Text="{Binding TeacherCount, StringFormat='Ilość nauczycieli: {0}'}"
+                               FontSize="12"
+                               Foreground="Black"
+                               TextAlignment="Center"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                </Border>
 
-                    <TextBox Grid.Column="1" 
-                             Text="Ilość sal: " 
-                             Background="#3498DB" 
-                             Margin="0"
-                             Width="100"
-                             HorizontalAlignment="Right"
-                             VerticalAlignment="Center"
-                             TextAlignment="Center"
-                             VerticalContentAlignment="Center"
-                             Height="30"/>
+                <Border Width="100"
+                        Height="30"
+                        Background="#3498DB"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Grid.Column="1">
+                    <TextBlock Text="{Binding RoomCount, StringFormat='Ilość sal: {0}'}"
+                               FontSize="12"
+                               Foreground="Black"
+                               TextAlignment="Center"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                </Border>
             </Grid>
         </Border>
 
@@ -61,41 +76,42 @@
                 VerticalAlignment="Top" HorizontalAlignment="Left"
                 Width="500" Height="70">
             <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-        <Border Width="100"
-                Height="30"
-                Background="#3498DB"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center">
-            <TextBlock x:Name="ClassCountTextBlock"
-                       Text="Ilość klas: ładowanie..."
-                       FontSize="12"
-                       Foreground="Black"
-                       TextAlignment="Center"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"/>
-        </Border>
+                <Border Width="100"
+                        Height="30"
+                        Background="#3498DB"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                    <TextBlock Text="{Binding ClassCount, StringFormat='Ilość klas: {0}'}"
+                               FontSize="12"
+                               Foreground="Black"
+                               TextAlignment="Center"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                </Border>
 
-
-
-                    <TextBox Grid.Column="1" 
-                             Text="Ilość Typów Klas: " 
-                             Background="#3498DB" 
-                             Margin="0"
-                             Width="100"
-                             HorizontalAlignment="Right"
-                             VerticalAlignment="Center"
-                             TextAlignment="Center"
-                             VerticalContentAlignment="Center"
-                             Height="30"/>
+                <Border Width="100"
+                        Height="30"
+                        Background="#3498DB"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Grid.Column="1">
+                    <TextBlock Text="{Binding ClassTypeCount, StringFormat='Ilość typów klas: {0}'}"
+                               FontSize="12"
+                               Foreground="Black"
+                               TextAlignment="Center"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                </Border>
             </Grid>
         </Border>
 
-        <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"
+        <!-- Panel nawigacyjny pionowo w prawym górnym rogu, węższy i tylko na górze -->
+        <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
                 Background="#85C1E9" CornerRadius="10" Padding="10" Margin="10,0,0,0"
                 VerticalAlignment="Top" HorizontalAlignment="Right"
                 Width="120" Height="250">
@@ -111,6 +127,9 @@
             </StackPanel>
         </Border>
                 
-        <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3"  VerticalAlignment="Bottom" Content="Generuj plan" Width="120" Height="40" Margin="0,0,0,10" Background="#3498DB"/>
+        <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3"  
+                VerticalAlignment="Bottom" Content="Generuj plan" 
+                Command="vm:GenerationViewModel.GenerateCommand"
+                Width="120" Height="40" Margin="0,0,0,10" Background="#3498DB"/>
     </Grid>
 </Window>

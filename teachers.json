@@ -1,156 +1,382 @@
-[
-  {
-    "Nr_pracownika": 10,
-    "Nazwisko": "malinowski",
-    "Availability": [
-      [
-        true,
-        true,
-        false,
-        false,
-        true
-      ],
-      [
-        false,
-        true,
-        false,
-        true,
-        true
-      ],
-      [
-        false,
-        false,
-        true,
-        false,
-        false
-      ],
-      [
-        true,
-        true,
-        false,
-        true,
-        true
-      ],
-      [
-        true,
-        false,
-        false,
-        false,
-        true
-      ],
-      [
-        false,
-        false,
-        false,
-        false,
-        false
-      ]
-    ]
-  },
-  {
-    "Nr_pracownika": 8,
-    "Nazwisko": "nowak",
-    "Availability": [
-      [
-        false,
-        false,
-        false,
-        false,
-        false
-      ],
-      [
-        false,
-        true,
-        true,
-        true,
-        false
-      ],
-      [
-        false,
-        false,
-        true,
-        false,
-        false
-      ],
-      [
-        false,
-        false,
-        true,
-        false,
-        false
-      ],
-      [
-        false,
-        false,
-        false,
-        false,
-        false
-      ],
-      [
-        false,
-        false,
-        false,
-        false,
-        false
-      ]
-    ]
-  },
-  {
-    "Nr_pracownika": 6,
-    "Nazwisko": "kowal",
-    "Availability": [
-      [
-        false,
-        false,
-        false,
-        false,
-        false
-      ],
-      [
-        false,
-        false,
-        false,
-        false,
-        false
-      ],
-      [
-        false,
-        true,
-        true,
-        true,
-        false
-      ],
-      [
-        false,
-        true,
-        true,
-        true,
-        false
-      ],
-      [
-        false,
-        true,
-        true,
-        true,
-        false
-      ],
-      [
-        false,
-        false,
-        false,
-        false,
-        false
-      ]
-    ]
-  },
-  {
-    "Nr_pracownika": 0,
-    "Nazwisko": "Nazwisko",
-    "Availability": []
-  },
-  {
-    "Nr_pracownika": 0,
-    "Nazwisko": "Nazwisko",
-    "Availability": []
-  }
-]
+{
+  "$id": "1",
+  "$values": [
+    {
+      "$id": "2",
+      "Nr_pracownika": 10,
+      "Nazwisko": "malinowski",
+      "Availability": {
+        "$id": "3",
+        "$values": [
+          {
+            "$id": "4",
+            "$values": [
+              true,
+              true,
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "5",
+            "$values": [
+              false,
+              true,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "6",
+            "$values": [
+              false,
+              false,
+              true,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "7",
+            "$values": [
+              true,
+              true,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "8",
+            "$values": [
+              true,
+              false,
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "9",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "10",
+        "Name": "historia",
+        "Hours": 3,
+        "SubjectType": "\u0106wiczenia"
+      }
+    },
+    {
+      "$id": "11",
+      "Nr_pracownika": 8,
+      "Nazwisko": "nowak",
+      "Availability": {
+        "$id": "12",
+        "$values": [
+          {
+            "$id": "13",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "14",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "15",
+            "$values": [
+              false,
+              false,
+              true,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "16",
+            "$values": [
+              false,
+              false,
+              true,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "17",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "18",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "19",
+        "Name": "matma",
+        "Hours": 1,
+        "SubjectType": "Wyk\u0142ady"
+      }
+    },
+    {
+      "$id": "20",
+      "Nr_pracownika": 6,
+      "Nazwisko": "kowal",
+      "Availability": {
+        "$id": "21",
+        "$values": [
+          {
+            "$id": "22",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "23",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "24",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "25",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "26",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "27",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "28",
+        "Name": "polski",
+        "Hours": 1,
+        "SubjectType": "Pracownia Specjalistyczna"
+      }
+    },
+    {
+      "$id": "29",
+      "Nr_pracownika": 8,
+      "Nazwisko": "zm",
+      "Availability": {
+        "$id": "30",
+        "$values": [
+          {
+            "$id": "31",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "32",
+            "$values": [
+              true,
+              false,
+              true,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "33",
+            "$values": [
+              false,
+              false,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "34",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "35",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "36",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$ref": "19"
+      }
+    },
+    {
+      "$id": "37",
+      "Nr_pracownika": 5,
+      "Nazwisko": "jm",
+      "Availability": {
+        "$id": "38",
+        "$values": [
+          {
+            "$id": "39",
+            "$values": [
+              false,
+              true,
+              true,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "40",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "41",
+            "$values": [
+              false,
+              true,
+              false,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "42",
+            "$values": [
+              false,
+              true,
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "43",
+            "$values": [
+              false,
+              false,
+              false,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "44",
+            "$values": [
+              false,
+              true,
+              false,
+              false,
+              false
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "45",
+        "Name": "wf",
+        "Hours": 2,
+        "SubjectType": "Pracownia Specjalistyczna"
+      }
+    }
+  ]
+}

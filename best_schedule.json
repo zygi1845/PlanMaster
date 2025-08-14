@@ -1,0 +1,212 @@
+[
+    {
+        "Hour": "8:00-8:55",
+        "Days": {
+            "Monday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Tuesday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Wednesday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Thursday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Friday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            }
+        }
+    },
+    {
+        "Hour": "8:50-9:35",
+        "Days": {
+            "Monday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Tuesday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Wednesday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Thursday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Friday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            }
+        }
+    },
+    {
+        "Hour": "9:40-10:25",
+        "Days": {
+            "Monday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Tuesday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Wednesday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Thursday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Friday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            }
+        }
+    },
+    {
+        "Hour": "11:10-11:55",
+        "Days": {
+            "Monday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Tuesday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Wednesday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Thursday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Friday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            }
+        }
+    },
+    {
+        "Hour": "12:00-12:45",
+        "Days": {
+            "Monday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Tuesday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Wednesday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Thursday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Friday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            }
+        }
+    },
+    {
+        "Hour": "18:00-18:20",
+        "Days": {
+            "Monday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Tuesday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Wednesday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Thursday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            },
+            "Friday": {
+                "Subject": null,
+                "Teacher": null,
+                "Room": null,
+                "Class": null
+            }
+        }
+    }
+]

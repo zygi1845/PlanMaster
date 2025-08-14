@@ -8,6 +8,7 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Frontend.ViewModels
 {
@@ -60,7 +61,8 @@ namespace Frontend.ViewModels
                 var options = new JsonSerializerOptions
                 {
                     WriteIndented = true,
-                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                    ReferenceHandler = ReferenceHandler.Preserve // Kluczowa zmiana!
                 };
                 var json = JsonSerializer.Serialize(Teachers, options);
                 File.WriteAllText("teachers.json", json);
@@ -71,10 +73,12 @@ namespace Frontend.ViewModels
             }
         }
 
+
         private bool CanSave()
         {
             return true;
         }
+
 
         private void LoadTeachers()
         {
@@ -84,21 +88,29 @@ namespace Frontend.ViewModels
                 {
                     var options = new JsonSerializerOptions
                     {
-                        PropertyNameCaseInsensitive = true
+                        PropertyNameCaseInsensitive = true,
+                        ReferenceHandler = ReferenceHandler.Preserve
                     };
                     
                     var json = File.ReadAllText("teachers.json");
-                    var loaded = JsonSerializer.Deserialize<ObservableCollection<TeacherModel>>(json, options);
-                    
-                    if (loaded != null)
+                    var loadedTeachers = JsonSerializer.Deserialize<ObservableCollection<TeacherModel>>(json, options);
+
+                    var currentSubjects = LoadSubjects();
+
+                    if (loadedTeachers != null)
                     {
-                        Teachers = loaded;
-                        
-                        // Inicjalizacja Availability jeśli null
-                        foreach (var teacher in Teachers)
+                        foreach (var teacher in loadedTeachers)
                         {
+                            if (teacher.SelectedSubject != null)
+                            {
+                                teacher.SelectedSubject = currentSubjects?.FirstOrDefault(
+                                    s => s.Name == teacher.SelectedSubject.Name && 
+                                         s.Hours == teacher.SelectedSubject.Hours &&
+                                         s.SubjectType == teacher.SelectedSubject.SubjectType);
+                            }
                             teacher.Availability ??= new List<List<bool>>();
                         }
+                        Teachers = loadedTeachers;
                     }
                 }
                 catch (Exception ex)
@@ -107,7 +119,25 @@ namespace Frontend.ViewModels
                     Teachers = new ObservableCollection<TeacherModel>();
                 }
             }
+        }          
+
+        private List<SubjectModel> LoadSubjects()
+        {
+            if (File.Exists("subjects.json"))
+            {
+                try
+                {
+                    var json = File.ReadAllText("subjects.json");
+                    return JsonSerializer.Deserialize<List<SubjectModel>>(json) ?? new List<SubjectModel>();
+                }
+                catch
+                {
+                    return new List<SubjectModel>();
+                }
+            }
+            return new List<SubjectModel>();
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

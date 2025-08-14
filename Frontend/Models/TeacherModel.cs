@@ -9,6 +9,7 @@ namespace Frontend.Models
     {
         private int nr_pracownika;
         private string nazwisko;
+        private SubjectModel _selectedSubject;
         private List<List<bool>> availability = new List<List<bool>>();
 
         public int Nr_pracownika
@@ -34,11 +35,21 @@ namespace Frontend.Models
             }
         }
 
+        public SubjectModel SelectedSubject
+        {
+            get => _selectedSubject;
+            set
+            {
+                _selectedSubject = value;
+                OnPropertyChanged();
+            }
+        }
+        
         public bool[,] GetAvailability()
         {
-            if (Availability.Count == 0) 
-                return new bool[0,0];
-            
+            if (Availability.Count == 0)
+                return new bool[0, 0];
+
             var result = new bool[Availability.Count, Availability[0].Count];
             for (int i = 0; i < Availability.Count; i++)
             {

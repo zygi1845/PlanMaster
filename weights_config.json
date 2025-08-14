@@ -1,0 +1,42 @@
+{
+  "SubjectWeights": [
+    {
+      "MaxPerDay": 4114,
+      "Weight": 33,
+      "Name": "matma",
+      "Hours": 1,
+      "SubjectType": "Wyk\u0142ady"
+    },
+    {
+      "MaxPerDay": 69,
+      "Weight": 5,
+      "Name": "infa",
+      "Hours": 2,
+      "SubjectType": "Pracownia Specjalistyczna"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "historia",
+      "Hours": 3,
+      "SubjectType": "\u0106wiczenia"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "polski",
+      "Hours": 1,
+      "SubjectType": "Pracownia Specjalistyczna"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "wf",
+      "Hours": 2,
+      "SubjectType": "Pracownia Specjalistyczna"
+    }
+  ],
+  "MaxHoursPerDay": 8,
+  "MaxHoursWeight": 5,
+  "BreaksWeight": 3
+}

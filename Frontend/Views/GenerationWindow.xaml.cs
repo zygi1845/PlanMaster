@@ -1,5 +1,5 @@
 using System.Windows;
-using INZYNIERKA.Shared;
+using System.Windows.Input;
 
 namespace Frontend.Views
 {
@@ -7,52 +7,69 @@ namespace Frontend.Views
     {
         public GenerationWindow()
         {
-            InitializeComponent(); // ← to zostanie wygenerowane automatycznie
-            
-            ClassCountTextBlock.Text = $"Ilość klas: {GlobalData.ClassCount}";
+            InitializeComponent();
+        }
+                private void GenerateCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (DataContext is ViewModels.GenerationViewModel vm)
+            {
+                vm.GenerateTimetable();
+            }
         }
 
-        
+        private void NavigateCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (DataContext is ViewModels.GenerationViewModel vm)
+            {
+                vm.Navigate(e.Parameter?.ToString());
+            }
+        }
 
         private void HourPlanWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new Frontend.Views.HourPlanWindow();
+            var window = new HourPlanWindow();
             window.Show();
             this.Close();
         }
+        
         private void ClasesWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new Frontend.Views.ClasesWindow();
+            var window = new ClasesWindow();
             window.Show();
             this.Close();
         }
+        
         private void SubjectsWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new Frontend.Views.SubjectsWindow();
+            var window = new SubjectsWindow();
             window.Show();
             this.Close();
         }
+        
         private void RoomsWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new Frontend.Views.RoomsWindow();
+            var window = new RoomsWindow();
             window.Show();
             this.Close();
         }
+        
         private void TeachersWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new Frontend.Views.TeachersWindow();
+            var window = new TeachersWindow();
             window.Show();
             this.Close();
         }
+        
         private void WeightsWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new Frontend.Views.WeightsWindow();
+            var window = new WeightsWindow();
             window.Show();
             this.Close();
         }
+        
         private void GenerationWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new Frontend.Views.GenerationWindow();
+            var window = new GenerationWindow();
             window.Show();
             this.Close();
         }

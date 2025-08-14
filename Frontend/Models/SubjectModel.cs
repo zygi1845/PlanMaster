@@ -1,5 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Linq;
+using System;
 
 namespace Frontend.Models
 {
@@ -30,5 +32,20 @@ namespace Frontend.Models
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string name = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
+
+        public override bool Equals(object obj)
+        {
+            if (obj is not SubjectModel other) return false;
+            return Name == other.Name &&
+                   Hours == other.Hours &&
+                   SubjectType == other.SubjectType;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Name, Hours, SubjectType);
+        }
+
     }
 }
