@@ -45,21 +45,19 @@ def main():
             plan=plan,
             sale=sale,
             przedmioty=przedmioty,
-            nauczyciele=nauczyciele,
-            rozmiar_populacji=100,
-            generacje=200,
-            szansa_krzyzowania=0.8,
-            szansa_mutacji=0.2,
-            elityzm=5
+            nauczyciele=nauczyciele
         )
         
         najlepszy = algorytm.ewoluuj()
-        najlepszy.zapisz_do_json('najlepszy_plan.json')
-        print(f"Znaleziono najlepszy plan z karą: {najlepszy.fitness}")
+        najlepszy.zapisz_plany()  # Zmieniamy na nową metodę
+        
+        print("Pomyślnie zapisano plany:")
+        print("- plany_klas.json")
+        print("- plany_nauczycieli.json")
+        print("- plany_sal.json")
         
     except Exception as e:
         print(f"Błąd: {str(e)}")
-        input("Naciśnij Enter aby zakończyć...")
 
 if __name__ == "__main__":
     main()

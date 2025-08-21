@@ -34,6 +34,13 @@
       "Name": "wf",
       "Hours": 2,
       "SubjectType": "Pracownia Specjalistyczna"
+    },
+    {
+      "MaxPerDay": 3,
+      "Weight": 5,
+      "Name": "filozofia",
+      "Hours": 3,
+      "SubjectType": "Wyk\u0142ady"
     }
   ],
   "MaxHoursPerDay": 8,

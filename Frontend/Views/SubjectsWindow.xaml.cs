@@ -55,35 +55,35 @@ namespace Frontend.Views
             this.Close();
         }
 
-private void TextBox_Loaded(object sender, RoutedEventArgs e)
-{
-    var tb = sender as TextBox;
-    if (string.IsNullOrEmpty(tb.Text))
-    {
-        tb.Text = tb.Tag.ToString();
-        tb.Foreground = Brushes.DarkGray;
-    }
-}
+// private void TextBox_Loaded(object sender, RoutedEventArgs e)
+// {
+//     var tb = sender as TextBox;
+//     if (string.IsNullOrEmpty(tb.Text))
+//     {
+//         tb.Text = tb.Tag.ToString();
+//         tb.Foreground = Brushes.DarkGray;
+//     }
+// }
 
-private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-{
-    var tb = sender as TextBox;
-    if (tb.Text == tb.Tag.ToString())
-    {
-        tb.Text = "";
-        tb.Foreground = Brushes.Black;
-    }
-}
+// private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+// {
+//     var tb = sender as TextBox;
+//     if (tb.Text == tb.Tag.ToString())
+//     {
+//         tb.Text = "";
+//         tb.Foreground = Brushes.Black;
+//     }
+// }
 
-private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-{
-    var tb = sender as TextBox;
-    if (string.IsNullOrWhiteSpace(tb.Text))
-    {
-        tb.Text = tb.Tag.ToString();
-        tb.Foreground = Brushes.DarkGray;
-    }
-}
+// private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+// {
+//     var tb = sender as TextBox;
+//     if (string.IsNullOrWhiteSpace(tb.Text))
+//     {
+//         tb.Text = tb.Tag.ToString();
+//         tb.Foreground = Brushes.DarkGray;
+//     }
+// }
 
 
     }
