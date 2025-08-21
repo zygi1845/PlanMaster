@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET9_0;NETCOREAPP
 C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\App.xaml
-12-2121722220
+14581227011
 
-35-422269542
+39-309855195
 201511882423
-MainWindow.xaml;Views\AvailabilityWindow.xaml;Views\ClasesWindow.xaml;Views\FinalWindow.xaml;Views\GenerationWindow.xaml;Views\HourPlanWindow.xaml;Views\RoomsWindow.xaml;Views\ScheduleWindow.xaml;Views\StartWindow.xaml;Views\SubjectsWindow.xaml;Views\TeachersWindow.xaml;Views\WeightsWindow.xaml;
+MainWindow.xaml;Views\AvailabilityWindow.xaml;Views\ClasesWindow.xaml;Views\FinalWindow.xaml;Views\GenerationWindow.xaml;Views\HourPlanWindow.xaml;Views\PlanDetailWindow.xaml;Views\PlansWindow.xaml;Views\RoomsWindow.xaml;Views\ScheduleWindow.xaml;Views\StartWindow.xaml;Views\SubjectsWindow.xaml;Views\TeachersWindow.xaml;Views\WeightsWindow.xaml;
 
 False
 

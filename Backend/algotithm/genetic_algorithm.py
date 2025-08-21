@@ -61,7 +61,8 @@ class AlgorytmGenetyczny:
         return populacja
     
     def _wybierz_rodzicow(self, populacja):
-        turniej = random.sample(populacja[:50], 3)
+        # Turniej - wybierz 3 losowe osobniki i weź 2 najlepsze
+        turniej = random.sample(populacja, min(3, len(populacja)))
         return sorted(turniej, key=lambda x: x.fitness)[:2]
     
     def _krzyzuj(self, rodzic1, rodzic2):

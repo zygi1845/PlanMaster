@@ -3,34 +3,44 @@ from copy import deepcopy
 
 def mutacja(osobnik, szansa_mutacji=0.1):
     """Funkcja wykonująca mutację osobnika"""
-    for godzina_idx, godzina in enumerate(osobnik.timetable):
-        for dzien, slot in godzina["Days"].items():
-            if random.random() < szansa_mutacji and slot["Subject"]:
+    mutated = deepcopy(osobnik)
+    dni = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    
+    for godzina_idx, godzina in enumerate(mutated.timetable):
+        for dzien in dni:
+            slot = godzina["Days"][dzien]
+            if random.random() < szansa_mutacji and slot and slot.get("Subject"):
                 # Mutacja nauczyciela
-                przedmiot = next((p for p in osobnik.przedmioty if p["Name"] == slot["Subject"]), None)
+                przedmiot = next((p for p in mutated.subjects if p["Name"] == slot.get("Subject", "")), None)
                 if przedmiot:
-                    dostepni_nauczyciele = [
-                        n for n in osobnik.nauczyciele 
-                        if n["SelectedSubject"]["Name"] == przedmiot["Name"]
-                        and n["Availability"][godzina_idx][list(godzina["Days"].keys()).index(dzien)]
-                    ]
+                    dostepni_nauczyciele = []
+                    for n in mutated.nauczyciele:
+                        teacher_subject = n.get("SelectedSubject", {}).get("Name", "")
+                        if teacher_subject == przedmiot["Name"]:
+                            availability = n.get("Availability", [])
+                            if (godzina_idx < len(availability) and 
+                                dni.index(dzien) < len(availability[godzina_idx]) and
+                                availability[godzina_idx][dni.index(dzien)]):
+                                dostepni_nauczyciele.append(n)
+                    
                     if dostepni_nauczyciele:
-                        slot["Teacher"] = random.choice(dostepni_nauczyciele)["Nazwisko"]
+                        slot["Teacher"] = random.choice(dostepni_nauczyciele).get("Nazwisko", "")
                 
                 # Mutacja sali
-                odpowiednie_sale = [
-                    s for s in osobnik.sale 
-                    if s["RoomType"] == przedmiot["SubjectType"]
-                ]
-                if odpowiednie_sale:
-                    slot["Room"] = random.choice(odpowiednie_sale)["RoomNumber"]
+                if przedmiot:
+                    odpowiednie_sale = [
+                        s for s in mutated.rooms 
+                        if s.get("RoomType") == przedmiot.get("SubjectType")
+                    ]
+                    if odpowiednie_sale:
+                        slot["Room"] = random.choice(odpowiednie_sale).get("RoomNumber", "")
                 
                 # Mutacja klasy
-                if "_" in slot["Class"]:
+                if slot.get("Class") and "_" in slot["Class"]:
                     typ_klasy = slot["Class"].split("_")[0]
-                    klasa_typ = next((k for k in osobnik.klasy if k["NazwaTypu"] == typ_klasy), None)
+                    klasa_typ = next((k for k in mutated.classes if k.get("NazwaTypu") == typ_klasy), None)
                     if klasa_typ:
-                        nr_klasy = random.randint(1, klasa_typ["Ilosc_klas_typu"])
+                        nr_klasy = random.randint(1, klasa_typ.get("Ilosc_klas_typu", 1))
                         slot["Class"] = f"{typ_klasy}_{nr_klasy}"
     
-    return osobnik
+    return mutated

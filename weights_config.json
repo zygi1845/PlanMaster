@@ -1,46 +1,74 @@
 {
   "SubjectWeights": [
     {
-      "MaxPerDay": 4114,
-      "Weight": 33,
-      "Name": "matma",
-      "Hours": 1,
-      "SubjectType": "Wyk\u0142ady"
-    },
-    {
-      "MaxPerDay": 69,
-      "Weight": 5,
-      "Name": "infa",
-      "Hours": 2,
-      "SubjectType": "Pracownia Specjalistyczna"
-    },
-    {
-      "MaxPerDay": 2,
-      "Weight": 5,
-      "Name": "historia",
-      "Hours": 3,
-      "SubjectType": "\u0106wiczenia"
-    },
-    {
-      "MaxPerDay": 2,
-      "Weight": 5,
-      "Name": "polski",
-      "Hours": 1,
-      "SubjectType": "Pracownia Specjalistyczna"
-    },
-    {
-      "MaxPerDay": 2,
-      "Weight": 5,
-      "Name": "wf",
-      "Hours": 2,
-      "SubjectType": "Pracownia Specjalistyczna"
-    },
-    {
       "MaxPerDay": 3,
       "Weight": 5,
       "Name": "filozofia",
       "Hours": 3,
       "SubjectType": "Wyk\u0142ady"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "informatyka",
+      "Hours": 3,
+      "SubjectType": "Pracownia Specjalistyczna"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "robotyka",
+      "Hours": 4,
+      "SubjectType": "Pracownia Specjalistyczna"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "geometria",
+      "Hours": 3,
+      "SubjectType": "Pracownia Specjalistyczna"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "analiza",
+      "Hours": 2,
+      "SubjectType": "Pracownia Specjalistyczna"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "staro\u017Cytno\u015B\u0107",
+      "Hours": 4,
+      "SubjectType": "Pracownia Specjalistyczna"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "\u015Bredniowiecze",
+      "Hours": 5,
+      "SubjectType": "Wyk\u0142ady"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "bieganie",
+      "Hours": 3,
+      "SubjectType": "Pracownia Specjalistyczna"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "rozci\u0105ganie",
+      "Hours": 4,
+      "SubjectType": "\u0106wiczenia"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "retoryka",
+      "Hours": 3,
+      "SubjectType": "Pracownia Specjalistyczna"
     }
   ],
   "MaxHoursPerDay": 8,
