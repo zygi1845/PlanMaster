@@ -1,7 +1,7 @@
 from copy import deepcopy
 import random
 
-def krzyzowanie(rodzic1, rodzic2):
+def cros(rodzic1, rodzic2):
     """Funkcja krzyżująca dwóch rodziców"""
     dziecko = deepcopy(rodzic1)
     punkt_krzyzowania = random.randint(0, len(dziecko.timetable)-1)
