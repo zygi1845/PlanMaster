@@ -1,170 +1,216 @@
-from copy import deepcopy
-import random
+"""Fitness calculation module with comprehensive penalties"""
+from typing import Dict
+from individual import Individual
+
 
 class FitnessCalculator:
-    dni = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-
-    def __init__(self, subjects, teachers, rooms, classes):
-        self.subjects = subjects
-        self.teachers = teachers
-        self.rooms = rooms
-        self.classes = classes  # Typy klas np. "infa", "matma"
-
-        self.weights = {
-            'teacher_conflict': 10,
-            'room_conflict': 8,
-            'class_conflict': 10,
-            'wrong_room_type': 5,
-            'missing_hours': 15,
-            'excess_daily_hours': 7,
-            'teacher_availability': 12,
-            'consecutive_hours': 3
-        }
-
-    def calculate_individual(self, individual):
+    """Calculate fitness with all penalties"""
+    
+    def __init__(self, constraints: Dict):
+        self.constraints = constraints
+        self.teachers_dict = constraints['teachers_dict']
+        self.class_types = constraints['class_types']
+        self.class_type_counts = constraints.get('class_type_counts', {})
+        self.class_teachers = constraints.get('class_teachers', {})
+        self.rooms = constraints['rooms']
+        self.subjects = constraints['subjects']
+        self.weights = constraints['weights']
+        self.hours_per_day = constraints.get('hours_per_day', 8)
+    
+    def calculate(self, individual: Individual) -> float:
+        """Calculate total fitness with all penalties"""
         penalty = 0
-
+        
+        # 1. KRYTYCZNE: Konflikty nauczycieli (-50 każdy)
+        penalty += self._check_teacher_conflicts(individual)
+        
+        # 2. KRYTYCZNE: Nieprawidłowa suma godzin tygodniowo (-300 każdy)
+        penalty += self._check_weekly_hour_totals(individual)
+        
+        # 3. BARDZO ZŁE: Luki w planach (używa BreaksWeight z config)
+        penalty += self._check_gaps_in_schedule(individual)
+        
+        # 4. BARDZO ZŁE: Przekroczenie limitu godzin dziennie (używa MaxHoursWeight)
+        penalty += self._check_daily_hour_limit(individual)
+        
+        # 5. ŹLE: Konflikty sal (-30 każdy)
+        penalty += self._check_room_conflicts(individual)
+        
+        # 6. ŹLE: Nauczyciel niedostępny (-50)
+        penalty += self._check_teacher_availability(individual)
+        
+        # 7. ŚREDNIO: Max godzin przedmiotu dziennie (wagi z SubjectWeights)
+        penalty += self._check_max_subject_per_day(individual)
+        
+        # 8. LEKKO: Niezgodność typu sali (-30)
+        penalty += self._check_room_type_match(individual)
+        
+        individual.fitness = -penalty
+        return individual.fitness
+    
+    def _check_teacher_conflicts(self, individual: Individual) -> int:
+        """Check teacher conflicts: -50 per conflict"""
+        penalty = 0
         teacher_schedule = {}
-        room_schedule = {}
-        class_schedule = {}
-        subject_hours = {s["Name"]: s["Hours"] for s in self.subjects}
-
-        # Liczymy godziny dziennie dla typów klas
-        daily_hours = {}
-        for c in self.classes:
-            class_type = c.get("NazwaTypu") or c.get("Typ") or c.get("Name") or "UNKNOWN"
-            daily_hours[class_type] = {day: 0 for day in self.dni}
-
-        for hour_idx, hour in enumerate(individual.timetable):
-            for day, slot in hour.items():
-                if not slot or not isinstance(slot, dict) or not slot.get("Subject"):
-                    continue
-
-                penalty += self._check_conflicts(slot, day, hour_idx, teacher_schedule, room_schedule, class_schedule)
-                penalty += self._check_room_type(slot, individual)
-                penalty += self._check_teacher_availability(slot, hour_idx, day, individual)
-
-                if slot["Subject"] in subject_hours:
-                    subject_hours[slot["Subject"]] -= 1
-
-                if slot.get("Class"):
-                    class_type = slot["Class"].split('_')[0]
-                    if class_type in daily_hours:
-                        daily_hours[class_type][day] += 1
-
-        penalty += self._check_missing_hours(subject_hours)
-        penalty += self._check_daily_hours(daily_hours)
-        penalty += self._check_consecutive_hours(individual)
-
-        individual.fitness = penalty
-        return penalty
-
-    def calculate_population(self, population):
-        for ind in population:
-            self.calculate_individual(ind)
-
-    def _check_conflicts(self, slot, day, hour_idx, teacher_schedule, room_schedule, class_schedule):
-        penalty = 0
-        teacher = slot.get("Teacher")
-        room = slot.get("Room")
-        class_name = slot.get("Class")
-
-        if teacher:
-            key = f"{teacher}_{day}_{hour_idx}"
+        
+        for lesson in individual.lessons:
+            key = (lesson.teacher_id, lesson.day, lesson.hour)
             if key in teacher_schedule:
-                penalty += self.weights['teacher_conflict']
-            else:
-                teacher_schedule[key] = True
-
-        if room:
-            key = f"{room}_{day}_{hour_idx}"
-            if key in room_schedule:
-                penalty += self.weights['room_conflict']
-            else:
-                room_schedule[key] = True
-
-        if class_name:
-            key = f"{class_name}_{day}_{hour_idx}"
-            if key in class_schedule:
-                penalty += self.weights['class_conflict']
-            else:
-                class_schedule[key] = True
-
+                penalty += 50
+            teacher_schedule[key] = lesson
+        
         return penalty
-
-    def _check_room_type(self, slot, individual):
-        if not slot.get("Subject") or not slot.get("Room"):
-            return 0
-
-        subject = next((s for s in individual.przedmioty if s["Name"] == slot["Subject"]), None)
-        room = next((r for r in individual.sale if r["RoomNumber"] == slot["Room"]), None)
-
-        if subject and room and subject.get("SubjectType") != room.get("RoomType"):
-            return self.weights['wrong_room_type']
-        return 0
-
-    def _check_teacher_availability(self, slot, hour_idx, day, individual):
-        if not slot.get("Teacher"):
-            return 0
-
-        teacher = next((t for t in individual.nauczyciele if t.get("Nazwisko") == slot["Teacher"]), None)
-        if not teacher or not teacher.get("Availability"):
-            return self.weights['teacher_availability']
-
-        availability = teacher["Availability"]
-        day_idx = self.dni.index(day)
-
-        # BEZPIECZNE sprawdzenie dostępności
-        try:
-            if isinstance(availability, dict):
-                if not availability.get(day, [])[hour_idx]:
-                    return self.weights['teacher_availability']
-            elif isinstance(availability, list):
-                if hour_idx >= len(availability):
-                    return self.weights['teacher_availability']
-                if day_idx >= len(availability[hour_idx]):
-                    return self.weights['teacher_availability']
-                if not availability[hour_idx][day_idx]:
-                    return self.weights['teacher_availability']
-            else:
-                return self.weights['teacher_availability']
-        except Exception:
-            return self.weights['teacher_availability']
-
-        return 0
-
-
-    def _check_missing_hours(self, subject_hours):
+    
+    def _check_room_conflicts(self, individual: Individual) -> int:
+        """Check room conflicts: -30 per conflict"""
         penalty = 0
-        for subject, hours_left in subject_hours.items():
-            if hours_left > 0:
-                penalty += hours_left * self.weights['missing_hours']
-            elif hours_left < 0:
-                penalty += abs(hours_left) * self.weights['missing_hours'] * 0.5
+        room_schedule = {}
+        
+        for lesson in individual.lessons:
+            key = (lesson.room_number, lesson.day, lesson.hour)
+            if key not in room_schedule:
+                room_schedule[key] = []
+            room_schedule[key].append(lesson)
+        
+        for key, lessons_in_slot in room_schedule.items():
+            unique_classes = set(l.class_type for l in lessons_in_slot)
+            if len(unique_classes) > 1:
+                conflicts = len(unique_classes) - 1
+                penalty += 30 * conflicts
+        
         return penalty
-
-    def _check_daily_hours(self, daily_hours):
+    
+    def _check_gaps_in_schedule(self, individual: Individual) -> int:
+        """Check for gaps: uses BreaksWeight from config (default 3, but multiply by penalty factor)"""
         penalty = 0
-        for class_type, days in daily_hours.items():
-            for day, hours in days.items():
-                if hours > 6:
-                    penalty += (hours - 6) * self.weights['excess_daily_hours']
+        breaks_weight = self.weights.get('BreaksWeight', 3)
+        
+        # Mnożnik aby było -40 zamiast -3
+        penalty_multiplier = 13  # 3 * 13 ≈ 40
+        
+        for class_type in set(self.class_types):
+            for day in range(6):
+                hours = sorted([l.hour for l in individual.lessons 
+                               if l.class_type == class_type and l.day == day])
+                
+                if len(hours) < 2:
+                    continue
+                
+                first_lesson = hours[0]
+                last_lesson = hours[-1]
+                
+                for hour in range(first_lesson + 1, last_lesson):
+                    if hour not in hours:
+                        penalty += breaks_weight * penalty_multiplier
+        
         return penalty
-
-    def _check_consecutive_hours(self, individual):
+    
+    def _check_daily_hour_limit(self, individual: Individual) -> int:
+        """Check daily hour limit: uses MaxHoursPerDay and MaxHoursWeight"""
         penalty = 0
-        for c in self.classes:
-            class_type = c.get("NazwaTypu") or c.get("Typ") or c.get("Name") or "UNKNOWN"
-            for day in self.dni:
-                consecutive_count = 0
-                for hour in individual.timetable:
-                    slot = hour.get(day)
-                    if slot and slot.get("Class") and slot["Class"].startswith(class_type):
-                        consecutive_count += 1
-                    else:
-                        if consecutive_count > 4:
-                            penalty += (consecutive_count - 4) * self.weights['consecutive_hours']
-                        consecutive_count = 0
-                if consecutive_count > 4:
-                    penalty += (consecutive_count - 4) * self.weights['consecutive_hours']
+        max_hours = self.weights.get('MaxHoursPerDay', 8)
+        max_hours_weight = self.weights.get('MaxHoursWeight', 5)
+        
+        # Mnożnik aby było -35 zamiast -5
+        penalty_multiplier = 7  # 5 * 7 = 35
+        
+        class_daily = {}
+        for lesson in individual.lessons:
+            key = (lesson.class_type, lesson.day)
+            class_daily[key] = class_daily.get(key, 0) + 1
+        
+        for (class_type, day), count in class_daily.items():
+            if count > max_hours:
+                excess = count - max_hours
+                penalty += excess * max_hours_weight * penalty_multiplier
+        
+        return penalty
+    
+    def _check_weekly_hour_totals(self, individual: Individual) -> int:
+        """Check weekly hours per subject: -300 per mismatch"""
+        penalty = 0
+        
+        for class_type in self.class_types:
+            # Policz godziny każdego przedmiotu dla tej klasy
+            subject_hours = {}
+            for lesson in individual.lessons:
+                if lesson.class_type == class_type:
+                    subject = lesson.subject_name
+                    subject_hours[subject] = subject_hours.get(subject, 0) + 1
+            
+            # Pobierz bazowy typ klasy (bez numeru)
+            base_type = self.class_type_counts.get(class_type, class_type)
+            
+            # Sprawdź oczekiwane godziny z teachers->SelectedSubject
+            teachers = self.class_teachers.get(class_type, [])
+            
+            for teacher in teachers:
+                subject_data = teacher.get('SelectedSubject')
+                if not subject_data:
+                    continue
+                
+                # Sprawdź czy przedmiot jest dla tej klasy
+                if base_type not in subject_data.get('ClassTypes', []):
+                    continue
+                
+                subject_name = subject_data.get('Name')
+                expected_hours = subject_data.get('Hours', 0)
+                actual_hours = subject_hours.get(subject_name, 0)
+                
+                if actual_hours != expected_hours:
+                    penalty += 300
+        
+        return penalty
+    
+    def _check_teacher_availability(self, individual: Individual) -> int:
+        """Check teacher availability: -50 per violation"""
+        penalty = 0
+        
+        for lesson in individual.lessons:
+            teacher = self.teachers_dict.get(lesson.teacher_id)
+            if teacher and lesson.day < len(teacher.get('Availability', [])):
+                day_availability = teacher['Availability'][lesson.day]
+                if lesson.hour < len(day_availability):
+                    if not day_availability[lesson.hour]:
+                        penalty += 50
+        
+        return penalty
+    
+    def _check_max_subject_per_day(self, individual: Individual) -> int:
+        """Check max subject hours per day: uses SubjectWeights from config"""
+        penalty = 0
+        
+        subject_daily = {}
+        for lesson in individual.lessons:
+            key = (lesson.class_type, lesson.subject_name, lesson.day)
+            subject_daily[key] = subject_daily.get(key, 0) + 1
+        
+        # Używa SubjectWeights z Twojego config
+        for sw in self.weights.get('SubjectWeights', []):
+            subject_name = sw.get('Name')
+            max_per_day = sw.get('MaxPerDay', 999)
+            weight = sw.get('Weight', 5)
+            
+            for class_type in self.class_types:
+                for day in range(6):
+                    key = (class_type, subject_name, day)
+                    count = subject_daily.get(key, 0)
+                    if count > max_per_day:
+                        excess = count - max_per_day
+                        penalty += excess * weight
+        
+        return penalty
+    
+    def _check_room_type_match(self, individual: Individual) -> int:
+        """Check room type matches subject type: -30 per mismatch"""
+        penalty = 0
+        
+        for lesson in individual.lessons:
+            room = next((r for r in self.rooms if r['RoomNumber'] == lesson.room_number), None)
+            subject = next((s for s in self.subjects if s['Name'] == lesson.subject_name), None)
+            
+            if room and subject:
+                if room.get('RoomType') != subject.get('SubjectType'):
+                    penalty += 30
+        
         return penalty

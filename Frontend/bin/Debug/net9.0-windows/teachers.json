@@ -1,0 +1,1797 @@
+{
+  "$id": "1",
+  "$values": [
+    {
+      "$id": "2",
+      "Nr_pracownika": 1,
+      "Nazwisko": "am",
+      "Availability": {
+        "$id": "3",
+        "$values": [
+          {
+            "$id": "4",
+            "$values": [
+              true,
+              false,
+              false,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "5",
+            "$values": [
+              true,
+              true,
+              true,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "6",
+            "$values": [
+              true,
+              true,
+              false,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "7",
+            "$values": [
+              true,
+              false,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "8",
+            "$values": [
+              true,
+              true,
+              false,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "9",
+            "$values": [
+              true,
+              false,
+              true,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "10",
+            "$values": [
+              false,
+              false,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "11",
+            "$values": [
+              false,
+              true,
+              false,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "12",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "13",
+        "Name": "matma",
+        "Hours": 8,
+        "SubjectType": "\u0106wiczenia",
+        "ClassTypes": {
+          "$id": "14",
+          "$values": [
+            "mat-fiz"
+          ]
+        }
+      }
+    },
+    {
+      "$id": "15",
+      "Nr_pracownika": 2,
+      "Nazwisko": "af",
+      "Availability": {
+        "$id": "16",
+        "$values": [
+          {
+            "$id": "17",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "18",
+            "$values": [
+              true,
+              false,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "19",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "20",
+            "$values": [
+              true,
+              false,
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "21",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "22",
+            "$values": [
+              false,
+              true,
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "23",
+            "$values": [
+              false,
+              true,
+              false,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "24",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "25",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "26",
+        "Name": "fizyka",
+        "Hours": 6,
+        "SubjectType": "\u0106wiczenia",
+        "ClassTypes": {
+          "$id": "27",
+          "$values": [
+            "mat-fiz"
+          ]
+        }
+      }
+    },
+    {
+      "$id": "28",
+      "Nr_pracownika": 3,
+      "Nazwisko": "ag",
+      "Availability": {
+        "$id": "29",
+        "$values": [
+          {
+            "$id": "30",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "31",
+            "$values": [
+              false,
+              false,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "32",
+            "$values": [
+              true,
+              true,
+              false,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "33",
+            "$values": [
+              false,
+              true,
+              true,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "34",
+            "$values": [
+              true,
+              true,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "35",
+            "$values": [
+              true,
+              true,
+              true,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "36",
+            "$values": [
+              false,
+              false,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "37",
+            "$values": [
+              true,
+              true,
+              true,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "38",
+            "$values": [
+              false,
+              true,
+              false,
+              false,
+              false
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "39",
+        "Name": "geo",
+        "Hours": 3,
+        "SubjectType": "\u0106wiczenia",
+        "ClassTypes": {
+          "$id": "40",
+          "$values": [
+            "mat-fiz"
+          ]
+        }
+      }
+    },
+    {
+      "$id": "41",
+      "Nr_pracownika": 4,
+      "Nazwisko": "ac",
+      "Availability": {
+        "$id": "42",
+        "$values": [
+          {
+            "$id": "43",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "44",
+            "$values": [
+              false,
+              true,
+              false,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "45",
+            "$values": [
+              true,
+              false,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "46",
+            "$values": [
+              false,
+              false,
+              true,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "47",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "48",
+            "$values": [
+              false,
+              true,
+              true,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "49",
+            "$values": [
+              false,
+              true,
+              true,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "50",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "51",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "52",
+        "Name": "chemia",
+        "Hours": 2,
+        "SubjectType": "Pracownia Specjalistyczna",
+        "ClassTypes": {
+          "$id": "53",
+          "$values": [
+            "mat-fiz"
+          ]
+        }
+      }
+    },
+    {
+      "$id": "54",
+      "Nr_pracownika": 5,
+      "Nazwisko": "bm",
+      "Availability": {
+        "$id": "55",
+        "$values": [
+          {
+            "$id": "56",
+            "$values": [
+              false,
+              false,
+              true,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "57",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "58",
+            "$values": [
+              true,
+              true,
+              false,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "59",
+            "$values": [
+              true,
+              false,
+              true,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "60",
+            "$values": [
+              true,
+              true,
+              true,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "61",
+            "$values": [
+              true,
+              false,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "62",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "63",
+            "$values": [
+              false,
+              false,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "64",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "65",
+        "Name": "matma",
+        "Hours": 8,
+        "SubjectType": "\u0106wiczenia",
+        "ClassTypes": {
+          "$id": "66",
+          "$values": [
+            "mat-geo"
+          ]
+        }
+      }
+    },
+    {
+      "$id": "67",
+      "Nr_pracownika": 6,
+      "Nazwisko": "bf",
+      "Availability": {
+        "$id": "68",
+        "$values": [
+          {
+            "$id": "69",
+            "$values": [
+              true,
+              true,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "70",
+            "$values": [
+              true,
+              true,
+              false,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "71",
+            "$values": [
+              true,
+              true,
+              true,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "72",
+            "$values": [
+              true,
+              false,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "73",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "74",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "75",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "76",
+            "$values": [
+              true,
+              true,
+              false,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "77",
+            "$values": [
+              true,
+              false,
+              true,
+              true,
+              true
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "78",
+        "Name": "fizyka",
+        "Hours": 3,
+        "SubjectType": "\u0106wiczenia",
+        "ClassTypes": {
+          "$id": "79",
+          "$values": [
+            "mat-geo"
+          ]
+        }
+      }
+    },
+    {
+      "$id": "80",
+      "Nr_pracownika": 7,
+      "Nazwisko": "bg",
+      "Availability": {
+        "$id": "81",
+        "$values": [
+          {
+            "$id": "82",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "83",
+            "$values": [
+              true,
+              true,
+              true,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "84",
+            "$values": [
+              true,
+              false,
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "85",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "86",
+            "$values": [
+              false,
+              false,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "87",
+            "$values": [
+              true,
+              true,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "88",
+            "$values": [
+              true,
+              false,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "89",
+            "$values": [
+              true,
+              true,
+              true,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "90",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "91",
+        "Name": "geo",
+        "Hours": 6,
+        "SubjectType": "\u0106wiczenia",
+        "ClassTypes": {
+          "$id": "92",
+          "$values": [
+            "mat-geo"
+          ]
+        }
+      }
+    },
+    {
+      "$id": "93",
+      "Nr_pracownika": 8,
+      "Nazwisko": "bc",
+      "Availability": {
+        "$id": "94",
+        "$values": [
+          {
+            "$id": "95",
+            "$values": [
+              false,
+              false,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "96",
+            "$values": [
+              false,
+              true,
+              false,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "97",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "98",
+            "$values": [
+              true,
+              true,
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "99",
+            "$values": [
+              true,
+              true,
+              true,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "100",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "101",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "102",
+            "$values": [
+              true,
+              true,
+              true,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "103",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "104",
+        "Name": "chemia",
+        "Hours": 2,
+        "SubjectType": "Pracownia Specjalistyczna",
+        "ClassTypes": {
+          "$id": "105",
+          "$values": [
+            "mat-geo"
+          ]
+        }
+      }
+    },
+    {
+      "$id": "106",
+      "Nr_pracownika": 9,
+      "Nazwisko": "cp",
+      "Availability": {
+        "$id": "107",
+        "$values": [
+          {
+            "$id": "108",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "109",
+            "$values": [
+              true,
+              true,
+              true,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "110",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "111",
+            "$values": [
+              true,
+              false,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "112",
+            "$values": [
+              true,
+              true,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "113",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "114",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "115",
+            "$values": [
+              true,
+              true,
+              true,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "116",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              true
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "117",
+        "Name": "polski",
+        "Hours": 8,
+        "SubjectType": "\u0106wiczenia",
+        "ClassTypes": {
+          "$id": "118",
+          "$values": [
+            "human"
+          ]
+        }
+      }
+    },
+    {
+      "$id": "119",
+      "Nr_pracownika": 10,
+      "Nazwisko": "ch",
+      "Availability": {
+        "$id": "120",
+        "$values": [
+          {
+            "$id": "121",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "122",
+            "$values": [
+              false,
+              true,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "123",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "124",
+            "$values": [
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "125",
+            "$values": [
+              true,
+              true,
+              true,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "126",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "127",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "128",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "129",
+            "$values": [
+              true,
+              false,
+              true,
+              true,
+              false
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "130",
+        "Name": "historia",
+        "Hours": 6,
+        "SubjectType": "\u0106wiczenia",
+        "ClassTypes": {
+          "$id": "131",
+          "$values": [
+            "human"
+          ]
+        }
+      }
+    },
+    {
+      "$id": "132",
+      "Nr_pracownika": 11,
+      "Nazwisko": "cw",
+      "Availability": {
+        "$id": "133",
+        "$values": [
+          {
+            "$id": "134",
+            "$values": [
+              false,
+              true,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "135",
+            "$values": [
+              true,
+              true,
+              false,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "136",
+            "$values": [
+              false,
+              false,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "137",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "138",
+            "$values": [
+              true,
+              false,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "139",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "140",
+            "$values": [
+              true,
+              false,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "141",
+            "$values": [
+              true,
+              true,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "142",
+            "$values": [
+              false,
+              false,
+              true,
+              true,
+              false
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "143",
+        "Name": "wos",
+        "Hours": 6,
+        "SubjectType": "\u0106wiczenia",
+        "ClassTypes": {
+          "$id": "144",
+          "$values": [
+            "human"
+          ]
+        }
+      }
+    },
+    {
+      "$id": "145",
+      "Nr_pracownika": 12,
+      "Nazwisko": "cb",
+      "Availability": {
+        "$id": "146",
+        "$values": [
+          {
+            "$id": "147",
+            "$values": [
+              false,
+              true,
+              true,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "148",
+            "$values": [
+              true,
+              false,
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "149",
+            "$values": [
+              true,
+              false,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "150",
+            "$values": [
+              true,
+              true,
+              true,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "151",
+            "$values": [
+              true,
+              true,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "152",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "153",
+            "$values": [
+              true,
+              true,
+              false,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "154",
+            "$values": [
+              true,
+              false,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "155",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              false
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "156",
+        "Name": "biblioteka",
+        "Hours": 2,
+        "SubjectType": "Wyk\u0142ady",
+        "ClassTypes": {
+          "$id": "157",
+          "$values": [
+            "human"
+          ]
+        }
+      }
+    },
+    {
+      "$id": "158",
+      "Nr_pracownika": 13,
+      "Nazwisko": "dp",
+      "Availability": {
+        "$id": "159",
+        "$values": [
+          {
+            "$id": "160",
+            "$values": [
+              false,
+              true,
+              false,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "161",
+            "$values": [
+              true,
+              false,
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "162",
+            "$values": [
+              true,
+              false,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "163",
+            "$values": [
+              false,
+              true,
+              true,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "164",
+            "$values": [
+              true,
+              false,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "165",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "166",
+            "$values": [
+              true,
+              true,
+              true,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "167",
+            "$values": [
+              true,
+              false,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "168",
+            "$values": [
+              true,
+              true,
+              true,
+              false,
+              true
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "169",
+        "Name": "polski",
+        "Hours": 8,
+        "SubjectType": "\u0106wiczenia",
+        "ClassTypes": {
+          "$id": "170",
+          "$values": [
+            "literacka"
+          ]
+        }
+      }
+    },
+    {
+      "$id": "171",
+      "Nr_pracownika": 14,
+      "Nazwisko": "dh",
+      "Availability": {
+        "$id": "172",
+        "$values": [
+          {
+            "$id": "173",
+            "$values": [
+              true,
+              true,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "174",
+            "$values": [
+              false,
+              true,
+              true,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "175",
+            "$values": [
+              true,
+              false,
+              true,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "176",
+            "$values": [
+              true,
+              true,
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "177",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "178",
+            "$values": [
+              false,
+              true,
+              true,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "179",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "180",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "181",
+            "$values": [
+              false,
+              false,
+              true,
+              true,
+              true
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "182",
+        "Name": "historia",
+        "Hours": 3,
+        "SubjectType": "\u0106wiczenia",
+        "ClassTypes": {
+          "$id": "183",
+          "$values": [
+            "literacka"
+          ]
+        }
+      }
+    },
+    {
+      "$id": "184",
+      "Nr_pracownika": 15,
+      "Nazwisko": "dw",
+      "Availability": {
+        "$id": "185",
+        "$values": [
+          {
+            "$id": "186",
+            "$values": [
+              true,
+              true,
+              false,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "187",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "188",
+            "$values": [
+              true,
+              true,
+              false,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "189",
+            "$values": [
+              true,
+              false,
+              true,
+              false,
+              false
+            ]
+          },
+          {
+            "$id": "190",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "191",
+            "$values": [
+              false,
+              true,
+              true,
+              false,
+              true
+            ]
+          },
+          {
+            "$id": "192",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "193",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "194",
+            "$values": [
+              false,
+              true,
+              true,
+              false,
+              true
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "195",
+        "Name": "wos",
+        "Hours": 3,
+        "SubjectType": "\u0106wiczenia",
+        "ClassTypes": {
+          "$id": "196",
+          "$values": [
+            "literacka"
+          ]
+        }
+      }
+    },
+    {
+      "$id": "197",
+      "Nr_pracownika": 16,
+      "Nazwisko": "db",
+      "Availability": {
+        "$id": "198",
+        "$values": [
+          {
+            "$id": "199",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "200",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "201",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "202",
+            "$values": [
+              false,
+              false,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "203",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              false
+            ]
+          },
+          {
+            "$id": "204",
+            "$values": [
+              false,
+              false,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "205",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "206",
+            "$values": [
+              false,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "207",
+            "$values": [
+              true,
+              false,
+              true,
+              true,
+              true
+            ]
+          }
+        ]
+      },
+      "SelectedSubject": {
+        "$id": "208",
+        "Name": "biblioteka",
+        "Hours": 10,
+        "SubjectType": "Wyk\u0142ady",
+        "ClassTypes": {
+          "$id": "209",
+          "$values": [
+            "literacka"
+          ]
+        }
+      }
+    }
+  ]
+}

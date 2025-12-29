@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
+using System.Linq;
 
 namespace Frontend.Models
 {
@@ -9,7 +10,7 @@ namespace Frontend.Models
     {
         private int nr_pracownika;
         private string nazwisko;
-        private SubjectModel _selectedSubject;
+        private List<SubjectModel> _taughtSubjects = new List<SubjectModel>();
         private List<List<bool>> availability = new List<List<bool>>();
 
         public int Nr_pracownika
@@ -35,16 +36,25 @@ namespace Frontend.Models
             }
         }
 
-        public SubjectModel SelectedSubject
+        // NOWE: Lista wszystkich przedmiotów które uczy ten nauczyciel
+        [JsonInclude]
+        public List<SubjectModel> TaughtSubjects
         {
-            get => _selectedSubject;
+            get => _taughtSubjects;
             set
             {
-                _selectedSubject = value;
+                _taughtSubjects = value ?? new List<SubjectModel>();
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(SubjectsDisplay));
             }
         }
-        
+
+        // Dla wyświetlania w UI
+        [JsonIgnore]
+        public string SubjectsDisplay => TaughtSubjects.Any() 
+            ? string.Join(", ", TaughtSubjects.Select(s => s.Name)) 
+            : "Brak przedmiotów";
+
         public bool[,] GetAvailability()
         {
             if (Availability.Count == 0)

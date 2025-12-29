@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace Frontend.Models
 {
-    public class PlansModel
+    public class PlansModel : INotifyPropertyChanged
     {
         public string godzina { get; set; }
         public string przedmiot { get; set; }
@@ -14,5 +14,22 @@ namespace Frontend.Models
         public string nauczyciel { get; set; }
         public string sala { get; set; }
         public string klasa { get; set; }
+
+        private bool _hasConflict;
+        public bool HasConflict
+        {
+            get => _hasConflict;
+            set
+            {
+                _hasConflict = value;
+                OnPropertyChanged(nameof(HasConflict));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

@@ -50,6 +50,9 @@ namespace Frontend.ViewModels
             }
         }
 
+        // NOWE: Lista wszystkich nazw przedmiotów dla ComboBox
+        public ObservableCollection<string> AllSubjectNames { get; set; } = new ObservableCollection<string>();
+
         // Lista typów zajęć do bindowania w ComboBox
         public List<string> SubjectTypes { get; } = new List<string>
         {
@@ -67,13 +70,13 @@ namespace Frontend.ViewModels
         {
             LoadClassTypes();
             LoadSubjects();
+            UpdateAllSubjectNames(); // NOWE
 
             AddSubjectCommand = new RelayCommand(_ => AddSubject());
             RemoveSubjectCommand = new RelayCommand<SubjectModel>(RemoveSubject);
             SaveCommand = new RelayCommand(_ => Save(), _ => CanSave());
             SelectClassTypeCommand = new RelayCommand<string>(SelectClassType);
 
-            // Ustaw domyślny typ klasy jeśli są dostępne
             if (ClassTypes.Count > 0)
             {
                 SelectedClassType = ClassTypes[0].NazwaTypu;
@@ -142,7 +145,6 @@ namespace Frontend.ViewModels
                 ClassTypes = new List<string>()
             };
 
-            // Automatycznie dodaj do aktualnie wybranego typu klasy
             if (!string.IsNullOrEmpty(SelectedClassType))
             {
                 newSubject.ClassTypes.Add(SelectedClassType);
@@ -158,6 +160,7 @@ namespace Frontend.ViewModels
             {
                 _allSubjects.Remove(subject);
                 FilterSubjectsByClassType();
+                UpdateAllSubjectNames(); // NOWE
             }
         }
 
@@ -167,6 +170,7 @@ namespace Frontend.ViewModels
             {
                 var json = JsonSerializer.Serialize(_allSubjects);
                 File.WriteAllText("subjects.json", json);
+                UpdateAllSubjectNames(); // NOWE - odśwież listę po zapisie
                 MessageBox.Show("Zapisano pomyślnie!");
             }
             catch (IOException ex)
@@ -208,158 +212,26 @@ namespace Frontend.ViewModels
             }
         }
 
+        // NOWA METODA: Aktualizuj listę wszystkich nazw przedmiotów
+        private void UpdateAllSubjectNames()
+        {
+            AllSubjectNames.Clear();
+            var uniqueNames = _allSubjects
+                .Select(s => s.Name)
+                .Where(n => !string.IsNullOrWhiteSpace(n))
+                .Distinct()
+                .OrderBy(n => n);
+            
+            foreach (var name in uniqueNames)
+            {
+                AllSubjectNames.Add(name);
+            }
+            
+            OnPropertyChanged(nameof(AllSubjectNames));
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string name = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }
-
-// using Frontend.Models;
-// using System.Collections.ObjectModel;
-// using System.ComponentModel;
-// using System.Runtime.CompilerServices;
-// using System.Windows.Input;
-// using System;
-// using System.IO;
-// using System.Text.Json;
-// using System.Collections.Generic;
-
-// namespace Frontend.ViewModels
-// {
-//     public class SubjectsViewModel : INotifyPropertyChanged
-//     {
-//         private ObservableCollection<SubjectModel> _subjects = new ObservableCollection<SubjectModel>();
-//         public ObservableCollection<SubjectModel> Subjects
-//         {
-//             get => _subjects;
-//             set
-//             {
-//                 _subjects = value;
-//                 OnPropertyChanged();
-//             }
-//         }
-
-//         // Lista typów zajęć do bindowania w ComboBox
-//         public List<string> SubjectTypes { get; } = new List<string>
-//         {
-//             "Pracownia Specjalistyczna",
-//             "Wykłady",
-//             "Ćwiczenia"
-//         };
-
-//         public ICommand AddSubjectCommand { get; }
-//         public ICommand RemoveSubjectCommand { get; }
-//         public ICommand SaveCommand { get; }
-
-//         public SubjectsViewModel()
-//         {
-//             LoadSubjects();
-
-//             AddSubjectCommand = new RelayCommand(_ => AddSubject());
-//             RemoveSubjectCommand = new RelayCommand<SubjectModel>(RemoveSubject);
-//             SaveCommand = new RelayCommand(_ => Save(), _ => CanSave());
-//         }
-
-//         private void AddSubject()
-//         {
-//             Subjects.Add(new SubjectModel
-//             {
-//                 Name = "",
-//                 Hours = 0,                             // tutaj 0 zamiast -1
-//                 SubjectType = SubjectTypes[0]         // domyślny typ z listy
-//             });
-//         }
-
-//         private void RemoveSubject(SubjectModel subject)
-//         {
-//             if (subject != null)
-//                 Subjects.Remove(subject);
-//         }
-
-//         private void Save()
-//         {
-//             try
-//             {
-//                 var json = JsonSerializer.Serialize(Subjects);
-//                 File.WriteAllText("subjects.json", json);
-//             }
-//             catch (IOException)
-//             {
-//                 // Obsługa błędu zapisu
-//             }
-//         }
-
-//         private bool CanSave()
-//         {
-//             // Tu możesz dodać walidację, np. sprawdzić puste nazwy
-//             return true;
-//         }
-
-//         private void LoadSubjects()
-//         {
-//             if (File.Exists("subjects.json"))
-//             {
-//                 try
-//                 {
-//                     var json = File.ReadAllText("subjects.json");
-//                     var loaded = JsonSerializer.Deserialize<ObservableCollection<SubjectModel>>(json);
-//                     if (loaded != null)
-//                         Subjects = loaded;
-//                 }
-//                 catch
-//                 {
-//                     Subjects = new ObservableCollection<SubjectModel>();
-//                 }
-//             }
-//         }
-
-//         public event PropertyChangedEventHandler PropertyChanged;
-//         private void OnPropertyChanged([CallerMemberName] string name = null)
-//             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-//     }
-// }
-
-
-// public class RelayCommand : ICommand
-// {
-//     private readonly Action<object> execute;
-//     private readonly Predicate<object> canExecute;
-
-//     public RelayCommand(Action<object> execute, Predicate<object> canExecute = null)
-//     {
-//         this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
-//         this.canExecute = canExecute;
-//     }
-
-//     public bool CanExecute(object parameter) => canExecute == null || canExecute(parameter);
-
-//     public void Execute(object parameter) => execute(parameter);
-
-//     public event EventHandler CanExecuteChanged
-//     {
-//         add    { CommandManager.RequerySuggested += value; }
-//         remove { CommandManager.RequerySuggested -= value; }
-//     }
-// }
-
-// public class RelayCommand<T> : ICommand
-// {
-//     private readonly Action<T> execute;
-//     private readonly Func<T, bool> canExecute;
-
-//     public RelayCommand(Action<T> execute, Func<T, bool> canExecute = null)
-//     {
-//         this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
-//         this.canExecute = canExecute;
-//     }
-
-//     public bool CanExecute(object parameter) => canExecute == null || canExecute((T)parameter);
-
-//     public void Execute(object parameter) => execute((T)parameter);
-
-//     public event EventHandler CanExecuteChanged
-//     {
-//         add    { CommandManager.RequerySuggested += value; }
-//         remove { CommandManager.RequerySuggested -= value; }
-//     }
-// }

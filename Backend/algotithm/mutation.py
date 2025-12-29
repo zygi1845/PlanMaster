@@ -1,3 +1,62 @@
+"""Mutation operators"""
+import random
+from typing import List, Dict
+from individual import Individual
+
+
+class MutationOperator:
+    """Mutation operator"""
+    
+    def __init__(self, mutation_rate: float = 0.2, teachers_dict: Dict = None,
+                 rooms: List[Dict] = None, subjects: List[Dict] = None, hours_per_day: int = 6):
+        self.mutation_rate = mutation_rate
+        self.teachers_dict = teachers_dict or {}
+        self.rooms = rooms or []
+        self.subjects = subjects or []
+        self.hours_per_day = hours_per_day
+    
+    def mutate(self, individual: Individual):
+        """Mutate individual"""
+        if random.random() > self.mutation_rate or not individual.lessons:
+            return
+        
+        lesson = random.choice(individual.lessons)
+        
+        if random.random() < 0.5:
+            self._time_mutation(lesson)
+        else:
+            self._room_mutation(lesson)
+    
+    def _time_mutation(self, lesson):
+        """Change time"""
+        teacher = self.teachers_dict.get(lesson.teacher_id)
+        if not teacher:
+            return
+        
+        available = []
+        for day in range(6):
+            if day < len(teacher['Availability']):
+                for hour in range(self.hours_per_day):
+                    if hour < len(teacher['Availability'][day]):
+                        if teacher['Availability'][day][hour]:
+                            available.append((day, hour))
+        
+        if available:
+            lesson.day, lesson.hour = random.choice(available)
+    
+    def _room_mutation(self, lesson):
+        """Change room"""
+        if not self.rooms:
+            return
+        
+        subject = next((s for s in self.subjects if s['Name'] == lesson.subject_name), None)
+        if subject:
+            suitable = [r for r in self.rooms if r['RoomType'] == subject['SubjectType']]
+            rooms = suitable if suitable else self.rooms
+            if rooms:
+                lesson.room_number = random.choice(rooms)['RoomNumber']
+
+"""
 from individual import Individual
 import random
 from copy import deepcopy
@@ -38,3 +97,4 @@ def mutat(osobnik: Individual, szansa_mutacji=0.1):
                     slot["Class"] = nowa_klasa.get("NazwaTypu")
 
     return mutated
+"""

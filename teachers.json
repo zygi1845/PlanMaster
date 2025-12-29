@@ -11,10 +11,10 @@
           {
             "$id": "4",
             "$values": [
-              true,
-              true,
               false,
               false,
+              true,
+              true,
               true
             ]
           },
@@ -22,8 +22,8 @@
             "$id": "5",
             "$values": [
               false,
-              true,
               false,
+              true,
               true,
               true
             ]
@@ -34,16 +34,16 @@
               false,
               false,
               true,
-              false,
-              false
+              true,
+              true
             ]
           },
           {
             "$id": "7",
             "$values": [
-              true,
-              true,
               false,
+              false,
+              true,
               true,
               true
             ]
@@ -51,10 +51,10 @@
           {
             "$id": "8",
             "$values": [
+              false,
+              false,
               true,
-              false,
-              false,
-              false,
+              true,
               true
             ]
           },
@@ -63,22 +63,22 @@
             "$values": [
               false,
               false,
-              false,
-              false,
-              false
+              true,
+              true,
+              true
             ]
           }
         ]
       },
       "SelectedSubject": {
         "$id": "10",
-        "Name": "filozofia",
-        "Hours": 3,
-        "SubjectType": "Wyk\u0142ady",
+        "Name": "matma",
+        "Hours": 5,
+        "SubjectType": "Pracownia Specjalistyczna",
         "ClassTypes": {
           "$id": "11",
           "$values": [
-            "human"
+            "mat-fiz"
           ]
         }
       }
@@ -94,9 +94,9 @@
             "$id": "14",
             "$values": [
               false,
-              false,
-              false,
-              false,
+              true,
+              true,
+              true,
               false
             ]
           },
@@ -107,23 +107,23 @@
               true,
               true,
               true,
-              true
+              false
             ]
           },
           {
             "$id": "16",
             "$values": [
-              true,
               false,
               true,
-              false,
-              true
+              true,
+              true,
+              false
             ]
           },
           {
             "$id": "17",
             "$values": [
-              true,
+              false,
               true,
               true,
               true,
@@ -133,20 +133,20 @@
           {
             "$id": "18",
             "$values": [
-              true,
-              false,
               false,
               true,
-              true
+              true,
+              true,
+              false
             ]
           },
           {
             "$id": "19",
             "$values": [
               false,
-              false,
-              false,
-              false,
+              true,
+              true,
+              true,
               false
             ]
           }
@@ -154,13 +154,13 @@
       },
       "SelectedSubject": {
         "$id": "20",
-        "Name": "informatyka",
-        "Hours": 3,
-        "SubjectType": "Pracownia Specjalistyczna",
+        "Name": "fizyka",
+        "Hours": 4,
+        "SubjectType": "Wyk\u0142ady",
         "ClassTypes": {
           "$id": "21",
           "$values": [
-            "infa"
+            "mat-fiz"
           ]
         }
       }
@@ -175,27 +175,27 @@
           {
             "$id": "24",
             "$values": [
-              false,
-              false,
-              false,
-              false,
-              false
+              true,
+              true,
+              true,
+              true,
+              true
             ]
           },
           {
             "$id": "25",
             "$values": [
-              false,
-              false,
-              false,
-              false,
+              true,
+              true,
+              true,
+              true,
               true
             ]
           },
           {
             "$id": "26",
             "$values": [
-              false,
+              true,
               true,
               true,
               true,
@@ -205,7 +205,7 @@
           {
             "$id": "27",
             "$values": [
-              false,
+              true,
               true,
               true,
               true,
@@ -215,7 +215,7 @@
           {
             "$id": "28",
             "$values": [
-              false,
+              true,
               true,
               true,
               true,
@@ -236,13 +236,13 @@
       },
       "SelectedSubject": {
         "$id": "30",
-        "Name": "geometria",
-        "Hours": 3,
-        "SubjectType": "Pracownia Specjalistyczna",
+        "Name": "infa",
+        "Hours": 4,
+        "SubjectType": "\u0106wiczenia",
         "ClassTypes": {
           "$id": "31",
           "$values": [
-            "matma"
+            "mat-fiz"
           ]
         }
       }
@@ -258,27 +258,27 @@
             "$id": "34",
             "$values": [
               false,
+              true,
               false,
-              false,
-              false,
-              false
+              true,
+              true
             ]
           },
           {
             "$id": "35",
             "$values": [
-              true,
               false,
               true,
               false,
-              false
+              true,
+              true
             ]
           },
           {
             "$id": "36",
             "$values": [
-              true,
               false,
+              true,
               false,
               true,
               true
@@ -287,9 +287,9 @@
           {
             "$id": "37",
             "$values": [
+              false,
               true,
-              true,
-              true,
+              false,
               true,
               true
             ]
@@ -297,9 +297,9 @@
           {
             "$id": "38",
             "$values": [
+              false,
               true,
-              true,
-              true,
+              false,
               true,
               true
             ]
@@ -317,50 +317,61 @@
         ]
       },
       "SelectedSubject": {
-        "$id": "40",
-        "Name": "robotyka",
-        "Hours": 4,
-        "SubjectType": "Pracownia Specjalistyczna",
-        "ClassTypes": {
-          "$id": "41",
-          "$values": [
-            "infa"
-          ]
-        }
+        "$ref": "10"
       }
     },
     {
-      "$id": "42",
+      "$id": "40",
       "Nr_pracownika": 4,
-      "Nazwisko": "jm",
+      "Nazwisko": "kruk",
       "Availability": {
-        "$id": "43",
+        "$id": "41",
         "$values": [
+          {
+            "$id": "42",
+            "$values": [
+              false,
+              false,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "$id": "43",
+            "$values": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
           {
             "$id": "44",
             "$values": [
-              false,
               true,
               true,
-              false,
-              false
+              true,
+              true,
+              true
             ]
           },
           {
             "$id": "45",
             "$values": [
-              false,
-              false,
               true,
               false,
+              true,
+              true,
               true
             ]
           },
           {
             "$id": "46",
             "$values": [
-              false,
               true,
+              false,
               true,
               true,
               true
@@ -369,529 +380,26 @@
           {
             "$id": "47",
             "$values": [
-              false,
               true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "48",
-            "$values": [
-              false,
-              false,
-              false,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "49",
-            "$values": [
-              false,
               true,
               true,
               true,
-              false
+              true
             ]
           }
         ]
       },
       "SelectedSubject": {
-        "$id": "50",
-        "Name": "retoryka",
-        "Hours": 3,
-        "SubjectType": "Pracownia Specjalistyczna",
-        "ClassTypes": {
-          "$id": "51",
-          "$values": [
-            "human"
-          ]
-        }
-      }
-    },
-    {
-      "$id": "52",
-      "Nr_pracownika": 5,
-      "Nazwisko": "wdw",
-      "Availability": {
-        "$id": "53",
-        "$values": [
-          {
-            "$id": "54",
-            "$values": [
-              false,
-              false,
-              false,
-              false,
-              false
-            ]
-          },
-          {
-            "$id": "55",
-            "$values": [
-              true,
-              false,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "56",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "57",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "58",
-            "$values": [
-              false,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "59",
-            "$values": [
-              false,
-              false,
-              false,
-              false,
-              false
-            ]
-          }
-        ]
-      },
-      "SelectedSubject": {
-        "$id": "60",
-        "Name": "analiza",
-        "Hours": 2,
-        "SubjectType": "Pracownia Specjalistyczna",
-        "ClassTypes": {
-          "$id": "61",
-          "$values": [
-            "matma"
-          ]
-        }
-      }
-    },
-    {
-      "$id": "62",
-      "Nr_pracownika": 6,
-      "Nazwisko": "cezar",
-      "Availability": {
-        "$id": "63",
-        "$values": [
-          {
-            "$id": "64",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "65",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "66",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "67",
-            "$values": [
-              true,
-              false,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "68",
-            "$values": [
-              true,
-              false,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "69",
-            "$values": [
-              false,
-              false,
-              false,
-              false,
-              false
-            ]
-          }
-        ]
-      },
-      "SelectedSubject": {
-        "$id": "70",
-        "Name": "staro\u017Cytno\u015B\u0107",
-        "Hours": 4,
-        "SubjectType": "Pracownia Specjalistyczna",
-        "ClassTypes": {
-          "$id": "71",
-          "$values": [
-            "historia"
-          ]
-        }
-      }
-    },
-    {
-      "$id": "72",
-      "Nr_pracownika": 7,
-      "Nazwisko": "machiaveli",
-      "Availability": {
-        "$id": "73",
-        "$values": [
-          {
-            "$id": "74",
-            "$values": [
-              true,
-              false,
-              false,
-              false,
-              false
-            ]
-          },
-          {
-            "$id": "75",
-            "$values": [
-              true,
-              false,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "76",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "77",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "78",
-            "$values": [
-              true,
-              true,
-              true,
-              false,
-              true
-            ]
-          },
-          {
-            "$id": "79",
-            "$values": [
-              true,
-              true,
-              true,
-              false,
-              false
-            ]
-          }
-        ]
-      },
-      "SelectedSubject": {
-        "$id": "80",
-        "Name": "\u015Bredniowiecze",
+        "$id": "48",
+        "Name": "matma",
         "Hours": 5,
-        "SubjectType": "Wyk\u0142ady",
-        "ClassTypes": {
-          "$id": "81",
-          "$values": [
-            "historia"
-          ]
-        }
-      }
-    },
-    {
-      "$id": "82",
-      "Nr_pracownika": 8,
-      "Nazwisko": "gepart",
-      "Availability": {
-        "$id": "83",
-        "$values": [
-          {
-            "$id": "84",
-            "$values": [
-              true,
-              false,
-              false,
-              false,
-              false
-            ]
-          },
-          {
-            "$id": "85",
-            "$values": [
-              true,
-              false,
-              false,
-              false,
-              false
-            ]
-          },
-          {
-            "$id": "86",
-            "$values": [
-              true,
-              false,
-              false,
-              false,
-              false
-            ]
-          },
-          {
-            "$id": "87",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "88",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "89",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          }
-        ]
-      },
-      "SelectedSubject": {
-        "$id": "90",
-        "Name": "bieganie",
-        "Hours": 3,
         "SubjectType": "Pracownia Specjalistyczna",
         "ClassTypes": {
-          "$id": "91",
+          "$id": "49",
           "$values": [
-            "wf"
+            "mat-fiz"
           ]
         }
-      }
-    },
-    {
-      "$id": "92",
-      "Nr_pracownika": 9,
-      "Nazwisko": "hipokrates",
-      "Availability": {
-        "$id": "93",
-        "$values": [
-          {
-            "$id": "94",
-            "$values": [
-              true,
-              false,
-              false,
-              false,
-              false
-            ]
-          },
-          {
-            "$id": "95",
-            "$values": [
-              false,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "96",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "97",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "98",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "99",
-            "$values": [
-              false,
-              false,
-              true,
-              false,
-              false
-            ]
-          }
-        ]
-      },
-      "SelectedSubject": {
-        "$id": "100",
-        "Name": "rozci\u0105ganie",
-        "Hours": 4,
-        "SubjectType": "\u0106wiczenia",
-        "ClassTypes": {
-          "$id": "101",
-          "$values": [
-            "wf"
-          ]
-        }
-      }
-    },
-    {
-      "$id": "102",
-      "Nr_pracownika": 10,
-      "Nazwisko": "sokrates",
-      "Availability": {
-        "$id": "103",
-        "$values": [
-          {
-            "$id": "104",
-            "$values": [
-              false,
-              false,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "105",
-            "$values": [
-              false,
-              false,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "106",
-            "$values": [
-              false,
-              false,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "107",
-            "$values": [
-              true,
-              false,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "108",
-            "$values": [
-              true,
-              false,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "109",
-            "$values": [
-              false,
-              true,
-              true,
-              true,
-              true
-            ]
-          }
-        ]
-      },
-      "SelectedSubject": {
-        "$ref": "50"
       }
     }
   ]

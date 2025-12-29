@@ -1,101 +1,150 @@
-import json
-import random
-from copy import deepcopy
+"""Individual module - defines lesson and individual"""
+from dataclasses import dataclass
+from typing import List
+
+
+@dataclass
+class Lesson:
+    """Single lesson"""
+    subject_name: str
+    teacher_id: int
+    teacher_name: str
+    class_type: str
+    room_number: str
+    day: int  # 0-5
+    hour: int  # 0-5
+    
+    def copy(self):
+        return Lesson(
+            subject_name=self.subject_name,
+            teacher_id=self.teacher_id,
+            teacher_name=self.teacher_name,
+            class_type=self.class_type,
+            room_number=self.room_number,
+            day=self.day,
+            hour=self.hour
+        )
+
 
 class Individual:
-    def __init__(self, klasy, plan, sale, przedmioty, nauczyciele):
-        self.klasy = klasy  # To są pojedyncze klasy (np. "infa_1", "matma_1", etc.)
-        self.classes = klasy  # Dodajemy alias dla zgodności z kodem fitness
-        self.plan = plan
-        self.sale = sale
-        self.przedmioty = przedmioty
-        self.nauczyciele = nauczyciele
-        self.timetable = self._generuj_plan()
-        self.fitness = self._oblicz_fitness()
+    """Individual - complete schedule"""
+    
+    def __init__(self):
+        self.lessons: List[Lesson] = []
+        self.fitness: float = 0.0
+        
+    def add_lesson(self, lesson: Lesson):
+        self.lessons.append(lesson)
+    
+    def copy(self):
+        new = Individual()
+        new.lessons = [l.copy() for l in self.lessons]
+        new.fitness = self.fitness
+        return new
 
-    def _generuj_plan(self):
-        """Generuje losowy plan zajęć zgodny z hourplan.json."""
-        timetable = deepcopy(self.plan)
-        dni_tygodnia = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
-        for hour in timetable:
-            for day in dni_tygodnia:
-                subject = random.choice(self.przedmioty) if self.przedmioty else None
-                teacher = random.choice(self.nauczyciele) if self.nauczyciele else None
-                classroom = random.choice(self.sale) if self.sale else None
-                class_type = random.choice(self.klasy) if self.klasy else None
+            
+            
+# import json
+# import random
+# from copy import deepcopy
 
-                # Bezpieczne pobranie nazwy klasy
-                if class_type:
-                    class_name = (
-                        class_type.get("NazwaTypu") or
-                        class_type.get("Typ") or
-                        class_type.get("Name") or
-                        "UNKNOWN"
-                    )
-                else:
-                    class_name = None
+# class Individual:
+#     def __init__(self, klasy, plan, sale, przedmioty, nauczyciele):
+#         self.klasy = klasy  # To są pojedyncze klasy (np. "infa_1", "matma_1", etc.)
+#         self.classes = klasy  # Dodajemy alias dla zgodności z kodem fitness
+#         self.plan = plan
+#         self.sale = sale
+#         self.przedmioty = przedmioty
+#         self.nauczyciele = nauczyciele
+#         self.timetable = self._generuj_plan()
+#         self.fitness = self._oblicz_fitness()
 
-                hour[day] = {
-                    "Subject": subject.get("Name") if subject else None,
-                    "Teacher": teacher.get("Nazwisko") if teacher else None,
-                    "Room": classroom.get("RoomNumber") if classroom else None,
-                    "Class": class_name
-                }
-        print("DEBUG: Generacja planu zakończona – wszystko git")
-        return timetable
+#     def _generuj_plan(self):
+#         """Generuje losowy plan zajęć zgodny z hourplan.json."""
+#         timetable = deepcopy(self.plan)
+#         dni_tygodnia = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
-    def _oblicz_fitness(self):
-        """Liczy fitness – uproszczona wersja."""
-        score = 0
-        dni_tygodnia = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+#         for hour in timetable:
+#             for day in dni_tygodnia:
+#                 subject = random.choice(self.przedmioty) if self.przedmioty else None
+#                 teacher = random.choice(self.nauczyciele) if self.nauczyciele else None
+#                 classroom = random.choice(self.sale) if self.sale else None
+#                 class_type = random.choice(self.klasy) if self.klasy else None
 
-        for hour in self.timetable:
-            for day in dni_tygodnia:
-                slot = hour.get(day)
-                if slot and slot.get("Subject"):
-                    score += 1
-        print(f"DEBUG: Fitness wyliczony: {score}")
-        return score
+#                 # Bezpieczne pobranie nazwy klasy
+#                 if class_type:
+#                     class_name = (
+#                         class_type.get("NazwaTypu") or
+#                         class_type.get("Typ") or
+#                         class_type.get("Name") or
+#                         "UNKNOWN"
+#                     )
+#                 else:
+#                     class_name = None
 
-    def zapisz_plany(self):
-        """Zapisuje plany do plików JSON dla klas, nauczycieli i sal."""
-        plany_klas = {}
-        plany_nauczycieli = {}
-        plany_sal = {}
+#                 hour[day] = {
+#                     "Subject": subject.get("Name") if subject else None,
+#                     "Teacher": teacher.get("Nazwisko") if teacher else None,
+#                     "Room": classroom.get("RoomNumber") if classroom else None,
+#                     "Class": class_name
+#                 }
+#         print("DEBUG: Generacja planu zakończona – wszystko git")
+#         return timetable
 
-        dni_tygodnia = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+#     def _oblicz_fitness(self):
+#         """Liczy fitness – uproszczona wersja."""
+#         score = 0
+#         dni_tygodnia = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
-        for hour in self.timetable:
-            for day in dni_tygodnia:
-                slot = hour.get(day)
-                if slot:
-                    klasa = slot.get("Class")
-                    nauczyciel = slot.get("Teacher")
-                    sala = slot.get("Room")
+#         for hour in self.timetable:
+#             for day in dni_tygodnia:
+#                 slot = hour.get(day)
+#                 if slot and slot.get("Subject"):
+#                     score += 1
+#         print(f"DEBUG: Fitness wyliczony: {score}")
+#         return score
 
-                    if klasa:
-                        plany_klas.setdefault(klasa, []).append({day: slot})
-                    if nauczyciel:
-                        plany_nauczycieli.setdefault(nauczyciel, []).append({day: slot})
-                    if sala:
-                        plany_sal.setdefault(sala, []).append({day: slot})
+#     def zapisz_plany(self):
+#         """Zapisuje plany do plików JSON dla klas, nauczycieli i sal."""
+#         plany_klas = {}
+#         plany_nauczycieli = {}
+#         plany_sal = {}
 
-        zajete = sum(1 for h in self.timetable for d in dni_tygodnia if h.get(d))
-        print(f"DEBUG: timetable ma {len(self.timetable)} godzin, zajęte sloty: {zajete}")
+#         dni_tygodnia = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
-        # Zapis do plików
-        self._zapisz_slownik(plany_klas, "plany/plany_klas.json")
-        self._zapisz_slownik(plany_nauczycieli, "plany/plany_nauczycieli.json")
-        self._zapisz_slownik(plany_sal, "plany/plany_sal.json")
-        print("DEBUG: Plany zapisane – wszystko git")
+#         for hour in self.timetable:
+#             for day in dni_tygodnia:
+#                 slot = hour.get(day)
+#                 if slot:
+#                     klasa = slot.get("Class")
+#                     nauczyciel = slot.get("Teacher")
+#                     sala = slot.get("Room")
 
-    @staticmethod
-    def _zapisz_slownik(slownik, sciezka):
-        import os
-        os.makedirs(os.path.dirname(sciezka), exist_ok=True)
-        with open(sciezka, "w", encoding="utf-8") as f:
-            json.dump(slownik, f, indent=4, ensure_ascii=False)
+#                     if klasa:
+#                         plany_klas.setdefault(klasa, []).append({day: slot})
+#                     if nauczyciel:
+#                         plany_nauczycieli.setdefault(nauczyciel, []).append({day: slot})
+#                     if sala:
+#                         plany_sal.setdefault(sala, []).append({day: slot})
+
+#         zajete = sum(1 for h in self.timetable for d in dni_tygodnia if h.get(d))
+#         print(f"DEBUG: timetable ma {len(self.timetable)} godzin, zajęte sloty: {zajete}")
+
+#         # Zapis do plików
+#         self._zapisz_slownik(plany_klas, "plany/plany_klas.json")
+#         self._zapisz_slownik(plany_nauczycieli, "plany/plany_nauczycieli.json")
+#         self._zapisz_slownik(plany_sal, "plany/plany_sal.json")
+#         print("DEBUG: Plany zapisane – wszystko git")
+
+#     @staticmethod
+#     def _zapisz_slownik(slownik, sciezka):
+#         import os
+#         os.makedirs(os.path.dirname(sciezka), exist_ok=True)
+#         with open(sciezka, "w", encoding="utf-8") as f:
+#             json.dump(slownik, f, indent=4, ensure_ascii=False)
+
+
 
 # import json
 # import random

@@ -1,0 +1,467 @@
+{
+  "1": [
+    [
+      [],
+      [
+        {
+          "subject": "matma",
+          "teacher": "zm",
+          "class": "mat-geo 1"
+        }
+      ],
+      [
+        {
+          "subject": "matma",
+          "teacher": "malinowski",
+          "class": "mat-fiz 2"
+        }
+      ],
+      [
+        {
+          "subject": "matma",
+          "teacher": "malinowski",
+          "class": "mat-fiz 2"
+        }
+      ],
+      [
+        {
+          "subject": "matma",
+          "teacher": "zm",
+          "class": "mat-geo 3"
+        }
+      ],
+      []
+    ],
+    [
+      [],
+      [
+        {
+          "subject": "matma",
+          "teacher": "zm",
+          "class": "mat-geo 3"
+        }
+      ],
+      [
+        {
+          "subject": "matma",
+          "teacher": "malinowski",
+          "class": "mat-fiz 2"
+        }
+      ],
+      [
+        {
+          "subject": "matma",
+          "teacher": "malinowski",
+          "class": "mat-fiz 3"
+        }
+      ],
+      [
+        {
+          "subject": "matma",
+          "teacher": "malinowski",
+          "class": "mat-fiz 3"
+        },
+        {
+          "subject": "matma",
+          "teacher": "zm",
+          "class": "mat-geo 1"
+        }
+      ],
+      []
+    ],
+    [
+      [],
+      [
+        {
+          "subject": "matma",
+          "teacher": "zm",
+          "class": "mat-geo 1"
+        }
+      ],
+      [
+        {
+          "subject": "matma",
+          "teacher": "malinowski",
+          "class": "mat-fiz 2"
+        }
+      ],
+      [
+        {
+          "subject": "matma",
+          "teacher": "malinowski",
+          "class": "mat-fiz 1"
+        },
+        {
+          "subject": "matma",
+          "teacher": "zm",
+          "class": "mat-geo 3"
+        },
+        {
+          "subject": "matma",
+          "teacher": "zm",
+          "class": "mat-geo 3"
+        }
+      ],
+      [
+        {
+          "subject": "matma",
+          "teacher": "malinowski",
+          "class": "mat-fiz 2"
+        }
+      ],
+      []
+    ],
+    [
+      [],
+      [
+        {
+          "subject": "matma",
+          "teacher": "zm",
+          "class": "mat-geo 1"
+        }
+      ],
+      [
+        {
+          "subject": "matma",
+          "teacher": "malinowski",
+          "class": "mat-fiz 3"
+        }
+      ],
+      [
+        {
+          "subject": "matma",
+          "teacher": "malinowski",
+          "class": "mat-fiz 1"
+        },
+        {
+          "subject": "matma",
+          "teacher": "zm",
+          "class": "mat-geo 2"
+        }
+      ],
+      [
+        {
+          "subject": "matma",
+          "teacher": "malinowski",
+          "class": "mat-fiz 3"
+        }
+      ],
+      []
+    ],
+    [
+      [],
+      [
+        {
+          "subject": "matma",
+          "teacher": "zm",
+          "class": "mat-geo 3"
+        }
+      ],
+      [
+        {
+          "subject": "matma",
+          "teacher": "malinowski",
+          "class": "mat-fiz 3"
+        }
+      ],
+      [
+        {
+          "subject": "matma",
+          "teacher": "zm",
+          "class": "mat-geo 1"
+        }
+      ],
+      [
+        {
+          "subject": "matma",
+          "teacher": "zm",
+          "class": "mat-geo 2"
+        },
+        {
+          "subject": "matma",
+          "teacher": "zm",
+          "class": "mat-geo 2"
+        },
+        {
+          "subject": "matma",
+          "teacher": "zm",
+          "class": "mat-geo 2"
+        },
+        {
+          "subject": "matma",
+          "teacher": "zm",
+          "class": "mat-geo 2"
+        }
+      ],
+      []
+    ],
+    [
+      [],
+      [],
+      [
+        {
+          "subject": "matma",
+          "teacher": "malinowski",
+          "class": "mat-fiz 1"
+        }
+      ],
+      [
+        {
+          "subject": "matma",
+          "teacher": "malinowski",
+          "class": "mat-fiz 1"
+        }
+      ],
+      [
+        {
+          "subject": "matma",
+          "teacher": "malinowski",
+          "class": "mat-fiz 1"
+        }
+      ],
+      []
+    ]
+  ],
+  "2": [
+    [
+      [],
+      [
+        {
+          "subject": "fizyka",
+          "teacher": "zm",
+          "class": "mat-fiz 3"
+        }
+      ],
+      [],
+      [
+        {
+          "subject": "fizyka",
+          "teacher": "zm",
+          "class": "mat-fiz 2"
+        }
+      ],
+      [],
+      []
+    ],
+    [
+      [],
+      [],
+      [
+        {
+          "subject": "fizyka",
+          "teacher": "zm",
+          "class": "mat-fiz 2"
+        }
+      ],
+      [
+        {
+          "subject": "fizyka",
+          "teacher": "zm",
+          "class": "mat-fiz 3"
+        }
+      ],
+      [],
+      []
+    ],
+    [
+      [],
+      [
+        {
+          "subject": "fizyka",
+          "teacher": "zm",
+          "class": "mat-fiz 1"
+        }
+      ],
+      [
+        {
+          "subject": "fizyka",
+          "teacher": "zm",
+          "class": "mat-fiz 3"
+        }
+      ],
+      [
+        {
+          "subject": "fizyka",
+          "teacher": "zm",
+          "class": "mat-fiz 2"
+        },
+        {
+          "subject": "fizyka",
+          "teacher": "zm",
+          "class": "mat-fiz 2"
+        },
+        {
+          "subject": "fizyka",
+          "teacher": "zm",
+          "class": "mat-fiz 3"
+        }
+      ],
+      [
+        {
+          "subject": "fizyka",
+          "teacher": "zm",
+          "class": "mat-fiz 1"
+        }
+      ],
+      []
+    ],
+    [
+      [],
+      [],
+      [],
+      [],
+      [
+        {
+          "subject": "fizyka",
+          "teacher": "zm",
+          "class": "mat-fiz 1"
+        }
+      ],
+      []
+    ],
+    [
+      [],
+      [
+        {
+          "subject": "fizyka",
+          "teacher": "zm",
+          "class": "mat-fiz 1"
+        }
+      ],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
+  ],
+  "3": [
+    [
+      [],
+      [
+        {
+          "subject": "infa",
+          "teacher": "kowal",
+          "class": "mat-fiz 2"
+        }
+      ],
+      [],
+      [
+        {
+          "subject": "infa",
+          "teacher": "kowal",
+          "class": "mat-fiz 1"
+        }
+      ],
+      [],
+      []
+    ],
+    [
+      [
+        {
+          "subject": "infa",
+          "teacher": "kowal",
+          "class": "mat-fiz 2"
+        }
+      ],
+      [
+        {
+          "subject": "infa",
+          "teacher": "kowal",
+          "class": "mat-fiz 2"
+        }
+      ],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [],
+      [
+        {
+          "subject": "infa",
+          "teacher": "kowal",
+          "class": "mat-fiz 3"
+        }
+      ],
+      [
+        {
+          "subject": "infa",
+          "teacher": "kowal",
+          "class": "mat-fiz 1"
+        }
+      ],
+      [],
+      [
+        {
+          "subject": "infa",
+          "teacher": "kowal",
+          "class": "mat-fiz 3"
+        }
+      ],
+      []
+    ],
+    [
+      [],
+      [],
+      [
+        {
+          "subject": "infa",
+          "teacher": "kowal",
+          "class": "mat-fiz 2"
+        }
+      ],
+      [
+        {
+          "subject": "infa",
+          "teacher": "kowal",
+          "class": "mat-fiz 3"
+        }
+      ],
+      [
+        {
+          "subject": "infa",
+          "teacher": "kowal",
+          "class": "mat-fiz 3"
+        }
+      ],
+      []
+    ],
+    [
+      [],
+      [],
+      [
+        {
+          "subject": "infa",
+          "teacher": "kowal",
+          "class": "mat-fiz 1"
+        }
+      ],
+      [
+        {
+          "subject": "infa",
+          "teacher": "kowal",
+          "class": "mat-fiz 1"
+        }
+      ],
+      [],
+      []
+    ],
+    [
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
+  ]
+}
