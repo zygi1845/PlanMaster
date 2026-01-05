@@ -115,5 +115,11 @@ private void TextBox_LostFocus(object sender, RoutedEventArgs e)
             window.Show();
             this.Close();
         }
+        private void PlansWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new PlansWindow();
+            window.Show();
+            this.Close();
+        }
     }
 }

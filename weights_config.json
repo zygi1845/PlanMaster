@@ -1,6 +1,70 @@
 {
-  "SubjectWeights": [],
-  "MaxHoursPerDay": 4,
+  "SubjectWeights": [
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "matma1",
+      "Hours": 5,
+      "SubjectType": "Wyk\u0142ady"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "fizyka1",
+      "Hours": 4,
+      "SubjectType": "Pracownia Specjalistyczna"
+    },
+    {
+      "MaxPerDay": 1,
+      "Weight": 10,
+      "Name": "wf1",
+      "Hours": 3,
+      "SubjectType": "Pracownia Specjalistyczna"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "matma2",
+      "Hours": 5,
+      "SubjectType": "Wyk\u0142ady"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "geografia2",
+      "Hours": 4,
+      "SubjectType": "Pracownia Specjalistyczna"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "wf2",
+      "Hours": 3,
+      "SubjectType": "Pracownia Specjalistyczna"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "matma3",
+      "Hours": 5,
+      "SubjectType": "Wyk\u0142ady"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "infa3",
+      "Hours": 4,
+      "SubjectType": "Pracownia Specjalistyczna"
+    },
+    {
+      "MaxPerDay": 2,
+      "Weight": 5,
+      "Name": "wf3",
+      "Hours": 3,
+      "SubjectType": "Pracownia Specjalistyczna"
+    }
+  ],
+  "MaxHoursPerDay": 5,
   "MaxHoursWeight": 5,
   "BreaksWeight": 3
 }

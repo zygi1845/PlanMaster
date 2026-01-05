@@ -54,8 +54,7 @@ namespace Frontend.ViewModels
             RemoveTeacherCommand = new RelayCommand<TeacherModel>(RemoveTeacher);
             SaveCommand = new RelayCommand(_ => Save(), _ => CanSave());
             AddSubjectToTeacherCommand = new RelayCommand<TeacherModel>(AddSubjectToTeacher);
-            RemoveSubjectFromTeacherCommand = new RelayCommand<(TeacherModel, SubjectModel)>(tuple => 
-                RemoveSubjectFromTeacher(tuple.Item1, tuple.Item2));
+            RemoveSubjectFromTeacherCommand = new RelayCommand<object>(RemoveSubjectFromTeacherWrapper);
         }
 
         private void LoadSubjects()
@@ -109,28 +108,127 @@ namespace Frontend.ViewModels
             }
         }
 
+        // ========================================
+        // ✅ DODAWANIE Z WALIDACJĄ
+        // ========================================
         private void AddSubjectToTeacher(TeacherModel teacher)
         {
             if (teacher == null) return;
 
-            // Pokaż okno wyboru przedmiotu
             var selectWindow = new SubjectSelectionWindow(AllSubjects.ToList(), teacher.TaughtSubjects);
             if (selectWindow.ShowDialog() == true && selectWindow.SelectedSubject != null)
             {
-                // Sprawdź czy już nie ma tego przedmiotu
-                if (!teacher.TaughtSubjects.Any(s => s.Name == selectWindow.SelectedSubject.Name))
-                {
-                    teacher.TaughtSubjects.Add(selectWindow.SelectedSubject);
-                    teacher.TaughtSubjects = new List<SubjectModel>(teacher.TaughtSubjects); // Trigger PropertyChanged
-                }
-                else
+                var selectedSubject = selectWindow.SelectedSubject;
+
+                // ✅ WALIDACJA 1: Czy ten nauczyciel już ma dokładnie ten sam przedmiot?
+                var duplicate = teacher.TaughtSubjects.FirstOrDefault(s => 
+                    s.Name.Equals(selectedSubject.Name, StringComparison.OrdinalIgnoreCase) && 
+                    s.Hours == selectedSubject.Hours &&
+                    s.SubjectType.Equals(selectedSubject.SubjectType, StringComparison.OrdinalIgnoreCase) &&
+                    s.ClassTypes.Count > 0 && selectedSubject.ClassTypes.Count > 0 &&
+                    s.ClassTypes[0].Equals(selectedSubject.ClassTypes[0], StringComparison.OrdinalIgnoreCase));
+
+                if (duplicate != null)
                 {
                     MessageBox.Show(
-                        $"⚠️ Nauczyciel już uczy przedmiotu: {selectWindow.SelectedSubject.Name}",
+                        $"⚠️ Nauczyciel '{teacher.Nazwisko}' już ma ten przedmiot:\n\n" +
+                        $"📚 {selectedSubject.Name} ({selectedSubject.Hours}h)\n" +
+                        $"Klasa: {selectedSubject.ClassTypes[0]}",
                         "Duplikat",
                         MessageBoxButton.OK,
                         MessageBoxImage.Warning);
+                    return;
                 }
+
+                // ✅ WALIDACJA 2: Sprawdź czy INNY nauczyciel już uczy ten przedmiot w tej klasie
+                var conflictingTeacher = FindConflictingTeacher(teacher, selectedSubject);
+                
+                if (conflictingTeacher != null)
+                {
+                    MessageBox.Show(
+                        $"❌ KONFLIKT NAUCZYCIELA!\n\n" +
+                        $"Przedmiot: {selectedSubject.Name} ({selectedSubject.Hours}h, {selectedSubject.SubjectType})\n" +
+                        $"Klasa: {selectedSubject.ClassTypes[0]}\n\n" +
+                        $"Jest już prowadzony przez:\n" +
+                        $"👤 {conflictingTeacher.Nazwisko} (ID: {conflictingTeacher.Nr_pracownika})\n\n" +
+                        $"❗ W jednej klasie przedmiot może prowadzić tylko JEDEN nauczyciel!\n\n" +
+                        $"💡 Jeśli chcesz przypisać tego nauczyciela, najpierw usuń\n" +
+                        $"   ten przedmiot u nauczyciela '{conflictingTeacher.Nazwisko}'.",
+                        "Konflikt - Nie można dodać",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    return;
+                }
+
+                // Dodaj przedmiot
+                teacher.TaughtSubjects.Add(selectedSubject);
+                teacher.TaughtSubjects = new List<SubjectModel>(teacher.TaughtSubjects);
+                OnPropertyChanged(nameof(Teachers));
+                
+                Console.WriteLine($"✅ Dodano: {teacher.Nazwisko} → {selectedSubject.Name} ({selectedSubject.ClassTypes[0]})");
+            }
+        }
+
+        // ✅ Znajdź nauczyciela z konfliktem
+        private TeacherModel FindConflictingTeacher(TeacherModel currentTeacher, SubjectModel newSubject)
+        {
+            // Jeśli przedmiot nie ma klasy - brak konfliktu
+            if (newSubject.ClassTypes == null || !newSubject.ClassTypes.Any())
+                return null;
+
+            string newClassName = newSubject.ClassTypes[0];
+
+            // Dla każdego innego nauczyciela
+            foreach (var otherTeacher in Teachers)
+            {
+                // Pomiń obecnego nauczyciela
+                if (otherTeacher.Nr_pracownika == currentTeacher.Nr_pracownika)
+                    continue;
+
+                // Sprawdź każdy przedmiot tego nauczyciela
+                foreach (var existingSubject in otherTeacher.TaughtSubjects)
+                {
+                    // Jeśli przedmiot nie ma klasy - pomiń
+                    if (existingSubject.ClassTypes == null || !existingSubject.ClassTypes.Any())
+                        continue;
+
+                    // Sprawdź czy to ten sam przedmiot (nazwa + godziny + typ)
+                    bool isSameSubject = 
+                        existingSubject.Name.Equals(newSubject.Name, StringComparison.OrdinalIgnoreCase) && 
+                        existingSubject.Hours == newSubject.Hours &&
+                        existingSubject.SubjectType.Equals(newSubject.SubjectType, StringComparison.OrdinalIgnoreCase);
+
+                    // Sprawdź czy to ta sama klasa
+                    bool isSameClass = existingSubject.ClassTypes[0].Equals(newClassName, StringComparison.OrdinalIgnoreCase);
+
+                    if (isSameSubject && isSameClass)
+                    {
+                        // KONFLIKT! - ten nauczyciel już uczy tego przedmiotu w tej klasie
+                        return otherTeacher;
+                    }
+                }
+            }
+
+            return null; // Brak konfliktu
+        }
+
+        private void RemoveSubjectFromTeacherWrapper(object parameter)
+        {
+            try
+            {
+                if (parameter is SubjectModel subject)
+                {
+                    var teacher = Teachers.FirstOrDefault(t => t.TaughtSubjects.Contains(subject));
+                    if (teacher != null)
+                    {
+                        RemoveSubjectFromTeacher(teacher, subject);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd usuwania przedmiotu: {ex.Message}");
+                MessageBox.Show($"❌ Błąd usuwania: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -138,8 +236,19 @@ namespace Frontend.ViewModels
         {
             if (teacher != null && subject != null)
             {
-                teacher.TaughtSubjects.Remove(subject);
-                teacher.TaughtSubjects = new List<SubjectModel>(teacher.TaughtSubjects); // Trigger PropertyChanged
+                try
+                {
+                    teacher.TaughtSubjects.Remove(subject);
+                    teacher.TaughtSubjects = new List<SubjectModel>(teacher.TaughtSubjects);
+                    OnPropertyChanged(nameof(Teachers));
+                    
+                    Console.WriteLine($"✅ Usunięto: {subject.Name} od {teacher.Nazwisko}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Błąd w RemoveSubjectFromTeacher: {ex.Message}");
+                    throw;
+                }
             }
         }
 
@@ -147,7 +256,7 @@ namespace Frontend.ViewModels
         {
             try
             {
-                // WALIDACJA 1: Sprawdź duplikaty Nr_pracownika
+                // WALIDACJA 1: Duplikaty ID
                 var duplicateIds = Teachers
                     .GroupBy(t => t.Nr_pracownika)
                     .Where(g => g.Count() > 1)
@@ -157,17 +266,14 @@ namespace Frontend.ViewModels
                 if (duplicateIds.Any())
                 {
                     MessageBox.Show(
-                        $"❌ BŁĄD DUPLIKATÓW!\n\n" +
-                        $"Numery pracowników występują więcej niż raz:\n" +
-                        $"{string.Join(", ", duplicateIds)}\n\n" +
-                        $"Każdy nauczyciel musi mieć UNIKALNY numer!",
-                        "Błąd walidacji",
+                        $"❌ BŁĄD! Duplikaty ID:\n{string.Join(", ", duplicateIds)}",
+                        "Błąd",
                         MessageBoxButton.OK,
                         MessageBoxImage.Error);
                     return;
                 }
 
-                // WALIDACJA 2: Sprawdź czy wszyscy mają nazwisko
+                // WALIDACJA 2: Brak nazwisk
                 var teachersWithoutName = Teachers
                     .Where(t => string.IsNullOrWhiteSpace(t.Nazwisko))
                     .Select(t => t.Nr_pracownika)
@@ -176,80 +282,98 @@ namespace Frontend.ViewModels
                 if (teachersWithoutName.Any())
                 {
                     MessageBox.Show(
-                        $"❌ BŁĄD!\n\n" +
-                        $"Następujący nauczyciele nie mają nazwiska:\n" +
-                        $"Nr: {string.Join(", ", teachersWithoutName)}",
-                        "Błąd walidacji",
+                        $"❌ BŁĄD! Nauczyciele bez nazwiska:\nID: {string.Join(", ", teachersWithoutName)}",
+                        "Błąd",
                         MessageBoxButton.OK,
                         MessageBoxImage.Error);
                     return;
                 }
 
-                // WALIDACJA 3: Sprawdź czy wszyscy mają przynajmniej jeden przedmiot
-                var teachersWithoutSubjects = Teachers
-                    .Where(t => !t.TaughtSubjects.Any())
-                    .Select(t => t.Nazwisko)
-                    .ToList();
-
-                if (teachersWithoutSubjects.Any())
+                // ✅ WALIDACJA 3: Sprawdź konflikty przed zapisem
+                var conflicts = FindAllConflicts();
+                if (conflicts.Any())
                 {
-                    var result = MessageBox.Show(
-                        $"⚠️ OSTRZEŻENIE!\n\n" +
-                        $"Następujący nauczyciele nie mają przypisanych przedmiotów:\n" +
-                        $"{string.Join(", ", teachersWithoutSubjects)}\n\n" +
-                        $"Czy na pewno chcesz zapisać?",
-                        "Brak przedmiotów",
-                        MessageBoxButton.YesNo,
-                        MessageBoxImage.Warning);
+                    var summary = string.Join("\n", conflicts.Select(c => 
+                        $"  • {c.SubjectName} ({c.ClassName}): {c.Teacher1} + {c.Teacher2}"));
 
-                    if (result == MessageBoxResult.No)
-                        return;
+                    MessageBox.Show(
+                        $"❌ ZNALEZIONO {conflicts.Count} KONFLIKTÓW!\n\n" +
+                        $"Następujące przedmioty w klasach mają 2+ nauczycieli:\n\n{summary}\n\n" +
+                        $"Usuń duplikaty przed zapisem!",
+                        "Błąd - Konflikty",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    return;
                 }
 
-                // Konwertuj na format dla backendu (rozwiń na wiele wpisów)
+                // Rozwiń dla backendu
                 var expandedTeachers = ExpandTeachersForBackend();
 
-                // ZAPIS CZYSTEGO JSON (bez $id, $values)
                 var options = new JsonSerializerOptions
                 {
                     WriteIndented = true,
                     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                    Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
                 };
 
                 var json = JsonSerializer.Serialize(expandedTeachers, options);
                 File.WriteAllText("teachers.json", json);
 
                 MessageBox.Show(
-                    $"✅ Zapisano pomyślnie!\n\n" +
-                    $"Liczba nauczycieli: {Teachers.Count}\n" +
-                    $"Łączna liczba przypisań przedmiot-nauczyciel: {expandedTeachers.Count}",
+                    $"✅ Zapisano!\n\nNauczyciele: {Teachers.Count}\nPrzypisania: {expandedTeachers.Count}",
                     "Sukces",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
-            catch (IOException ex)
-            {
-                MessageBox.Show(
-                    $"❌ Błąd zapisu do pliku:\n\n{ex.Message}",
-                    "Błąd I/O",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-            }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"❌ Nieoczekiwany błąd:\n\n{ex.Message}\n\n{ex.StackTrace}",
-                    "Błąd",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                MessageBox.Show($"❌ Błąd zapisu: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        // ✅ Znajdź wszystkie konflikty w systemie
+        private List<ConflictInfo> FindAllConflicts()
+        {
+            var conflicts = new List<ConflictInfo>();
+            var assignments = new Dictionary<string, List<(TeacherModel teacher, SubjectModel subject)>>();
+
+            // Zgrupuj przypisania po (przedmiot + klasa)
+            foreach (var teacher in Teachers)
+            {
+                foreach (var subject in teacher.TaughtSubjects)
+                {
+                    if (subject.ClassTypes == null || !subject.ClassTypes.Any())
+                        continue;
+
+                    string key = $"{subject.Name.ToLower()}_{subject.Hours}h_{subject.ClassTypes[0].ToLower()}";
+                    
+                    if (!assignments.ContainsKey(key))
+                        assignments[key] = new List<(TeacherModel, SubjectModel)>();
+                    
+                    assignments[key].Add((teacher, subject));
+                }
+            }
+
+            // Znajdź klucze gdzie jest więcej niż 1 nauczyciel
+            foreach (var kvp in assignments.Where(x => x.Value.Count > 1))
+            {
+                var list = kvp.Value;
+                
+                conflicts.Add(new ConflictInfo
+                {
+                    SubjectName = list[0].subject.Name,
+                    ClassName = list[0].subject.ClassTypes[0],
+                    Teacher1 = list[0].teacher.Nazwisko,
+                    Teacher2 = list[1].teacher.Nazwisko
+                });
+            }
+
+            return conflicts;
         }
 
         private List<TeacherBackendModel> ExpandTeachersForBackend()
         {
-            // Każdy nauczyciel + przedmiot = osobny wpis dla backendu
             var result = new List<TeacherBackendModel>();
-
             foreach (var teacher in Teachers)
             {
                 foreach (var subject in teacher.TaughtSubjects)
@@ -263,14 +387,10 @@ namespace Frontend.ViewModels
                     });
                 }
             }
-
             return result;
         }
 
-        private bool CanSave()
-        {
-            return true;
-        }
+        private bool CanSave() => true;
 
         private void LoadTeachers()
         {
@@ -278,30 +398,23 @@ namespace Frontend.ViewModels
             {
                 try
                 {
-                    var options = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true,
-                    };
-
+                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                     var json = File.ReadAllText("teachers.json");
-                    var loadedBackendFormat = JsonSerializer.Deserialize<List<TeacherBackendModel>>(json, options);
+                    var loaded = JsonSerializer.Deserialize<List<TeacherBackendModel>>(json, options);
 
-                    if (loadedBackendFormat != null)
+                    if (loaded != null)
                     {
-                        // Zgrupuj po Nr_pracownika (ten sam nauczyciel może mieć wiele przedmiotów)
-                        var groupedTeachers = loadedBackendFormat
+                        var grouped = loaded
                             .GroupBy(t => t.Nr_pracownika)
                             .Select(g => new TeacherModel
                             {
                                 Nr_pracownika = g.Key,
                                 Nazwisko = g.First().Nazwisko,
                                 Availability = g.First().Availability ?? new List<List<bool>>(),
-                                TaughtSubjects = g.Select(t => t.SelectedSubject)
-                                                  .Where(s => s != null)
-                                                  .ToList()
+                                TaughtSubjects = g.Select(t => t.SelectedSubject).Where(s => s != null).ToList()
                             });
 
-                        Teachers = new ObservableCollection<TeacherModel>(groupedTeachers);
+                        Teachers = new ObservableCollection<TeacherModel>(grouped);
                     }
                 }
                 catch (Exception ex)
@@ -315,9 +428,16 @@ namespace Frontend.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        private class ConflictInfo
+        {
+            public string SubjectName { get; set; }
+            public string ClassName { get; set; }
+            public string Teacher1 { get; set; }
+            public string Teacher2 { get; set; }
+        }
     }
 
-    // Pomocnicza klasa dla formatu backendu
     public class TeacherBackendModel
     {
         public int Nr_pracownika { get; set; }

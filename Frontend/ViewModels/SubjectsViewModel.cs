@@ -160,7 +160,7 @@ namespace Frontend.ViewModels
             {
                 _allSubjects.Remove(subject);
                 FilterSubjectsByClassType();
-                UpdateAllSubjectNames(); // NOWE
+                UpdateAllSubjectNames();
             }
         }
 
@@ -170,12 +170,26 @@ namespace Frontend.ViewModels
             {
                 var json = JsonSerializer.Serialize(_allSubjects);
                 File.WriteAllText("subjects.json", json);
-                UpdateAllSubjectNames(); // NOWE - odśwież listę po zapisie
-                MessageBox.Show("Zapisano pomyślnie!");
+                UpdateAllSubjectNames();
+                
+                // ✅ Szczegółowy komunikat sukcesu
+                int totalSubjects = _allSubjects.Count;
+                var uniqueNames = _allSubjects.Select(s => s.Name).Distinct().Count();
+                var totalHours = _allSubjects.Sum(s => s.Hours);
+                
+                MessageBox.Show(
+                    $"✅ Zapisano pomyślnie!\n\n",
+                    "Sukces",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
             }
             catch (IOException ex)
             {
-                MessageBox.Show($"Błąd zapisu: {ex.Message}");
+                MessageBox.Show(
+                    $"❌ Błąd zapisu:\n\n{ex.Message}", 
+                    "Błąd", 
+                    MessageBoxButton.OK, 
+                    MessageBoxImage.Error);
             }
         }
 

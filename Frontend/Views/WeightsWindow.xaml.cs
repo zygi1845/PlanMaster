@@ -54,5 +54,12 @@ namespace Frontend.Views
             this.Close();
         }
 
+        private void PlansWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new PlansWindow();
+            window.Show();
+            this.Close();
+        }
+
     }
 }

@@ -119,12 +119,14 @@ class GeneticAlgorithm:
                     if not teacher['Availability'][day][hour]:
                         continue
                     
+                    # ✅ POPRAWIONE: Sprawdzaj typ sali - NIE MA FALLBACKU
                     suitable_rooms = [r for r in self.rooms if r['RoomType'] == subject['SubjectType']]
-                    rooms = suitable_rooms if suitable_rooms else self.rooms
-                    if not rooms:
+                    
+                    if not suitable_rooms:
+                        print(f"OSTRZEŻENIE: Brak sali typu '{subject['SubjectType']}' dla przedmiotu '{subject['Name']}'")
                         continue
                     
-                    room = random.choice(rooms)
+                    room = random.choice(suitable_rooms)
                     
                     individual.add_lesson(Lesson(
                         subject_name=subject['Name'],

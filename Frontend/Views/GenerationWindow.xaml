@@ -3,8 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:Frontend.ViewModels"
         xmlns:local="clr-namespace:Frontend.Views"
-        Title="Generowanie planu" Height="450" Width="800"
-        Background="#D6EAF8">
+        Title="Generowanie planu" Height="600" Width="900"
+        Background="#D6EAF8"
+        WindowStartupLocation="CenterScreen">
+
     <Window.DataContext>
         <vm:GenerationViewModel />
     </Window.DataContext>
@@ -18,9 +20,20 @@
                         Executed="GenerateAndNavigateCommand_Executed"/>
     </Window.CommandBindings>
 
+    <Window.Resources>
+        <Style x:Key="NavigationButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#3498DB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </Window.Resources>
+
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -33,11 +46,11 @@
         <TextBlock Text="Generowanie"
                    Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"
                    FontSize="30" FontWeight="Bold"
-                   HorizontalAlignment="center" Margin="0,10"/>
+                   HorizontalAlignment="Center" Margin="0,10"/>
 
         <Border Grid.Column="0" Grid.Row="1" 
-                Background="#85C1E9" CornerRadius="10" Padding="10" Margin="10,0,0,0"
-                VerticalAlignment="Top" HorizontalAlignment="Left"
+                Background="#85C1E9" CornerRadius="10" Padding="10" Margin="10,50,0,0"
+                VerticalAlignment="Top" HorizontalAlignment="center"
                 Width="500" Height="70">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -75,8 +88,8 @@
         </Border>
 
         <Border Grid.Column="0" Grid.Row="2" 
-                Background="#85C1E9" CornerRadius="10" Padding="10" Margin="10,0,0,0"
-                VerticalAlignment="Top" HorizontalAlignment="Left"
+                Background="#85C1E9" CornerRadius="10" Padding="10" Margin="10,50,0,0"
+                VerticalAlignment="Top" HorizontalAlignment="Center"
                 Width="500" Height="70">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -113,26 +126,27 @@
             </Grid>
         </Border>
 
-        <!-- Panel nawigacyjny pionowo w prawym górnym rogu, węższy i tylko na górze -->
-        <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
+        <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="3"
                 Background="#85C1E9" CornerRadius="10" Padding="10" Margin="10,0,0,0"
                 VerticalAlignment="Top" HorizontalAlignment="Right"
-                Width="120" Height="250">
+                Width="120">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Nawigacja" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" Foreground="White"/>
-                <Button Content="Plan godzinowy" Background="#3498DB" Margin="0,0,0,10" Click="HourPlanWindow_Click"/>   
-                <Button Content="Klasy" Background="#3498DB" Margin="0,0,0,10" Click="ClasesWindow_Click"/>
-                <Button Content="Przedmioty" Background="#3498DB" Margin="0,0,0,10" Click="SubjectsWindow_Click"/>
-                <Button Content="Sale" Background="#3498DB" Margin="0,0,0,10" Click="RoomsWindow_Click"/>
-                <Button Content="Nauczyciele" Background="#3498DB" Margin="0,0,0,10" Click="TeachersWindow_Click"/>
-                <Button Content="Wagi" Background="#3498DB" Margin="0,0,0,10" Click="WeightsWindow_Click"/>
-                <Button Content="Generowanie" Background="#3498DB" Margin="0,0,0,10" Click="GenerationWindow_Click"/>         
+                <Button Content="Plan godzinowy" Style="{StaticResource NavigationButtonStyle}" Click="HourPlanWindow_Click"/>
+                <Button Content="Klasy" Style="{StaticResource NavigationButtonStyle}" Click="ClasesWindow_Click"/>
+                <Button Content="Przedmioty" Style="{StaticResource NavigationButtonStyle}" Click="SubjectsWindow_Click"/>
+                <Button Content="Sale" Style="{StaticResource NavigationButtonStyle}" Click="RoomsWindow_Click"/>
+                <Button Content="Nauczyciele" Style="{StaticResource NavigationButtonStyle}" Click="TeachersWindow_Click"/>
+                <Button Content="Wagi" Style="{StaticResource NavigationButtonStyle}" Click="WeightsWindow_Click"/>
+                <Button Content="Generowanie" Style="{StaticResource NavigationButtonStyle}" Click="GenerationWindow_Click" Background="#2980B9"/>
+                <Button Content="Plany" Style="{StaticResource NavigationButtonStyle}" Click="PlansWindow_Click"/>
             </StackPanel>
         </Border>
                 
         <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3"  
                 VerticalAlignment="Bottom" Content="Generuj plan" 
                 Command="{x:Static local:GenerationWindow.GenerateAndNavigateCommand}"
-                Width="120" Height="40" Margin="0,0,0,10" Background="#3498DB"/>
+                Width="120" Height="40" Margin="0,0,0,10" Background="#3498DB"
+                Foreground="White" FontWeight="Bold"/>
     </Grid>
 </Window>

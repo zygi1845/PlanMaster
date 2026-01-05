@@ -7,7 +7,6 @@
         WindowStartupLocation="CenterScreen">
     
     <Window.Resources>
-        <!-- CONVERTER -->
         <local:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
         
         <Style x:Key="TileButtonStyle" TargetType="Button">
@@ -59,13 +58,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Nagłówek -->
         <TextBlock Text="Plany Zajęć" 
                    Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"
                    FontSize="30" FontWeight="Bold"
                    HorizontalAlignment="Center" Margin="0,10"/>
 
-        <!-- Wybór typu planu -->
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
             <TextBlock Text="Wybierz typ: " FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,0"/>
             <RadioButton Content="Klasy" 
@@ -82,7 +79,6 @@
                          GroupName="ViewType" Margin="10,0" VerticalAlignment="Center"/>
         </StackPanel>
 
-        <!-- LISTA DLA BŁĘDÓW, KAFELKI DLA RESZTY -->
         <ScrollViewer Grid.Row="2" Grid.Column="0" VerticalScrollBarVisibility="Auto" Margin="10,0">
             <ItemsControl ItemsSource="{Binding Items}">
                 <ItemsControl.ItemTemplate>
@@ -91,7 +87,6 @@
                             <ContentControl.Style>
                                 <Style TargetType="ContentControl">
                                     <Setter Property="Content">
-                                        <!-- DEFAULT: Kafelek -->
                                         <Setter.Value>
                                             <Button Style="{StaticResource TileButtonStyle}"
                                                     Content="{Binding Name}"
@@ -102,7 +97,6 @@
                                     </Setter>
                                     
                                     <Style.Triggers>
-                                        <!-- Błędy -->
                                         <DataTrigger Binding="{Binding Type}" Value="Error">
                                             <Setter Property="Content">
                                                 <Setter.Value>
@@ -116,7 +110,6 @@
                                             </Setter>
                                         </DataTrigger>
 
-                                        <!-- W sekcji Style.Triggers, po DataTrigger dla "Error" -->
                                         <DataTrigger Binding="{Binding Type}" Value="Gap">
                                             <Setter Property="Content">
                                                 <Setter.Value>
@@ -130,7 +123,6 @@
                                             </Setter>
                                         </DataTrigger>
                                         
-                                        <!-- Nagłówki -->
                                         <DataTrigger Binding="{Binding Type}" Value="Header">
                                             <Setter Property="Content">
                                                 <Setter.Value>
@@ -141,7 +133,6 @@
                                             </Setter>
                                         </DataTrigger>
                                         
-                                        <!-- Podsumowanie -->
                                         <DataTrigger Binding="{Binding Type}" Value="Summary">
                                             <Setter Property="Content">
                                                 <Setter.Value>
@@ -155,7 +146,6 @@
                                             </Setter>
                                         </DataTrigger>
                                         
-                                        <!-- Separator -->
                                         <DataTrigger Binding="{Binding Type}" Value="Separator">
                                             <Setter Property="Content">
                                                 <Setter.Value>
@@ -166,7 +156,6 @@
                                             </Setter>
                                         </DataTrigger>
                                         
-                                        <!-- Sukces -->
                                         <DataTrigger Binding="{Binding Type}" Value="Success">
                                             <Setter Property="Content">
                                                 <Setter.Value>
@@ -186,7 +175,6 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 
-                <!-- Panel - dynamiczny (lista lub kafelki) -->
                 <ItemsControl.Style>
                     <Style TargetType="ItemsControl">
                         <Setter Property="ItemsPanel">
@@ -197,7 +185,6 @@
                             </Setter.Value>
                         </Setter>
                         <Style.Triggers>
-                            <!-- Dla błędów - pionowa lista -->
                             <DataTrigger Binding="{Binding SelectedViewType}" Value="Errors">
                                 <Setter Property="ItemsPanel">
                                     <Setter.Value>
@@ -213,7 +200,39 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <!-- Panel nawigacji -->
+        <StackPanel Grid.Row="2" Grid.Column="1"
+                    Orientation="Vertical"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,10,10">
+            <Button Content="Pobierz PDF" 
+                    Width="120" 
+                    Height="50"
+                    Margin="0,0,0,10" 
+                    Background="#E67E22" 
+                    Foreground="White"
+                    FontSize="15"
+                    FontWeight="Bold"
+                    Click="DownloadPDF_Click">
+                <Button.Effect>
+                    <DropShadowEffect Color="Black" Opacity="0.3" BlurRadius="10" ShadowDepth="3"/>
+                </Button.Effect>
+            </Button>
+            
+            <Button Content="Zakończ" 
+                    Width="120" 
+                    Height="50"
+                    Background="#C0392B" 
+                    Foreground="White"
+                    FontSize="15"
+                    FontWeight="Bold"
+                    Click="Exit_Click">
+                <Button.Effect>
+                    <DropShadowEffect Color="Black" Opacity="0.3" BlurRadius="10" ShadowDepth="3"/>
+                </Button.Effect>
+            </Button>
+        </StackPanel>
+
         <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"
                 Background="#85C1E9" CornerRadius="10" Padding="10" Margin="10,0,0,0"
                 VerticalAlignment="Top" HorizontalAlignment="Right"

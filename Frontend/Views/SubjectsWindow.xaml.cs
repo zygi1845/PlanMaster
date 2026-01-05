@@ -54,37 +54,12 @@ namespace Frontend.Views
             window.Show();
             this.Close();
         }
-
-// private void TextBox_Loaded(object sender, RoutedEventArgs e)
-// {
-//     var tb = sender as TextBox;
-//     if (string.IsNullOrEmpty(tb.Text))
-//     {
-//         tb.Text = tb.Tag.ToString();
-//         tb.Foreground = Brushes.DarkGray;
-//     }
-// }
-
-// private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-// {
-//     var tb = sender as TextBox;
-//     if (tb.Text == tb.Tag.ToString())
-//     {
-//         tb.Text = "";
-//         tb.Foreground = Brushes.Black;
-//     }
-// }
-
-// private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-// {
-//     var tb = sender as TextBox;
-//     if (string.IsNullOrWhiteSpace(tb.Text))
-//     {
-//         tb.Text = tb.Tag.ToString();
-//         tb.Foreground = Brushes.DarkGray;
-//     }
-// }
-
+        private void PlansWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new PlansWindow();
+            window.Show();
+            this.Close();
+        }
 
     }
 }

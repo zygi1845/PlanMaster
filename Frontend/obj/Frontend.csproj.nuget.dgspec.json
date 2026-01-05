@@ -54,6 +54,16 @@
       "frameworks": {
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
+          "dependencies": {
+            "Ookii.Dialogs.Wpf": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            },
+            "QuestPDF": {
+              "target": "Package",
+              "version": "[2025.12.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

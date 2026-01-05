@@ -144,7 +144,19 @@ namespace Frontend.Views
                 foreach (var existingLesson in lessonsAtTarget)
                 {
                     if (existingLesson == lesson)
+                    {
+                        Console.WriteLine($"  Pomijam tę samą lekcję: {lesson.przedmiot}");
                         continue;
+                    }
+
+                    if (existingLesson.przedmiot == lesson.przedmiot &&
+                        existingLesson.nauczyciel == lesson.nauczyciel &&
+                        existingLesson.sala == lesson.sala &&
+                        existingLesson.klasa == lesson.klasa)
+                    {
+                        Console.WriteLine($"  Pomijam tę samą lekcję (po polach): {lesson.przedmiot}");
+                        continue;
+                    }
 
                     if (PlanTitle.Contains("Plan klasy:") && existingLesson.klasa == lesson.klasa)
                     {
@@ -291,15 +303,27 @@ namespace Frontend.Views
         {
             if (_modifiedScheduleData.ContainsKey(oldDay))
             {
-                var oldLesson = _modifiedScheduleData[oldDay]
-                    .FirstOrDefault(l => l.godzina == oldHour &&
-                                       l.przedmiot == lesson.przedmiot &&
-                                       l.nauczyciel == lesson.nauczyciel &&
-                                       l.sala == lesson.sala &&
-                                       l.klasa == lesson.klasa);
+                var oldLesson = _modifiedScheduleData[oldDay].FirstOrDefault(l => l == lesson);
+                
                 if (oldLesson != null)
                 {
                     _modifiedScheduleData[oldDay].Remove(oldLesson);
+                    Console.WriteLine($"✓ Usunięto lekcję: {oldLesson.przedmiot} z {oldDay} {oldHour}");
+                }
+                else
+                {
+                    oldLesson = _modifiedScheduleData[oldDay]
+                        .FirstOrDefault(l => l.godzina == oldHour &&
+                                           l.przedmiot == lesson.przedmiot &&
+                                           l.nauczyciel == lesson.nauczyciel &&
+                                           l.sala == lesson.sala &&
+                                           l.klasa == lesson.klasa);
+                    
+                    if (oldLesson != null)
+                    {
+                        _modifiedScheduleData[oldDay].Remove(oldLesson);
+                        Console.WriteLine($"✓ Usunięto lekcję (fallback): {oldLesson.przedmiot} z {oldDay} {oldHour}");
+                    }
                 }
             }
 
@@ -308,20 +332,12 @@ namespace Frontend.Views
                 _modifiedScheduleData[newDay] = new List<PlansModel>();
             }
 
-            var newLesson = new PlansModel
-            {
-                dzien = newDay,
-                godzina = newHour,
-                przedmiot = lesson.przedmiot,
-                nauczyciel = lesson.nauczyciel,
-                sala = lesson.sala,
-                klasa = lesson.klasa
-            };
-
-            _modifiedScheduleData[newDay].Add(newLesson);
-
             lesson.dzien = newDay;
             lesson.godzina = newHour;
+
+            _modifiedScheduleData[newDay].Add(lesson);
+            
+            Console.WriteLine($"✓ Dodano lekcję: {lesson.przedmiot} do {newDay} {newHour}");
         }
 
         private void RefreshView()
@@ -470,39 +486,47 @@ namespace Frontend.Views
             }
         }
 
-        // NOWA FUNKCJA: Uzupełnij brakujące przedmioty
+        // UZUPEŁNIANIE BRAKÓW
         private void FillMissing_Click(object sender, RoutedEventArgs e)
         {
-            var missingSubjects = FindMissingSubjects();
-
-            if (missingSubjects.Count == 0)
+            try
             {
-                MessageBox.Show("✅ Wszystkie przedmioty są kompletne!\n\nBrak brakujących godzin.",
-                    "Brak problemów", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                var missingSubjects = FindMissingSubjects();
+
+                if (missingSubjects.Count == 0)
+                {
+                    MessageBox.Show("✅ Wszystkie przedmioty są kompletne!\n\nBrak brakujących godzin.",
+                        "Brak problemów", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                var message = "📋 BRAKUJĄCE PRZEDMIOTY:\n\n";
+                foreach (var missing in missingSubjects)
+                {
+                    message += $"• {missing.SubjectName}: brakuje {missing.MissingHours} godzin\n";
+                    message += $"  (ma {missing.CurrentHours}, powinno być {missing.ExpectedHours})\n\n";
+                }
+                message += "❓ Czy chcesz automatycznie uzupełnić te przedmioty?";
+
+                var result = MessageBox.Show(message, "Uzupełnij brakujące przedmioty",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    int added = AutoFillMissingLessons(missingSubjects);
+
+                    RefreshView();
+                    MarkAllConflicts();
+                    _hasChanges = true;
+
+                    MessageBox.Show($"✅ Dodano {added} lekcji!\n\n💡 Sprawdź plan i kliknij 'Zatwierdź' aby zapisać zmiany.",
+                        "Uzupełniono", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
-
-            var message = "📋 BRAKUJĄCE PRZEDMIOTY:\n\n";
-            foreach (var missing in missingSubjects)
+            catch (Exception ex)
             {
-                message += $"• {missing.SubjectName}: brakuje {missing.MissingHours} godzin\n";
-                message += $"  (ma {missing.CurrentHours}, powinno być {missing.ExpectedHours})\n\n";
-            }
-            message += "❓ Czy chcesz automatycznie uzupełnić te przedmioty?";
-
-            var result = MessageBox.Show(message, "Uzupełnij brakujące przedmioty",
-                MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                int added = AutoFillMissingLessons(missingSubjects);
-
-                RefreshView();
-                MarkAllConflicts();
-                _hasChanges = true;
-
-                MessageBox.Show($"✅ Dodano {added} lekcji!\n\n💡 Sprawdź plan i kliknij 'Zatwierdź' aby zapisać.",
-                    "Uzupełniono", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"❌ BŁĄD:\n\n{ex.Message}\n\nStack:\n{ex.StackTrace}",
+                    "Błąd krytyczny", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -525,18 +549,20 @@ namespace Frontend.Views
                 string subjectsPath = Path.Combine(dir.FullName, "subjects.json");
                 if (!File.Exists(subjectsPath)) return missing;
 
+                string className = PlanTitle.Contains(":") ? PlanTitle.Split(':')[1].Trim() : "";
+                if (string.IsNullOrEmpty(className)) return missing;
+
                 var json = File.ReadAllText(subjectsPath);
                 using (JsonDocument doc = JsonDocument.Parse(json))
                 {
-                    string className = PlanTitle.Contains(":") ? PlanTitle.Split(':')[1].Trim() : "";
-                    if (string.IsNullOrEmpty(className)) return missing;
-
                     string baseClassName = className;
                     int lastSpace = className.LastIndexOf(' ');
                     if (lastSpace > 0 && int.TryParse(className.Substring(lastSpace + 1), out _))
                     {
                         baseClassName = className.Substring(0, lastSpace).Trim();
                     }
+
+                    Console.WriteLine($"\nAnaliza braków dla klasy: '{className}' (typ: '{baseClassName}')");
 
                     foreach (JsonElement subjectElement in doc.RootElement.EnumerateArray())
                     {
@@ -561,13 +587,28 @@ namespace Frontend.Views
                             ? hours.GetInt32() : 0;
 
                         int currentHours = 0;
-                        foreach (var day in _modifiedScheduleData.Values)
+                        var validDays = new[] { "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek" };
+                        
+                        foreach (var day in _modifiedScheduleData)
                         {
-                            currentHours += day.Count(l => l.przedmiot == subjectName);
+                            if (!validDays.Contains(day.Key))
+                                continue;
+
+                            foreach (var lesson in day.Value)
+                            {
+                                if (lesson.przedmiot == subjectName && lesson.klasa == className)
+                                {
+                                    currentHours++;
+                                }
+                            }
                         }
+
+                        Console.WriteLine($"{subjectName}: ma {currentHours}h, powinno {expectedHours}h");
 
                         if (currentHours < expectedHours)
                         {
+                            Console.WriteLine($"  ⚠️ BRAK: {expectedHours - currentHours}h");
+                            
                             missing.Add(new MissingSubjectInfo
                             {
                                 SubjectName = subjectName,
@@ -577,11 +618,14 @@ namespace Frontend.Views
                             });
                         }
                     }
+
+                    Console.WriteLine($"\nRAZEM braków: {missing.Count}\n");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Błąd FindMissingSubjects: {ex.Message}");
+                Console.WriteLine($"❌ BŁĄD: {ex.Message}");
+                MessageBox.Show($"❌ Błąd:\n{ex.Message}", "Błąd");
             }
 
             return missing;
@@ -599,10 +643,15 @@ namespace Frontend.Views
             {
                 int toAdd = missingInfo.MissingHours;
 
-                string teacherName = FindTeacherForSubject(missingInfo.SubjectName);
+                string teacherName = FindTeacherForSubject(missingInfo.SubjectName, className);
                 if (string.IsNullOrEmpty(teacherName))
                 {
+                    Console.WriteLine($"⚠️ Brak nauczyciela dla {missingInfo.SubjectName} w klasie {className}");
                     teacherName = "Nieprzypisany";
+                }
+                else
+                {
+                    Console.WriteLine($"✓ Znaleziono nauczyciela: {teacherName} dla {missingInfo.SubjectName}");
                 }
 
                 string room = FindRoomForSubject(missingInfo.SubjectName);
@@ -610,6 +659,10 @@ namespace Frontend.Views
                 {
                     room = "Do ustalenia";
                 }
+
+                Console.WriteLine($"\nDodawanie {toAdd} lekcji '{missingInfo.SubjectName}':");
+                Console.WriteLine($"  Nauczyciel: {teacherName}");
+                Console.WriteLine($"  Sala: {room}");
 
                 for (int attempt = 0; attempt < toAdd && attempt < 100; attempt++)
                 {
@@ -647,18 +700,24 @@ namespace Frontend.Views
                                 _modifiedScheduleData[day].Add(newLesson);
                                 addedCount++;
                                 added = true;
+
+                                Console.WriteLine($"  ✓ Dodano: {day} {hour}");
                             }
                         }
                     }
 
-                    if (!added) break;
+                    if (!added)
+                    {
+                        Console.WriteLine($"  ✗ Nie znaleziono wolnego slotu!");
+                        break;
+                    }
                 }
             }
 
             return addedCount;
         }
 
-        private string FindTeacherForSubject(string subjectName)
+        private string FindTeacherForSubject(string subjectName, string className)
         {
             try
             {
@@ -677,35 +736,63 @@ namespace Frontend.Views
 
                 var json = File.ReadAllText(teachersPath);
 
+                Console.WriteLine($"\n🔍 Szukam nauczyciela dla: '{subjectName}' w klasie '{className}'");
+
+                string baseClassName = className;
+                int lastSpace = className.LastIndexOf(' ');
+                if (lastSpace > 0 && int.TryParse(className.Substring(lastSpace + 1), out _))
+                {
+                    baseClassName = className.Substring(0, lastSpace).Trim();
+                }
+
+                Console.WriteLine($"  Typ klasy (base): '{baseClassName}'");
+
                 using (JsonDocument doc = JsonDocument.Parse(json))
                 {
-                    if (doc.RootElement.TryGetProperty("$values", out JsonElement values))
+                    foreach (JsonElement teacher in doc.RootElement.EnumerateArray())
                     {
-                        foreach (JsonElement teacher in values.EnumerateArray())
+                        string teacherName = teacher.GetProperty("Nazwisko").GetString();
+                        
+                        if (!teacher.TryGetProperty("SelectedSubject", out JsonElement selectedSubject))
+                            continue;
+
+                        if (!selectedSubject.TryGetProperty("Name", out JsonElement nameElement))
+                            continue;
+
+                        string teacherSubjectName = nameElement.GetString();
+
+                        if (teacherSubjectName == subjectName)
                         {
-                            if (teacher.TryGetProperty("SelectedSubject", out JsonElement selectedSubject))
+                            Console.WriteLine($"  ✓ Znaleziono nauczyciela '{teacherName}' z przedmiotem '{subjectName}'");
+
+                            if (selectedSubject.TryGetProperty("ClassTypes", out JsonElement classTypesElement))
                             {
-                                if (selectedSubject.TryGetProperty("Name", out JsonElement name))
+                                foreach (JsonElement classType in classTypesElement.EnumerateArray())
                                 {
-                                    if (name.GetString() == subjectName)
+                                    string ct = classType.GetString();
+                                    
+                                    if (ct == baseClassName)
                                     {
-                                        if (teacher.TryGetProperty("Nazwisko", out JsonElement nazwisko))
-                                        {
-                                            return nazwisko.GetString();
-                                        }
+                                        Console.WriteLine($"  ✅ PASUJE! Nauczyciel '{teacherName}' uczy '{subjectName}' dla '{baseClassName}'");
+                                        return teacherName;
                                     }
                                 }
+                                
+                                Console.WriteLine($"  ✗ Nie pasuje klasa (nauczyciel uczy inne klasy)");
                             }
                         }
                     }
                 }
+
+                Console.WriteLine($"  ❌ Nie znaleziono nauczyciela");
+                return null;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Błąd FindTeacherForSubject: {ex.Message}");
+                Console.WriteLine($"❌ Błąd FindTeacherForSubject: {ex.Message}");
+                Console.WriteLine($"Stack: {ex.StackTrace}");
+                return null;
             }
-
-            return null;
         }
 
         private string FindRoomForSubject(string subjectName)
@@ -856,11 +943,6 @@ namespace Frontend.Views
                     if (property.Name != itemName)
                     {
                         allSchedulesDict[property.Name] = property.Value.Clone();
-                        Console.WriteLine($"Zachowuję plan: {property.Name}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Usuwam plan: {property.Name}");
                     }
                 }
 
@@ -884,15 +966,11 @@ namespace Frontend.Views
                 }
 
                 document.Dispose();
-
-                Console.WriteLine($"Plan {itemName} został usunięty z pliku {fileName}");
                 return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"❌ Błąd usuwania:\n\n{ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-                Console.WriteLine($"BŁĄD usuwania: {ex.Message}");
-                Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 return false;
             }
         }
@@ -921,7 +999,8 @@ namespace Frontend.Views
             }
 
             var result = MessageBox.Show(
-                "✅ Czy chcesz zapisać zmiany do pliku?",
+                "✅ Czy chcesz zapisać zmiany do pliku?\n\n" +
+                "Zostaną zaktualizowane odpowiednie plany.",
                 "Zapisz zmiany", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
@@ -933,6 +1012,9 @@ namespace Frontend.Views
             this.Close();
         }
 
+        // ========================================
+        // ✅ POPRAWIONA METODA SaveChangesToFile
+        // ========================================
         private void SaveChangesToFile()
         {
             try
@@ -955,54 +1037,86 @@ namespace Frontend.Views
 
                 bool success = true;
 
-                success &= UpdateClassSchedules(plansPath);
-                success &= UpdateTeacherSchedules(plansPath);
-                success &= UpdateRoomSchedules(plansPath);
+                // ✅ KLUCZOWA POPRAWKA: Sprawdź jaki plan edytujesz
+                if (PlanTitle.Contains("Plan klasy:"))
+                {
+                    // Gdy edytujesz KLASĘ → aktualizuj wszystkie 3 plany
+                    Console.WriteLine("Edycja planu klasy - aktualizuję wszystkie plany");
+                    success &= UpdateClassSchedules(plansPath);
+                    success &= UpdateTeacherSchedules(plansPath);
+                    success &= UpdateRoomSchedules(plansPath);
+                }
+                else if (PlanTitle.Contains("Plan nauczyciela:"))
+                {
+                    // Gdy edytujesz NAUCZYCIELA → aktualizuj tylko plany nauczyciela
+                    Console.WriteLine("Edycja planu nauczyciela - aktualizuję tylko plan nauczyciela");
+                    success &= UpdateTeacherSchedulesDirect(plansPath);
+                }
+                else if (PlanTitle.Contains("Plan sali:"))
+                {
+                    // Gdy edytujesz SALĘ → aktualizuj tylko plany sali
+                    Console.WriteLine("Edycja planu sali - aktualizuję tylko plan sali");
+                    success &= UpdateRoomSchedulesDirect(plansPath);
+                }
 
                 if (success)
                 {
-                    MessageBox.Show($"✅ Zapisano zmiany we WSZYSTKICH planach!\n\n" +
-                                  $"✓ Plany klas\n" +
-                                  $"✓ Plany nauczycieli\n" +
-                                  $"✓ Plany sal",
-                        "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+                    string message = "✅ Zapisano zmiany!\n\n";
+                    
+                    if (PlanTitle.Contains("Plan klasy:"))
+                    {
+                        message += "✓ Plany klas\n✓ Plany nauczycieli\n✓ Plany sal";
+                    }
+                    else if (PlanTitle.Contains("Plan nauczyciela:"))
+                    {
+                        message += "✓ Plan nauczyciela";
+                    }
+                    else if (PlanTitle.Contains("Plan sali:"))
+                    {
+                        message += "✓ Plan sali";
+                    }
+                    
+                    MessageBox.Show(message, "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"❌ Błąd zapisu:\n\n{ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-                Console.WriteLine($"BŁĄD: {ex.Message}");
-                Console.WriteLine($"Stack trace: {ex.StackTrace}");
             }
         }
+
+        // ========================================
+        // METODY UPDATE - Dla planu klasy (inkrementalna aktualizacja)
+        // ========================================
 
         private bool UpdateClassSchedules(string plansPath)
         {
             try
             {
                 string filePath = Path.Combine(plansPath, "class_schedules.json");
-
-                if (!File.Exists(filePath))
-                    return false;
+                if (!File.Exists(filePath)) return false;
 
                 var jsonString = File.ReadAllText(filePath);
-                var document = JsonDocument.Parse(jsonString);
-                var allSchedulesDict = new Dictionary<string, JsonElement>();
-
-                foreach (JsonProperty property in document.RootElement.EnumerateObject())
+                using (JsonDocument document = JsonDocument.Parse(jsonString))
                 {
-                    allSchedulesDict[property.Name] = property.Value.Clone();
-                }
+                    var allSchedulesDict = new Dictionary<string, JsonElement>();
+                    
+                    foreach (JsonProperty property in document.RootElement.EnumerateObject())
+                    {
+                        allSchedulesDict[property.Name] = property.Value.Clone();
+                    }
 
-                var classesWithChanges = _modifiedScheduleData
-                    .SelectMany(day => day.Value)
-                    .Select(l => l.klasa)
-                    .Distinct()
-                    .ToList();
+                    var classesInData = new HashSet<string>();
+                    foreach (var day in _modifiedScheduleData.Values)
+                    {
+                        foreach (var lesson in day)
+                        {
+                            if (!string.IsNullOrEmpty(lesson.klasa))
+                                classesInData.Add(lesson.klasa);
+                        }
+                    }
 
-                foreach (var className in classesWithChanges)
-                {
-                    if (!string.IsNullOrEmpty(className))
+                    foreach (var className in classesInData)
                     {
                         var classSchedule = BuildClassSchedule(className);
                         var scheduleJson = JsonSerializer.Serialize(classSchedule);
@@ -1011,10 +1125,10 @@ namespace Frontend.Views
 
                         Console.WriteLine($"Zaktualizowano plan klasy: {className}");
                     }
+
+                    SaveJsonFile(filePath, allSchedulesDict);
                 }
 
-                SaveJsonFile(filePath, allSchedulesDict);
-                document.Dispose();
                 return true;
             }
             catch (Exception ex)
@@ -1029,40 +1143,48 @@ namespace Frontend.Views
             try
             {
                 string filePath = Path.Combine(plansPath, "teacher_schedules.json");
-
-                if (!File.Exists(filePath))
-                    return false;
+                if (!File.Exists(filePath)) return false;
 
                 var jsonString = File.ReadAllText(filePath);
-                var document = JsonDocument.Parse(jsonString);
-                var allSchedulesDict = new Dictionary<string, JsonElement>();
-
-                foreach (JsonProperty property in document.RootElement.EnumerateObject())
+                using (JsonDocument document = JsonDocument.Parse(jsonString))
                 {
-                    allSchedulesDict[property.Name] = property.Value.Clone();
-                }
-
-                var teachersWithChanges = _modifiedScheduleData
-                    .SelectMany(day => day.Value)
-                    .Select(l => l.nauczyciel)
-                    .Distinct()
-                    .ToList();
-
-                foreach (var teacherName in teachersWithChanges)
-                {
-                    if (!string.IsNullOrEmpty(teacherName))
+                    var allSchedulesDict = new Dictionary<string, JsonElement>();
+                    
+                    foreach (JsonProperty property in document.RootElement.EnumerateObject())
                     {
-                        var teacherSchedule = BuildTeacherSchedule(teacherName);
-                        var scheduleJson = JsonSerializer.Serialize(teacherSchedule);
+                        allSchedulesDict[property.Name] = property.Value.Clone();
+                    }
+
+                    var teachersInData = new HashSet<string>();
+                    foreach (var day in _modifiedScheduleData.Values)
+                    {
+                        foreach (var lesson in day)
+                        {
+                            if (!string.IsNullOrEmpty(lesson.nauczyciel))
+                                teachersInData.Add(lesson.nauczyciel);
+                        }
+                    }
+
+                    foreach (var teacherName in teachersInData)
+                    {
+                        var existingSchedule = allSchedulesDict.ContainsKey(teacherName)
+                            ? DeserializeScheduleFromElement(allSchedulesDict[teacherName])
+                            : CreateEmptySchedule();
+
+                        string currentClassName = GetCurrentClassName();
+                        RemoveLessonsForClass(existingSchedule, currentClassName);
+                        AddLessonsFromModifiedData(existingSchedule, teacherName, "teacher");
+
+                        var scheduleJson = JsonSerializer.Serialize(existingSchedule);
                         var scheduleElement = JsonDocument.Parse(scheduleJson).RootElement.Clone();
                         allSchedulesDict[teacherName] = scheduleElement;
 
                         Console.WriteLine($"Zaktualizowano plan nauczyciela: {teacherName}");
                     }
+
+                    SaveJsonFile(filePath, allSchedulesDict);
                 }
 
-                SaveJsonFile(filePath, allSchedulesDict);
-                document.Dispose();
                 return true;
             }
             catch (Exception ex)
@@ -1077,40 +1199,48 @@ namespace Frontend.Views
             try
             {
                 string filePath = Path.Combine(plansPath, "room_schedules.json");
-
-                if (!File.Exists(filePath))
-                    return false;
+                if (!File.Exists(filePath)) return false;
 
                 var jsonString = File.ReadAllText(filePath);
-                var document = JsonDocument.Parse(jsonString);
-                var allSchedulesDict = new Dictionary<string, JsonElement>();
-
-                foreach (JsonProperty property in document.RootElement.EnumerateObject())
+                using (JsonDocument document = JsonDocument.Parse(jsonString))
                 {
-                    allSchedulesDict[property.Name] = property.Value.Clone();
-                }
-
-                var roomsWithChanges = _modifiedScheduleData
-                    .SelectMany(day => day.Value)
-                    .Select(l => l.sala)
-                    .Distinct()
-                    .ToList();
-
-                foreach (var roomName in roomsWithChanges)
-                {
-                    if (!string.IsNullOrEmpty(roomName))
+                    var allSchedulesDict = new Dictionary<string, JsonElement>();
+                    
+                    foreach (JsonProperty property in document.RootElement.EnumerateObject())
                     {
-                        var roomSchedule = BuildRoomSchedule(roomName);
-                        var scheduleJson = JsonSerializer.Serialize(roomSchedule);
+                        allSchedulesDict[property.Name] = property.Value.Clone();
+                    }
+
+                    var roomsInData = new HashSet<string>();
+                    foreach (var day in _modifiedScheduleData.Values)
+                    {
+                        foreach (var lesson in day)
+                        {
+                            if (!string.IsNullOrEmpty(lesson.sala))
+                                roomsInData.Add(lesson.sala);
+                        }
+                    }
+
+                    foreach (var roomName in roomsInData)
+                    {
+                        var existingSchedule = allSchedulesDict.ContainsKey(roomName)
+                            ? DeserializeScheduleFromElement(allSchedulesDict[roomName])
+                            : CreateEmptySchedule();
+
+                        string currentClassName = GetCurrentClassName();
+                        RemoveLessonsForClass(existingSchedule, currentClassName);
+                        AddLessonsFromModifiedData(existingSchedule, roomName, "room");
+
+                        var scheduleJson = JsonSerializer.Serialize(existingSchedule);
                         var scheduleElement = JsonDocument.Parse(scheduleJson).RootElement.Clone();
                         allSchedulesDict[roomName] = scheduleElement;
 
                         Console.WriteLine($"Zaktualizowano plan sali: {roomName}");
                     }
+
+                    SaveJsonFile(filePath, allSchedulesDict);
                 }
 
-                SaveJsonFile(filePath, allSchedulesDict);
-                document.Dispose();
                 return true;
             }
             catch (Exception ex)
@@ -1120,47 +1250,87 @@ namespace Frontend.Views
             }
         }
 
-        private List<List<List<Dictionary<string, string>>>> BuildClassSchedule(string className)
+        // ========================================
+        // METODY UPDATE - Dla planu nauczyciela/sali (bezpośrednia aktualizacja)
+        // ========================================
+
+        private bool UpdateTeacherSchedulesDirect(string plansPath)
         {
-            var days = new[] { "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota" };
-            var hours = LoadHourPlan();
-            var result = new List<List<List<Dictionary<string, string>>>>();
-
-            foreach (var day in days)
+            try
             {
-                var daySchedule = new List<List<Dictionary<string, string>>>();
+                string filePath = Path.Combine(plansPath, "teacher_schedules.json");
+                if (!File.Exists(filePath)) return false;
 
-                foreach (var hour in hours)
+                string teacherName = PlanTitle.Split(':')[1].Trim();
+
+                var jsonString = File.ReadAllText(filePath);
+                using (JsonDocument document = JsonDocument.Parse(jsonString))
                 {
-                    var hourLessons = new List<Dictionary<string, string>>();
-
-                    if (_modifiedScheduleData.ContainsKey(day))
+                    var allSchedulesDict = new Dictionary<string, JsonElement>();
+                    
+                    foreach (JsonProperty property in document.RootElement.EnumerateObject())
                     {
-                        var lessons = _modifiedScheduleData[day]
-                            .Where(l => l.godzina == hour && l.klasa == className)
-                            .ToList();
-
-                        foreach (var lesson in lessons)
-                        {
-                            hourLessons.Add(new Dictionary<string, string>
-                            {
-                                ["subject"] = lesson.przedmiot ?? "",
-                                ["teacher"] = lesson.nauczyciel ?? "",
-                                ["room"] = lesson.sala ?? ""
-                            });
-                        }
+                        allSchedulesDict[property.Name] = property.Value.Clone();
                     }
 
-                    daySchedule.Add(hourLessons);
+                    var teacherSchedule = BuildTeacherScheduleDirect(teacherName);
+                    var scheduleJson = JsonSerializer.Serialize(teacherSchedule);
+                    var scheduleElement = JsonDocument.Parse(scheduleJson).RootElement.Clone();
+                    allSchedulesDict[teacherName] = scheduleElement;
+
+                    Console.WriteLine($"Zaktualizowano plan nauczyciela: {teacherName}");
+
+                    SaveJsonFile(filePath, allSchedulesDict);
                 }
 
-                result.Add(daySchedule);
+                return true;
             }
-
-            return result;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd UpdateTeacherSchedulesDirect: {ex.Message}");
+                return false;
+            }
         }
 
-        private List<List<List<Dictionary<string, string>>>> BuildTeacherSchedule(string teacherName)
+        private bool UpdateRoomSchedulesDirect(string plansPath)
+        {
+            try
+            {
+                string filePath = Path.Combine(plansPath, "room_schedules.json");
+                if (!File.Exists(filePath)) return false;
+
+                string roomName = PlanTitle.Split(':')[1].Trim();
+
+                var jsonString = File.ReadAllText(filePath);
+                using (JsonDocument document = JsonDocument.Parse(jsonString))
+                {
+                    var allSchedulesDict = new Dictionary<string, JsonElement>();
+                    
+                    foreach (JsonProperty property in document.RootElement.EnumerateObject())
+                    {
+                        allSchedulesDict[property.Name] = property.Value.Clone();
+                    }
+
+                    var roomSchedule = BuildRoomScheduleDirect(roomName);
+                    var scheduleJson = JsonSerializer.Serialize(roomSchedule);
+                    var scheduleElement = JsonDocument.Parse(scheduleJson).RootElement.Clone();
+                    allSchedulesDict[roomName] = scheduleElement;
+
+                    Console.WriteLine($"Zaktualizowano plan sali: {roomName}");
+
+                    SaveJsonFile(filePath, allSchedulesDict);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd UpdateRoomSchedulesDirect: {ex.Message}");
+                return false;
+            }
+        }
+
+        private List<List<List<Dictionary<string, string>>>> BuildTeacherScheduleDirect(string teacherName)
         {
             var days = new[] { "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota" };
             var hours = LoadHourPlan();
@@ -1200,7 +1370,7 @@ namespace Frontend.Views
             return result;
         }
 
-        private List<List<List<Dictionary<string, string>>>> BuildRoomSchedule(string roomName)
+        private List<List<List<Dictionary<string, string>>>> BuildRoomScheduleDirect(string roomName)
         {
             var days = new[] { "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota" };
             var hours = LoadHourPlan();
@@ -1227,6 +1397,177 @@ namespace Frontend.Views
                                 ["subject"] = lesson.przedmiot ?? "",
                                 ["teacher"] = lesson.nauczyciel ?? "",
                                 ["class"] = lesson.klasa ?? ""
+                            });
+                        }
+                    }
+
+                    daySchedule.Add(hourLessons);
+                }
+
+                result.Add(daySchedule);
+            }
+
+            return result;
+        }
+
+        // HELPER METHODS
+
+        private string GetCurrentClassName()
+        {
+            if (PlanTitle.Contains("Plan klasy:"))
+            {
+                return PlanTitle.Split(':')[1].Trim();
+            }
+            
+            foreach (var day in _modifiedScheduleData.Values)
+            {
+                foreach (var lesson in day)
+                {
+                    if (!string.IsNullOrEmpty(lesson.klasa))
+                        return lesson.klasa;
+                }
+            }
+            
+            return "";
+        }
+
+        private List<List<List<Dictionary<string, string>>>> CreateEmptySchedule()
+        {
+            var hours = LoadHourPlan();
+            var result = new List<List<List<Dictionary<string, string>>>>();
+            
+            for (int d = 0; d < 6; d++)
+            {
+                var daySchedule = new List<List<Dictionary<string, string>>>();
+                
+                for (int h = 0; h < hours.Count; h++)
+                {
+                    daySchedule.Add(new List<Dictionary<string, string>>());
+                }
+                
+                result.Add(daySchedule);
+            }
+            
+            return result;
+        }
+
+        private List<List<List<Dictionary<string, string>>>> DeserializeScheduleFromElement(JsonElement element)
+        {
+            var result = new List<List<List<Dictionary<string, string>>>>();
+            
+            foreach (JsonElement day in element.EnumerateArray())
+            {
+                var daySchedule = new List<List<Dictionary<string, string>>>();
+                
+                foreach (JsonElement hour in day.EnumerateArray())
+                {
+                    var hourLessons = new List<Dictionary<string, string>>();
+                    
+                    foreach (JsonElement lesson in hour.EnumerateArray())
+                    {
+                        var lessonDict = new Dictionary<string, string>();
+                        
+                        foreach (JsonProperty prop in lesson.EnumerateObject())
+                        {
+                            lessonDict[prop.Name] = prop.Value.GetString() ?? "";
+                        }
+                        
+                        hourLessons.Add(lessonDict);
+                    }
+                    
+                    daySchedule.Add(hourLessons);
+                }
+                
+                result.Add(daySchedule);
+            }
+            
+            return result;
+        }
+
+        private void RemoveLessonsForClass(List<List<List<Dictionary<string, string>>>> schedule, string className)
+        {
+            foreach (var day in schedule)
+            {
+                foreach (var hour in day)
+                {
+                    hour.RemoveAll(lesson => lesson.ContainsKey("class") && lesson["class"] == className);
+                }
+            }
+        }
+
+        private void AddLessonsFromModifiedData(
+            List<List<List<Dictionary<string, string>>>> schedule, 
+            string filterValue, 
+            string filterType)
+        {
+            var days = new[] { "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota" };
+            var hours = LoadHourPlan();
+            
+            foreach (var dayKvp in _modifiedScheduleData)
+            {
+                int dayIndex = Array.IndexOf(days, dayKvp.Key);
+                if (dayIndex < 0) continue;
+                
+                foreach (var lesson in dayKvp.Value)
+                {
+                    bool matches = false;
+                    if (filterType == "teacher" && lesson.nauczyciel == filterValue)
+                        matches = true;
+                    else if (filterType == "room" && lesson.sala == filterValue)
+                        matches = true;
+                    
+                    if (!matches) continue;
+                    
+                    int hourIndex = hours.IndexOf(lesson.godzina);
+                    if (hourIndex < 0) continue;
+                    
+                    var lessonDict = new Dictionary<string, string>();
+                    
+                    if (filterType == "teacher")
+                    {
+                        lessonDict["subject"] = lesson.przedmiot ?? "";
+                        lessonDict["class"] = lesson.klasa ?? "";
+                        lessonDict["room"] = lesson.sala ?? "";
+                    }
+                    else if (filterType == "room")
+                    {
+                        lessonDict["subject"] = lesson.przedmiot ?? "";
+                        lessonDict["teacher"] = lesson.nauczyciel ?? "";
+                        lessonDict["class"] = lesson.klasa ?? "";
+                    }
+                    
+                    schedule[dayIndex][hourIndex].Add(lessonDict);
+                }
+            }
+        }
+
+        private List<List<List<Dictionary<string, string>>>> BuildClassSchedule(string className)
+        {
+            var days = new[] { "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota" };
+            var hours = LoadHourPlan();
+            var result = new List<List<List<Dictionary<string, string>>>>();
+
+            foreach (var day in days)
+            {
+                var daySchedule = new List<List<Dictionary<string, string>>>();
+
+                foreach (var hour in hours)
+                {
+                    var hourLessons = new List<Dictionary<string, string>>();
+
+                    if (_modifiedScheduleData.ContainsKey(day))
+                    {
+                        var lessons = _modifiedScheduleData[day]
+                            .Where(l => l.godzina == hour && l.klasa == className)
+                            .ToList();
+
+                        foreach (var lesson in lessons)
+                        {
+                            hourLessons.Add(new Dictionary<string, string>
+                            {
+                                ["subject"] = lesson.przedmiot ?? "",
+                                ["teacher"] = lesson.nauczyciel ?? "",
+                                ["room"] = lesson.sala ?? ""
                             });
                         }
                     }
@@ -1289,15 +1630,9 @@ namespace Frontend.Views
             {
                 var conflicts = CheckConflicts(lesson, lesson.dzien, hour);
                 lesson.HasConflict = conflicts.Count > 0;
-
-                if (lesson.HasConflict)
-                {
-                    Console.WriteLine($"⚠️ Konflikt: {lesson.przedmiot} w {lesson.dzien} {hour}");
-                }
             }
         }
 
-        // Klasa pomocnicza
         private class MissingSubjectInfo
         {
             public string SubjectName { get; set; }

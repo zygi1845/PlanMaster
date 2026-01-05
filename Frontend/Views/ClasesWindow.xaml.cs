@@ -95,9 +95,11 @@ namespace Frontend.Views
                 tb.Foreground = Brushes.DarkGray;
             }
         }
-
-
-
-
+        private void PlansWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new PlansWindow();
+            window.Show();
+            this.Close();
+        }
     }
 }

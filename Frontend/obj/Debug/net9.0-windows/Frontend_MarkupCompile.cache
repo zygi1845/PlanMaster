@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\Zygmunt\Desktop\Semestr 6\PH_Projekt\Inzynierka\Frontend\App.xaml
-15-1768561917
+13-220866379
 
-411167004262
-201548499541
-MainWindow.xaml;Views\AvailabilityWindow.xaml;Views\ClasesWindow.xaml;Views\FinalWindow.xaml;Views\GenerationWindow.xaml;Views\HourPlanWindow.xaml;Views\PlanDetailWindow.xaml;Views\PlansWindow.xaml;Views\RoomsWindow.xaml;Views\ScheduleWindow.xaml;Views\StartWindow.xaml;Views\SubjectSelectionWindow.xaml;Views\SubjectsWindow.xaml;Views\TeachersWindow.xaml;Views\WeightsWindow.xaml;
+36-1225230310
+213-1070056131
+MainWindow.xaml;Views\AvailabilityWindow.xaml;Views\ClasesWindow.xaml;Views\GenerationWindow.xaml;Views\HourPlanWindow.xaml;Views\PlanDetailWindow.xaml;Views\PlansWindow.xaml;Views\RoomsWindow.xaml;Views\ScheduleWindow.xaml;Views\SubjectSelectionWindow.xaml;Views\SubjectsWindow.xaml;Views\TeachersWindow.xaml;Views\WeightsWindow.xaml;
 
 False
 

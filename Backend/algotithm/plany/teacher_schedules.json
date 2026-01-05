@@ -1,110 +1,30 @@
 {
-  "malinowski": [
+  "hnhhg": [
     [
       [],
       [],
-      [
-        {
-          "subject": "matma",
-          "class": "mat-fiz 2",
-          "room": "1"
-        }
-      ],
-      [
-        {
-          "subject": "matma",
-          "class": "mat-fiz 2",
-          "room": "1"
-        }
-      ],
+      [],
+      [],
+      [],
+      [],
       [],
       []
     ],
     [
-      [],
-      [],
       [
         {
-          "subject": "matma",
+          "subject": "matma1",
           "class": "mat-fiz 2",
-          "room": "1"
+          "room": "2"
         }
       ],
-      [
-        {
-          "subject": "matma",
-          "class": "mat-fiz 3",
-          "room": "1"
-        }
-      ],
-      [
-        {
-          "subject": "matma",
-          "class": "mat-fiz 3",
-          "room": "1"
-        }
-      ],
-      []
-    ],
-    [
+      [],
       [],
       [],
       [
         {
-          "subject": "matma",
-          "class": "mat-fiz 2",
-          "room": "1"
-        }
-      ],
-      [
-        {
-          "subject": "matma",
+          "subject": "matma1",
           "class": "mat-fiz 1",
-          "room": "1"
-        }
-      ],
-      [
-        {
-          "subject": "matma",
-          "class": "mat-fiz 2",
-          "room": "1"
-        }
-      ],
-      []
-    ],
-    [
-      [],
-      [],
-      [
-        {
-          "subject": "matma",
-          "class": "mat-fiz 3",
-          "room": "1"
-        }
-      ],
-      [
-        {
-          "subject": "matma",
-          "class": "mat-fiz 1",
-          "room": "1"
-        }
-      ],
-      [
-        {
-          "subject": "matma",
-          "class": "mat-fiz 3",
-          "room": "1"
-        }
-      ],
-      []
-    ],
-    [
-      [],
-      [],
-      [
-        {
-          "subject": "matma",
-          "class": "mat-fiz 3",
           "room": "1"
         }
       ],
@@ -114,225 +34,207 @@
     ],
     [
       [],
+      [
+        {
+          "subject": "matma1",
+          "class": "mat-fiz 2",
+          "room": "1"
+        }
+      ],
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [
+        {
+          "subject": "matma1",
+          "class": "mat-fiz 2",
+          "room": "2"
+        }
+      ],
+      [
+        {
+          "subject": "matma1",
+          "class": "mat-fiz 1",
+          "room": "2"
+        }
+      ],
+      [],
       [],
       [
         {
-          "subject": "matma",
+          "subject": "matma1",
           "class": "mat-fiz 1",
           "room": "1"
         }
       ],
+      [],
+      [],
+      []
+    ],
+    [
       [
         {
-          "subject": "matma",
+          "subject": "matma1",
           "class": "mat-fiz 1",
           "room": "1"
         }
       ],
+      [],
+      [],
       [
         {
-          "subject": "matma",
+          "subject": "matma1",
           "class": "mat-fiz 1",
+          "room": "2"
+        }
+      ],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [
+        {
+          "subject": "matma1",
+          "class": "mat-fiz 2",
+          "room": "2"
+        }
+      ],
+      [],
+      [
+        {
+          "subject": "matma1",
+          "class": "mat-fiz 2",
           "room": "1"
         }
       ],
+      [],
+      [],
+      [],
+      [],
       []
     ]
   ],
-  "zm": [
+  "wrq": [
     [
       [],
       [
         {
-          "subject": "fizyka",
-          "class": "mat-fiz 3",
+          "subject": "matma2",
+          "class": "mat-geo 2",
           "room": "2"
-        },
+        }
+      ],
+      [
         {
-          "subject": "matma",
+          "subject": "matma2",
           "class": "mat-geo 1",
-          "room": "1"
+          "room": "2"
         }
       ],
       [],
-      [
-        {
-          "subject": "fizyka",
-          "class": "mat-fiz 2",
-          "room": "2"
-        }
-      ],
-      [
-        {
-          "subject": "matma",
-          "class": "mat-geo 3",
-          "room": "1"
-        }
-      ],
+      [],
+      [],
+      [],
       []
     ],
     [
-      [],
       [
         {
-          "subject": "matma",
-          "class": "mat-geo 3",
-          "room": "1"
-        }
-      ],
-      [
-        {
-          "subject": "fizyka",
-          "class": "mat-fiz 2",
-          "room": "2"
-        }
-      ],
-      [
-        {
-          "subject": "fizyka",
-          "class": "mat-fiz 3",
-          "room": "2"
-        }
-      ],
-      [
-        {
-          "subject": "matma",
-          "class": "mat-geo 1",
-          "room": "1"
-        }
-      ],
-      []
-    ],
-    [
-      [],
-      [
-        {
-          "subject": "fizyka",
-          "class": "mat-fiz 1",
-          "room": "2"
-        },
-        {
-          "subject": "matma",
+          "subject": "matma2",
           "class": "mat-geo 1",
           "room": "1"
         }
       ],
       [
         {
-          "subject": "fizyka",
-          "class": "mat-fiz 3",
+          "subject": "matma2",
+          "class": "mat-geo 2",
           "room": "2"
         }
       ],
       [
         {
-          "subject": "fizyka",
-          "class": "mat-fiz 2",
-          "room": "2"
-        },
-        {
-          "subject": "fizyka",
-          "class": "mat-fiz 2",
-          "room": "2"
-        },
-        {
-          "subject": "fizyka",
-          "class": "mat-fiz 3",
-          "room": "2"
-        },
-        {
-          "subject": "matma",
-          "class": "mat-geo 3",
-          "room": "1"
-        },
-        {
-          "subject": "matma",
-          "class": "mat-geo 3",
-          "room": "1"
-        }
-      ],
-      [
-        {
-          "subject": "fizyka",
-          "class": "mat-fiz 1",
-          "room": "2"
-        }
-      ],
-      []
-    ],
-    [
-      [],
-      [
-        {
-          "subject": "matma",
-          "class": "mat-geo 1",
-          "room": "1"
-        }
-      ],
-      [],
-      [
-        {
-          "subject": "matma",
+          "subject": "matma2",
           "class": "mat-geo 2",
           "room": "1"
         }
       ],
-      [
-        {
-          "subject": "fizyka",
-          "class": "mat-fiz 1",
-          "room": "2"
-        }
-      ],
+      [],
+      [],
+      [],
+      [],
       []
     ],
     [
-      [],
       [
         {
-          "subject": "fizyka",
-          "class": "mat-fiz 1",
+          "subject": "matma2",
+          "class": "mat-geo 1",
           "room": "2"
-        },
+        }
+      ],
+      [
         {
-          "subject": "matma",
-          "class": "mat-geo 3",
-          "room": "1"
+          "subject": "matma2",
+          "class": "mat-geo 1",
+          "room": "2"
         }
       ],
       [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
       [
         {
-          "subject": "matma",
+          "subject": "matma2",
           "class": "mat-geo 1",
           "room": "1"
         }
       ],
       [
         {
-          "subject": "matma",
+          "subject": "matma2",
           "class": "mat-geo 2",
-          "room": "1"
-        },
-        {
-          "subject": "matma",
-          "class": "mat-geo 2",
-          "room": "1"
-        },
-        {
-          "subject": "matma",
-          "class": "mat-geo 2",
-          "room": "1"
-        },
-        {
-          "subject": "matma",
-          "class": "mat-geo 2",
-          "room": "1"
+          "room": "3"
         }
       ],
+      [],
+      [],
+      [],
+      [],
+      [],
       []
     ],
     [
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [],
+      [
+        {
+          "subject": "matma2",
+          "class": "mat-geo 2",
+          "room": "2"
+        }
+      ],
       [],
       [],
       [],
@@ -341,97 +243,135 @@
       []
     ]
   ],
-  "kowal": [
+  "afeaef": [
     [
-      [],
       [
         {
-          "subject": "infa",
-          "class": "mat-fiz 2",
+          "subject": "infa3",
+          "class": "mat-inf 1",
           "room": "3"
         }
       ],
       [],
       [
         {
-          "subject": "infa",
-          "class": "mat-fiz 1",
-          "room": "3"
+          "subject": "infa3",
+          "class": "mat-inf 2",
+          "room": "4"
         }
       ],
-      [],
-      []
-    ],
-    [
       [
         {
-          "subject": "infa",
+          "subject": "fizyka1",
           "class": "mat-fiz 2",
           "room": "3"
         }
       ],
       [
         {
-          "subject": "infa",
+          "subject": "infa3",
+          "class": "mat-inf 2",
+          "room": "3"
+        }
+      ],
+      [],
+      [],
+      []
+    ],
+    [
+      [],
+      [
+        {
+          "subject": "infa3",
+          "class": "mat-inf 2",
+          "room": "4"
+        }
+      ],
+      [
+        {
+          "subject": "fizyka1",
+          "class": "mat-fiz 1",
+          "room": "4"
+        }
+      ],
+      [
+        {
+          "subject": "infa3",
+          "class": "mat-inf 1",
+          "room": "3"
+        }
+      ],
+      [
+        {
+          "subject": "fizyka1",
           "class": "mat-fiz 2",
-          "room": "3"
+          "room": "4"
         }
       ],
-      [],
       [],
       [],
       []
     ],
     [
-      [],
       [
         {
-          "subject": "infa",
-          "class": "mat-fiz 3",
-          "room": "3"
-        }
-      ],
-      [
-        {
-          "subject": "infa",
-          "class": "mat-fiz 1",
-          "room": "3"
-        }
-      ],
-      [],
-      [
-        {
-          "subject": "infa",
-          "class": "mat-fiz 3",
-          "room": "3"
-        }
-      ],
-      []
-    ],
-    [
-      [],
-      [],
-      [
-        {
-          "subject": "infa",
+          "subject": "fizyka1",
           "class": "mat-fiz 2",
+          "room": "4"
+        }
+      ],
+      [
+        {
+          "subject": "infa3",
+          "class": "mat-inf 1",
           "room": "3"
         }
       ],
       [
         {
-          "subject": "infa",
-          "class": "mat-fiz 3",
+          "subject": "infa3",
+          "class": "mat-inf 1",
+          "room": "4"
+        }
+      ],
+      [
+        {
+          "subject": "fizyka1",
+          "class": "mat-fiz 1",
+          "room": "4"
+        }
+      ],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [
+        {
+          "subject": "infa3",
+          "class": "mat-inf 2",
           "room": "3"
         }
       ],
       [
         {
-          "subject": "infa",
-          "class": "mat-fiz 3",
+          "subject": "fizyka1",
+          "class": "mat-fiz 2",
+          "room": "1"
+        }
+      ],
+      [
+        {
+          "subject": "fizyka1",
+          "class": "mat-fiz 1",
           "room": "3"
         }
       ],
+      [],
+      [],
+      [],
+      [],
       []
     ],
     [
@@ -439,24 +379,472 @@
       [],
       [
         {
-          "subject": "infa",
+          "subject": "fizyka1",
           "class": "mat-fiz 1",
-          "room": "3"
+          "room": "4"
         }
       ],
-      [
-        {
-          "subject": "infa",
-          "class": "mat-fiz 1",
-          "room": "3"
-        }
-      ],
+      [],
+      [],
+      [],
       [],
       []
     ],
     [
       [],
       [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
+  ],
+  "matma": [
+    [
+      [],
+      [],
+      [
+        {
+          "subject": "wf1",
+          "class": "mat-fiz 2",
+          "room": "5"
+        }
+      ],
+      [],
+      [
+        {
+          "subject": "wf1",
+          "class": "mat-fiz 1",
+          "room": "5"
+        }
+      ],
+      [],
+      [],
+      []
+    ],
+    [
+      [
+        {
+          "subject": "wf2",
+          "class": "mat-geo 2",
+          "room": "5"
+        }
+      ],
+      [],
+      [
+        {
+          "subject": "wf2",
+          "class": "mat-geo 1",
+          "room": "5"
+        }
+      ],
+      [
+        {
+          "subject": "wf1",
+          "class": "mat-fiz 2",
+          "room": "5"
+        }
+      ],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [
+        {
+          "subject": "wf3",
+          "class": "mat-inf 2",
+          "room": "5"
+        }
+      ],
+      [
+        {
+          "subject": "wf3",
+          "class": "mat-inf 2",
+          "room": "5"
+        }
+      ],
+      [
+        {
+          "subject": "wf2",
+          "class": "mat-geo 2",
+          "room": "5"
+        }
+      ],
+      [],
+      [
+        {
+          "subject": "wf3",
+          "class": "mat-inf 1",
+          "room": "5"
+        }
+      ],
+      [],
+      [],
+      []
+    ],
+    [
+      [
+        {
+          "subject": "wf1",
+          "class": "mat-fiz 1",
+          "room": "5"
+        }
+      ],
+      [],
+      [
+        {
+          "subject": "wf2",
+          "class": "mat-geo 1",
+          "room": "5"
+        }
+      ],
+      [
+        {
+          "subject": "wf2",
+          "class": "mat-geo 1",
+          "room": "5"
+        }
+      ],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [
+        {
+          "subject": "wf3",
+          "class": "mat-inf 1",
+          "room": "5"
+        }
+      ],
+      [
+        {
+          "subject": "wf3",
+          "class": "mat-inf 1",
+          "room": "5"
+        }
+      ],
+      [
+        {
+          "subject": "wf2",
+          "class": "mat-geo 2",
+          "room": "5"
+        }
+      ],
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [
+        {
+          "subject": "wf1",
+          "class": "mat-fiz 1",
+          "room": "5"
+        }
+      ],
+      [
+        {
+          "subject": "wf1",
+          "class": "mat-fiz 2",
+          "room": "5"
+        }
+      ],
+      [
+        {
+          "subject": "wf3",
+          "class": "mat-inf 2",
+          "room": "5"
+        }
+      ],
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
+  ],
+  "geo": [
+    [
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [],
+      [
+        {
+          "subject": "geografia2",
+          "class": "mat-geo 1",
+          "room": "4"
+        }
+      ],
+      [],
+      [
+        {
+          "subject": "geografia2",
+          "class": "mat-geo 1",
+          "room": "4"
+        }
+      ],
+      [
+        {
+          "subject": "geografia2",
+          "class": "mat-geo 2",
+          "room": "4"
+        }
+      ],
+      [],
+      [],
+      []
+    ],
+    [
+      [
+        {
+          "subject": "geografia2",
+          "class": "mat-geo 1",
+          "room": "3"
+        }
+      ],
+      [
+        {
+          "subject": "geografia2",
+          "class": "mat-geo 1",
+          "room": "3"
+        }
+      ],
+      [
+        {
+          "subject": "geografia2",
+          "class": "mat-geo 2",
+          "room": "4"
+        }
+      ],
+      [
+        {
+          "subject": "geografia2",
+          "class": "mat-geo 2",
+          "room": "4"
+        }
+      ],
+      [
+        {
+          "subject": "geografia2",
+          "class": "mat-geo 2",
+          "room": "3"
+        }
+      ],
+      [],
+      [],
+      []
+    ]
+  ],
+  "matf": [
+    [
+      [],
+      [
+        {
+          "subject": "matma3",
+          "class": "mat-inf 1",
+          "room": "1"
+        }
+      ],
+      [],
+      [
+        {
+          "subject": "matma3",
+          "class": "mat-inf 2",
+          "room": "2"
+        }
+      ],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [],
+      [
+        {
+          "subject": "costam",
+          "class": "mat-fiz 2",
+          "room": "1"
+        }
+      ],
+      [
+        {
+          "subject": "costam",
+          "class": "mat-fiz 2",
+          "room": "2"
+        }
+      ],
+      [
+        {
+          "subject": "costam",
+          "class": "mat-fiz 1",
+          "room": "2"
+        }
+      ],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [],
+      [],
+      [
+        {
+          "subject": "matma3",
+          "class": "mat-inf 2",
+          "room": "2"
+        }
+      ],
+      [
+        {
+          "subject": "matma3",
+          "class": "mat-inf 1",
+          "room": "2"
+        }
+      ],
+      [
+        {
+          "subject": "matma3",
+          "class": "mat-inf 2",
+          "room": "2"
+        }
+      ],
+      [],
+      [],
+      []
+    ],
+    [
+      [],
+      [
+        {
+          "subject": "matma3",
+          "class": "mat-inf 2",
+          "room": "4"
+        }
+      ],
+      [
+        {
+          "subject": "matma3",
+          "class": "mat-inf 1",
+          "room": "1"
+        }
+      ],
+      [
+        {
+          "subject": "costam",
+          "class": "mat-fiz 1",
+          "room": "2"
+        }
+      ],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [],
+      [
+        {
+          "subject": "costam",
+          "class": "mat-fiz 2",
+          "room": "1"
+        }
+      ],
+      [
+        {
+          "subject": "costam",
+          "class": "mat-fiz 2",
+          "room": "2"
+        }
+      ],
+      [
+        {
+          "subject": "matma3",
+          "class": "mat-inf 2",
+          "room": "1"
+        }
+      ],
+      [
+        {
+          "subject": "costam",
+          "class": "mat-fiz 1",
+          "room": "2"
+        }
+      ],
+      [],
+      [],
+      []
+    ],
+    [
+      [],
+      [
+        {
+          "subject": "costam",
+          "class": "mat-fiz 1",
+          "room": "1"
+        }
+      ],
+      [
+        {
+          "subject": "matma3",
+          "class": "mat-inf 1",
+          "room": "2"
+        }
+      ],
+      [
+        {
+          "subject": "matma3",
+          "class": "mat-inf 1",
+          "room": "1"
+        }
+      ],
       [],
       [],
       [],

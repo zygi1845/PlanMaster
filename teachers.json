@@ -1,406 +1,702 @@
-{
-  "$id": "1",
-  "$values": [
-    {
-      "$id": "2",
-      "Nr_pracownika": 1,
-      "Nazwisko": "malinowski",
-      "Availability": {
-        "$id": "3",
-        "$values": [
-          {
-            "$id": "4",
-            "$values": [
-              false,
-              false,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "5",
-            "$values": [
-              false,
-              false,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "6",
-            "$values": [
-              false,
-              false,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "7",
-            "$values": [
-              false,
-              false,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "8",
-            "$values": [
-              false,
-              false,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "9",
-            "$values": [
-              false,
-              false,
-              true,
-              true,
-              true
-            ]
-          }
-        ]
-      },
-      "SelectedSubject": {
-        "$id": "10",
-        "Name": "matma",
-        "Hours": 5,
-        "SubjectType": "Pracownia Specjalistyczna",
-        "ClassTypes": {
-          "$id": "11",
-          "$values": [
-            "mat-fiz"
-          ]
-        }
-      }
-    },
-    {
-      "$id": "12",
-      "Nr_pracownika": 2,
-      "Nazwisko": "zm",
-      "Availability": {
-        "$id": "13",
-        "$values": [
-          {
-            "$id": "14",
-            "$values": [
-              false,
-              true,
-              true,
-              true,
-              false
-            ]
-          },
-          {
-            "$id": "15",
-            "$values": [
-              false,
-              true,
-              true,
-              true,
-              false
-            ]
-          },
-          {
-            "$id": "16",
-            "$values": [
-              false,
-              true,
-              true,
-              true,
-              false
-            ]
-          },
-          {
-            "$id": "17",
-            "$values": [
-              false,
-              true,
-              true,
-              true,
-              false
-            ]
-          },
-          {
-            "$id": "18",
-            "$values": [
-              false,
-              true,
-              true,
-              true,
-              false
-            ]
-          },
-          {
-            "$id": "19",
-            "$values": [
-              false,
-              true,
-              true,
-              true,
-              false
-            ]
-          }
-        ]
-      },
-      "SelectedSubject": {
-        "$id": "20",
-        "Name": "fizyka",
-        "Hours": 4,
-        "SubjectType": "Wyk\u0142ady",
-        "ClassTypes": {
-          "$id": "21",
-          "$values": [
-            "mat-fiz"
-          ]
-        }
-      }
-    },
-    {
-      "$id": "22",
-      "Nr_pracownika": 3,
-      "Nazwisko": "kowal",
-      "Availability": {
-        "$id": "23",
-        "$values": [
-          {
-            "$id": "24",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "25",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "26",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "27",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "28",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "29",
-            "$values": [
-              false,
-              false,
-              false,
-              false,
-              false
-            ]
-          }
-        ]
-      },
-      "SelectedSubject": {
-        "$id": "30",
-        "Name": "infa",
-        "Hours": 4,
-        "SubjectType": "\u0106wiczenia",
-        "ClassTypes": {
-          "$id": "31",
-          "$values": [
-            "mat-fiz"
-          ]
-        }
-      }
-    },
-    {
-      "$id": "32",
-      "Nr_pracownika": 2,
-      "Nazwisko": "zm",
-      "Availability": {
-        "$id": "33",
-        "$values": [
-          {
-            "$id": "34",
-            "$values": [
-              false,
-              true,
-              false,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "35",
-            "$values": [
-              false,
-              true,
-              false,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "36",
-            "$values": [
-              false,
-              true,
-              false,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "37",
-            "$values": [
-              false,
-              true,
-              false,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "38",
-            "$values": [
-              false,
-              true,
-              false,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "39",
-            "$values": [
-              false,
-              false,
-              false,
-              false,
-              false
-            ]
-          }
-        ]
-      },
-      "SelectedSubject": {
-        "$ref": "10"
-      }
-    },
-    {
-      "$id": "40",
-      "Nr_pracownika": 4,
-      "Nazwisko": "kruk",
-      "Availability": {
-        "$id": "41",
-        "$values": [
-          {
-            "$id": "42",
-            "$values": [
-              false,
-              false,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "43",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "44",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "45",
-            "$values": [
-              true,
-              false,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "46",
-            "$values": [
-              true,
-              false,
-              true,
-              true,
-              true
-            ]
-          },
-          {
-            "$id": "47",
-            "$values": [
-              true,
-              true,
-              true,
-              true,
-              true
-            ]
-          }
-        ]
-      },
-      "SelectedSubject": {
-        "$id": "48",
-        "Name": "matma",
-        "Hours": 5,
-        "SubjectType": "Pracownia Specjalistyczna",
-        "ClassTypes": {
-          "$id": "49",
-          "$values": [
-            "mat-fiz"
-          ]
-        }
-      }
+[
+  {
+    "Nr_pracownika": 1,
+    "Nazwisko": "hnhhg",
+    "Availability": [
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    ],
+    "SelectedSubject": {
+      "Name": "matma1",
+      "Hours": 5,
+      "SubjectType": "Wykłady",
+      "ClassTypes": [
+        "mat-fiz"
+      ]
     }
-  ]
-}
+  },
+  {
+    "Nr_pracownika": 2,
+    "Nazwisko": "wrq",
+    "Availability": [
+      [
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        false,
+        false
+      ]
+    ],
+    "SelectedSubject": {
+      "Name": "matma2",
+      "Hours": 5,
+      "SubjectType": "Wykłady",
+      "ClassTypes": [
+        "mat-geo"
+      ]
+    }
+  },
+  {
+    "Nr_pracownika": 3,
+    "Nazwisko": "afeaef",
+    "Availability": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    ],
+    "SelectedSubject": {
+      "Name": "fizyka1",
+      "Hours": 4,
+      "SubjectType": "Pracownia Specjalistyczna",
+      "ClassTypes": [
+        "mat-fiz"
+      ]
+    }
+  },
+  {
+    "Nr_pracownika": 3,
+    "Nazwisko": "afeaef",
+    "Availability": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    ],
+    "SelectedSubject": {
+      "Name": "infa3",
+      "Hours": 4,
+      "SubjectType": "Pracownia Specjalistyczna",
+      "ClassTypes": [
+        "mat-inf"
+      ]
+    }
+  },
+  {
+    "Nr_pracownika": 4,
+    "Nazwisko": "matma",
+    "Availability": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    ],
+    "SelectedSubject": {
+      "Name": "wf1",
+      "Hours": 3,
+      "SubjectType": "Pracownia Specjalistyczna",
+      "ClassTypes": [
+        "mat-fiz"
+      ]
+    }
+  },
+  {
+    "Nr_pracownika": 4,
+    "Nazwisko": "matma",
+    "Availability": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    ],
+    "SelectedSubject": {
+      "Name": "wf3",
+      "Hours": 3,
+      "SubjectType": "Pracownia Specjalistyczna",
+      "ClassTypes": [
+        "mat-inf"
+      ]
+    }
+  },
+  {
+    "Nr_pracownika": 4,
+    "Nazwisko": "matma",
+    "Availability": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    ],
+    "SelectedSubject": {
+      "Name": "wf2",
+      "Hours": 3,
+      "SubjectType": "Pracownia Specjalistyczna",
+      "ClassTypes": [
+        "mat-geo"
+      ]
+    }
+  },
+  {
+    "Nr_pracownika": 5,
+    "Nazwisko": "geo",
+    "Availability": [
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "SelectedSubject": {
+      "Name": "geografia2",
+      "Hours": 4,
+      "SubjectType": "Pracownia Specjalistyczna",
+      "ClassTypes": [
+        "mat-geo"
+      ]
+    }
+  },
+  {
+    "Nr_pracownika": 6,
+    "Nazwisko": "matf",
+    "Availability": [
+      [
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    ],
+    "SelectedSubject": {
+      "Name": "matma3",
+      "Hours": 5,
+      "SubjectType": "Wykłady",
+      "ClassTypes": [
+        "mat-inf"
+      ]
+    }
+  },
+  {
+    "Nr_pracownika": 6,
+    "Nazwisko": "matf",
+    "Availability": [
+      [
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    ],
+    "SelectedSubject": {
+      "Name": "costam",
+      "Hours": 4,
+      "SubjectType": "Pracownia Specjalistyczna",
+      "ClassTypes": [
+        "mat-fiz"
+      ]
+    }
+  }
+]

@@ -4,6 +4,8 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Windows.Input;
+using System.Windows;
+using System.Linq;
 using Frontend.Models;
 
 namespace Frontend.ViewModels
@@ -55,10 +57,24 @@ namespace Frontend.ViewModels
             {
                 var json = JsonSerializer.Serialize(Classes);
                 File.WriteAllText("class.json", json);
+                
+                // ✅ Szczegółowy komunikat sukcesu
+                int totalTypes = Classes.Count;
+                int totalClasses = Classes.Sum(c => c.Ilosc_klas_typu);
+                
+                MessageBox.Show(
+                    $"✅ Zapisano pomyślnie!\n\n",
+                    "Sukces",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
             }
-            catch (IOException)
+            catch (IOException ex)
             {
-                // Obsługa błędu zapisu
+                MessageBox.Show(
+                    $"❌ Błąd zapisu:\n\n{ex.Message}", 
+                    "Błąd", 
+                    MessageBoxButton.OK, 
+                    MessageBoxImage.Error);
             }
         }
 

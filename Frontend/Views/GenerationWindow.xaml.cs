@@ -1,5 +1,7 @@
 using System.Windows;
 using System.Windows.Input;
+using System;
+using System.Diagnostics;
 
 namespace Frontend.Views
 {
@@ -10,252 +12,230 @@ namespace Frontend.Views
 
         public GenerationWindow()
         {
-            InitializeComponent();
+            try
+            {
+                Debug.WriteLine("GenerationWindow: Konstruktor START");
+                InitializeComponent();
+                Debug.WriteLine("GenerationWindow: InitializeComponent OK");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"BŁĄD w konstruktorze: {ex.Message}");
+                MessageBox.Show($"Błąd inicjalizacji okna:\n{ex.Message}\n\nStack:\n{ex.StackTrace}", 
+                    "KRYTYCZNY BŁĄD", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw;
+            }
         }
 
         private void GenerateAndNavigateCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (DataContext is ViewModels.GenerationViewModel vm)
+            Debug.WriteLine("GenerateAndNavigateCommand_Executed: START");
+            
+            try
             {
-                // Pokaż okno ładowania
-                var loadingMessage = "Generowanie planu zajęć...\nTo może potrwać kilka minut.";
-                var loadingWindow = new Window
+                if (DataContext is ViewModels.GenerationViewModel vm)
                 {
-                    Title = "Generowanie",
-                    Width = 400,
-                    Height = 200,
-                    WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                    ResizeMode = ResizeMode.NoResize,
-                    Content = new System.Windows.Controls.StackPanel
-                    {
-                        VerticalAlignment = VerticalAlignment.Center,
-                        Children =
-                        {
-                            new System.Windows.Controls.TextBlock
-                            {
-                                Text = loadingMessage,
-                                FontSize = 16,
-                                TextAlignment = TextAlignment.Center,
-                                Margin = new Thickness(20)
-                            },
-                            new System.Windows.Controls.ProgressBar
-                            {
-                                IsIndeterminate = true,
-                                Height = 20,
-                                Margin = new Thickness(40, 0, 40, 0)
-                            }
-                        }
-                    }
-                };
-
-                // Uruchom w osobnym wątku
-                System.Threading.Tasks.Task.Run(() =>
-                {
+                    Debug.WriteLine("ViewModel found");
                     vm.GenerateTimetable((success, message) =>
                     {
                         Dispatcher.Invoke(() =>
                         {
-                            loadingWindow.Close();
-
+                            MessageBox.Show(message, success ? "Sukces" : "Błąd",
+                                MessageBoxButton.OK, success ? MessageBoxImage.Information : MessageBoxImage.Error);
+                            
                             if (success)
                             {
-                                MessageBox.Show(message, "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                                // Przekierowanie do okna planów
                                 var plansWindow = new PlansWindow();
                                 plansWindow.Show();
                                 this.Close();
                             }
-                            else
-                            {
-                                MessageBox.Show(message, "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-                            }
                         });
                     });
-                });
-
-                loadingWindow.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"BŁĄD w GenerateAndNavigateCommand: {ex.Message}");
+                MessageBox.Show($"Błąd generowania:\n{ex.Message}\n\nStack:\n{ex.StackTrace}", 
+                    "BŁĄD", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void GenerateCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (DataContext is ViewModels.GenerationViewModel vm)
+            Debug.WriteLine("GenerateCommand_Executed: START");
+            
+            try
             {
-                vm.GenerateTimetable((success, message) =>
+                if (DataContext is ViewModels.GenerationViewModel vm)
                 {
-                    Dispatcher.Invoke(() =>
+                    vm.GenerateTimetable((success, message) =>
                     {
-                        MessageBox.Show(message, success ? "Sukces" : "Błąd",
-                            MessageBoxButton.OK, success ? MessageBoxImage.Information : MessageBoxImage.Error);
+                        Dispatcher.Invoke(() =>
+                        {
+                            MessageBox.Show(message, success ? "Sukces" : "Błąd",
+                                MessageBoxButton.OK, success ? MessageBoxImage.Information : MessageBoxImage.Error);
+                        });
                     });
-                });
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"BŁĄD w GenerateCommand: {ex.Message}");
+                MessageBox.Show($"Błąd:\n{ex.Message}", "BŁĄD", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void NavigateCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (DataContext is ViewModels.GenerationViewModel vm)
+            try
             {
-                vm.Navigate(e.Parameter?.ToString());
+                if (DataContext is ViewModels.GenerationViewModel vm)
+                {
+                    vm.Navigate(e.Parameter?.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"BŁĄD w NavigateCommand: {ex.Message}");
+                MessageBox.Show($"Błąd nawigacji:\n{ex.Message}", "BŁĄD", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        // ========================================
+        // NAWIGACJA Z DEBUGOWANIEM
+        // ========================================
+        
         private void HourPlanWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new HourPlanWindow();
-            window.Show();
-            this.Close();
+            Debug.WriteLine("HourPlanWindow_Click: START");
+            try
+            {
+                Debug.WriteLine("Tworzę HourPlanWindow...");
+                var window = new HourPlanWindow();
+                Debug.WriteLine("HourPlanWindow utworzone");
+                
+                window.Show();
+                Debug.WriteLine("HourPlanWindow.Show() OK");
+                
+                this.Close();
+                Debug.WriteLine("GenerationWindow.Close() OK");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"BŁĄD w HourPlanWindow_Click: {ex.Message}");
+                Debug.WriteLine($"Stack: {ex.StackTrace}");
+                MessageBox.Show(
+                    $"❌ BŁĄD NAWIGACJI do HourPlanWindow\n\n" +
+                    $"Wiadomość: {ex.Message}\n\n" +
+                    $"Typ: {ex.GetType().Name}\n\n" +
+                    $"Stack:\n{ex.StackTrace}",
+                    "BŁĄD KRYTYCZNY",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
 
         private void ClasesWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new ClasesWindow();
-            window.Show();
-            this.Close();
+            Debug.WriteLine("ClasesWindow_Click: START");
+            try
+            {
+                var window = new ClasesWindow();
+                window.Show();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"BŁĄD w ClasesWindow_Click: {ex.Message}");
+                MessageBox.Show($"❌ Błąd nawigacji:\n{ex.Message}", "BŁĄD", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void SubjectsWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new SubjectsWindow();
-            window.Show();
-            this.Close();
+            Debug.WriteLine("SubjectsWindow_Click: START");
+            try
+            {
+                var window = new SubjectsWindow();
+                window.Show();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"BŁĄD w SubjectsWindow_Click: {ex.Message}");
+                MessageBox.Show($"❌ Błąd nawigacji:\n{ex.Message}", "BŁĄD", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void RoomsWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new RoomsWindow();
-            window.Show();
-            this.Close();
+            Debug.WriteLine("RoomsWindow_Click: START");
+            try
+            {
+                var window = new RoomsWindow();
+                window.Show();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"BŁĄD w RoomsWindow_Click: {ex.Message}");
+                MessageBox.Show($"❌ Błąd nawigacji:\n{ex.Message}", "BŁĄD", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void TeachersWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new TeachersWindow();
-            window.Show();
-            this.Close();
+            Debug.WriteLine("TeachersWindow_Click: START");
+            try
+            {
+                var window = new TeachersWindow();
+                window.Show();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"BŁĄD w TeachersWindow_Click: {ex.Message}");
+                MessageBox.Show($"❌ Błąd nawigacji:\n{ex.Message}", "BŁĄD", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void WeightsWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new WeightsWindow();
-            window.Show();
-            this.Close();
+            Debug.WriteLine("WeightsWindow_Click: START");
+            try
+            {
+                var window = new WeightsWindow();
+                window.Show();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"BŁĄD w WeightsWindow_Click: {ex.Message}");
+                MessageBox.Show($"❌ Błąd nawigacji:\n{ex.Message}", "BŁĄD", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void GenerationWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new GenerationWindow();
-            window.Show();
-            this.Close();
+            Debug.WriteLine("GenerationWindow_Click: Już na tym oknie");
+            // Już jesteśmy tutaj - nic nie rób
         }
-
+        
         private void PlansWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new PlansWindow();
-            window.Show();
-            this.Close();
+            Debug.WriteLine("PlansWindow_Click: START");
+            try
+            {
+                var window = new PlansWindow();
+                window.Show();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"BŁĄD w PlansWindow_Click: {ex.Message}");
+                MessageBox.Show($"❌ Błąd nawigacji:\n{ex.Message}", "BŁĄD", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
-// using System.Windows;
-// using System.Windows.Input;
-
-// namespace Frontend.Views
-// {
-//     public partial class GenerationWindow : Window
-//     {
-//         public static readonly RoutedUICommand GenerateAndNavigateCommand = 
-//             new RoutedUICommand("Generate and navigate", "GenerateAndNavigate", typeof(GenerationWindow));
-
-//         public GenerationWindow()
-//         {
-//             InitializeComponent();
-//         }
-
-//         private void GenerateAndNavigateCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-//         {
-//             if (DataContext is ViewModels.GenerationViewModel vm)
-//             {
-//                 vm.GenerateTimetable();
-                
-//                 // Przekierowanie do okna planów po generowaniu
-//                 var plansWindow = new PlansWindow();
-//                 plansWindow.Show();
-//                 this.Close();
-//             }
-//         }
-
-//         private void GenerateCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-//         {
-//             if (DataContext is ViewModels.GenerationViewModel vm)
-//             {
-//                 vm.GenerateTimetable();
-//             }
-//         }
-
-//         private void NavigateCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-//         {
-//             if (DataContext is ViewModels.GenerationViewModel vm)
-//             {
-//                 vm.Navigate(e.Parameter?.ToString());
-//             }
-//         }
-
-//         private void HourPlanWindow_Click(object sender, RoutedEventArgs e)
-//         {
-//             var window = new HourPlanWindow();
-//             window.Show();
-//             this.Close();
-//         }
-
-//         private void ClasesWindow_Click(object sender, RoutedEventArgs e)
-//         {
-//             var window = new ClasesWindow();
-//             window.Show();
-//             this.Close();
-//         }
-
-//         private void SubjectsWindow_Click(object sender, RoutedEventArgs e)
-//         {
-//             var window = new SubjectsWindow();
-//             window.Show();
-//             this.Close();
-//         }
-
-//         private void RoomsWindow_Click(object sender, RoutedEventArgs e)
-//         {
-//             var window = new RoomsWindow();
-//             window.Show();
-//             this.Close();
-//         }
-
-//         private void TeachersWindow_Click(object sender, RoutedEventArgs e)
-//         {
-//             var window = new TeachersWindow();
-//             window.Show();
-//             this.Close();
-//         }
-
-//         private void WeightsWindow_Click(object sender, RoutedEventArgs e)
-//         {
-//             var window = new WeightsWindow();
-//             window.Show();
-//             this.Close();
-//         }
-
-//         private void GenerationWindow_Click(object sender, RoutedEventArgs e)
-//         {
-//             var window = new GenerationWindow();
-//             window.Show();
-//             this.Close();
-//         }
-        
-//         private void PlansWindow_Click(object sender, RoutedEventArgs e)
-//         {
-//             var window = new PlansWindow();
-//             window.Show();
-//             this.Close();
-//         }
-//     }
-// }

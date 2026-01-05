@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "EcY0FKm5NF8=",
+  "dgSpecHash": "TsFmv63gQQM=",
   "success": true,
   "projectFilePath": "C:\\Users\\Zygmunt\\Desktop\\Semestr 6\\PH_Projekt\\Inzynierka\\Frontend\\Frontend.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Zygmunt\\.nuget\\packages\\ookii.dialogs.wpf\\5.0.1\\ookii.dialogs.wpf.5.0.1.nupkg.sha512",
+    "C:\\Users\\Zygmunt\\.nuget\\packages\\questpdf\\2025.12.1\\questpdf.2025.12.1.nupkg.sha512"
+  ],
   "logs": []
 }

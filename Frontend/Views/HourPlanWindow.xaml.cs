@@ -34,47 +34,72 @@ namespace Frontend.Views
             _viewModel.SaveToFile();
             MessageBox.Show("Plan godzinowy został zapisany.");
         }
-                private void HourPlanWindow_Click(object sender, RoutedEventArgs e)
+
+        private void HourPlanWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new Frontend.Views.HourPlanWindow();
-            window.Show();
-            this.Close();
+            // Already on this window
         }
+
         private void ClasesWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new Frontend.Views.ClasesWindow();
+            var window = new ClasesWindow();
             window.Show();
             this.Close();
         }
+
         private void SubjectsWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new Frontend.Views.SubjectsWindow();
+            var window = new SubjectsWindow();
             window.Show();
             this.Close();
         }
+
         private void RoomsWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new Frontend.Views.RoomsWindow();
+            var window = new RoomsWindow();
             window.Show();
             this.Close();
         }
+
         private void TeachersWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new Frontend.Views.TeachersWindow();
+            var window = new TeachersWindow();
             window.Show();
             this.Close();
         }
+
         private void WeightsWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new Frontend.Views.WeightsWindow();
+            var window = new WeightsWindow();
             window.Show();
             this.Close();
         }
+
         private void GenerationWindow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new Frontend.Views.GenerationWindow();
+            var window = new GenerationWindow();
             window.Show();
             this.Close();
         }
+
+        // ✅ DODANO: Przycisk Plany
+        private void PlansWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new PlansWindow();
+            window.Show();
+            this.Close();
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Czy na pewno chcesz zakończyć program?",
+                "Zakończ", MessageBoxButton.YesNo, MessageBoxImage.Question);
+    
+            if (result == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
+        }
+
     }
 }

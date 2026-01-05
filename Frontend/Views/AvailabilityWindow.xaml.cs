@@ -21,24 +21,15 @@ namespace Frontend.Views
             Days = days;
             AvailabilityData = existingAvailability ?? new bool[hours.Count, days.Count];
 
-            // Ustaw DataContext dla bindingów
-            this.DataContext = this;
-
             GenerateGrid();
         }
 
         private void GenerateGrid()
         {
-            // Dodaj kolumny dla dni (pomijając pierwszą kolumnę z godzinami)
-            for (int i = 0; i < Days.Count; i++)
-            {
-                AvailabilityGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(60) });
-            }
-
             // Dodaj wiersze dla godzin
             for (int i = 0; i < Hours.Count; i++)
             {
-                AvailabilityGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+                AvailabilityGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(40) });
             }
 
             // Wypełnij siatkę
@@ -55,21 +46,21 @@ namespace Frontend.Views
                 Grid.SetRow(hourText, row);
                 AvailabilityGrid.Children.Add(hourText);
 
-                // Komórki dostępności
-                for (int col = 0; col < Days.Count; col++)
+                // Komórki dostępności (5 dni)
+                for (int col = 0; col < 5; col++)
                 {
                     var cell = new Border
                     {
                         BorderBrush = Brushes.Gray,
                         BorderThickness = new Thickness(1),
                         Background = AvailabilityData[row, col] ? Brushes.DodgerBlue : Brushes.White,
-                        Tag = new Point(row, col)
+                        Tag = new System.Windows.Point(row, col)
                     };
 
                     cell.MouseLeftButtonDown += (s, e) =>
                     {
                         var border = (Border)s;
-                        var pos = (Point)border.Tag;
+                        var pos = (System.Windows.Point)border.Tag;
                         AvailabilityData[(int)pos.X, (int)pos.Y] = !AvailabilityData[(int)pos.X, (int)pos.Y];
                         border.Background = AvailabilityData[(int)pos.X, (int)pos.Y] ? Brushes.DodgerBlue : Brushes.White;
                     };
@@ -87,5 +78,4 @@ namespace Frontend.Views
             Close();
         }
     }
-
 }
